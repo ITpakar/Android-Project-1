@@ -124,8 +124,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 		public Object onTaskRunning(int taskId, Object data) {
 			Object result = null;
 			if (taskId == Constants.TASK_USER_REGISTER) {
-				result = Server.Register(mUser.email, mUser.login, mUser.fullname, mUser.password, 
-						mUser.gender, mUser.birthday, mUser.hometown, mUser.picture_url, mUser.about);
+				result = Server.Register(mUser.email, mUser.login, mUser.password, mUser.picture_url);
 			}
 			else if (taskId == Constants.TASK_USER_LOGIN) {
 //				result = Server.Login(mUser.login, mUser.password);
@@ -257,7 +256,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 		finish();
 		
 		WAApplication.clearCredentialsCache();
-		Intent intent = new Intent(this, HomeActivity.class);
+		Intent intent = new Intent(this, LoginWithEmailActivity.class);
 		startActivity(intent);
 		overridePendingTransition(R.anim.in_right, R.anim.none);
 	}

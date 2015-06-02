@@ -1,168 +1,161 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/margin_very_large"
-    android:paddingLeft="@dimen/margin_large"
-    android:paddingRight="@dimen/margin_large"
-    android:paddingTop="@dimen/margin_very_large" >
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/txt_welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome"
-            android:textColor="#6d6c6c"
-            android:textSize="@dimen/text_normal" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/txt_welcome1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Health"
-                android:textColor="#6d6c6c"
-                android:textSize="@dimen/text_normal" />
-
-            <TextView
-                android:id="@+id/txt_welcome2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat is the place to meet"
-                android:textColor="#6d6c6c"
-                android:textSize="@dimen/text_normal" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/txt_welcome3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="and discover healthy new people"
-            android:textColor="#6d6c6c"
-            android:textSize="@dimen/text_normal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/btn_facebook_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_facebook"
-            android:gravity="center"
-            android:padding="@dimen/margin_large"
-            android:singleLine="true"
-            android:text="Facebook"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
-
-        <Button
-            android:id="@+id/btn_google_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_btn_google"
-            android:gravity="center"
-            android:padding="@dimen/margin_large"
-            android:singleLine="true"
-            android:text="Google"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
-
-        <Button
-            android:id="@+id/btn_twitter_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_btn_twitter"
-            android:gravity="center"
-            android:padding="@dimen/margin_large"
-            android:singleLine="true"
-            android:text="Twitter"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_large"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/txt_line0"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="our promise we will never post anything to your"
-            android:textColor="#6d6c6c"
-            android:textSize="@dimen/text_small" />
-
-        <TextView
-            android:id="@+id/txt_line1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="storyline of feed without your permission"
-            android:textColor="#6d6c6c"
-            android:textSize="@dimen/text_small" />
-    </LinearLayout>
+    android:background="@drawable/background"
+    android:orientation="vertical" >
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:id="@+id/vwTop"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_very_large"
+        android:paddingLeft="@dimen/margin_very_large"
+        android:paddingRight="@dimen/margin_very_large"
+        android:paddingTop="@dimen/margin_very_large" 
+        android:layout_marginLeft="@dimen/margin_commentview_leftright"
+        android:layout_marginRight="@dimen/margin_commentview_leftright">
 
-        <TextView
-            android:id="@+id/txt_or"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="or"
-            android:textColor="#c7c7c7"
-            android:textSize="@dimen/text_small" />
+            android:layout_marginTop="@dimen/margin_very_large"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_back" />
+			    		
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_large"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_email" />
+			
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColorHint="@drawable/clr_mid_grey"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="#c7c7c7" />
+            android:layout_marginBottom="@dimen/margin_very_large"
+            android:background="@color/mid_grey" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_passwd" />
+			
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColorHint="@drawable/clr_mid_grey"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+		<View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/margin_very_large"
+            android:background="@color/mid_grey" />
+        
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_username" />
+			
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="username"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColorHint="@drawable/clr_mid_grey"
+                android:textSize="@dimen/text_small" />
+        </LinearLayout>
+
+		<View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/margin_commentview_leftright"
+            android:background="@color/mid_grey" />
+		
         <Button
-            android:id="@+id/btn_register_with_email"
+            android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_mid_grey"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:padding="@dimen/margin_large"
             android:singleLine="true"
-            android:text="Registration with email"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
+            android:text="Sign Up"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_large" />
+
     </LinearLayout>
 
 </LinearLayout>

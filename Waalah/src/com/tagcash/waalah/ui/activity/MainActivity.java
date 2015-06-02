@@ -565,12 +565,12 @@ public class MainActivity extends BaseActivity implements Callback {
 				LoginToServer(strId, user_password);
 			}
 		} else {
-			showHomePage();
+			showLoginPage();
 		}
 	}
 
-	private void showHomePage() {
-		Intent intent = new Intent(this, HomeActivity.class);
+	private void showLoginPage() {
+		Intent intent = new Intent(this, LoginWithEmailActivity.class);
 		startActivity(intent);
 		overridePendingTransition(R.anim.in_right, R.anim.none);
 	}
@@ -585,11 +585,10 @@ public class MainActivity extends BaseActivity implements Callback {
 
 		if (isLoginSuccesed) {
 			// User sign out successful
-			startActivity(new Intent(MainActivity.this, HomeActivity.class));
-			overridePendingTransition(R.anim.in_right, R.anim.none);
+			showLoginPage();
 		} else {
 			MessageUtil.showMessage("You didnot logined", true);
-			showHomePage();
+			showLoginPage();
 		}
 	}
 
@@ -750,7 +749,7 @@ public class MainActivity extends BaseActivity implements Callback {
 						else {
 							// error
 							MessageUtil.showMessage(res_model.msg, false);
-							showHomePage();
+							showLoginPage();
 						}
 					}
 				}

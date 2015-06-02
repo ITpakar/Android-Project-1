@@ -10,19 +10,13 @@ public class Server {
 	/*
 	 * for User module
 	 */
-	public static Object Register(String email, String login, String fullname, String password, 
-			String gender, String birthday, String hometown, String picture_url, String about) {
+	public static Object Register(String email, String username, String password, String picture_url) {
 		HttpParams params = new HttpParams();
 		params.addParam("email", email);
-		params.addParam("name", login);
+		params.addParam("name", username);
 		params.addParam("password", password);
-		params.addParam("full_name", fullname);
-		params.addParam("gender", Integer.toString(WAUser.sGengerToiGender(gender)));
-		params.addParam("birthday", birthday);
-		params.addParam("address", hometown);
 		if (!TextUtils.isEmpty(picture_url))
 			params.addParam("social_picture_url", picture_url);
-		params.addParam("about", about);
 		
 		String response = HttpApi.sendPostRequest(ServerConfig.getUrl_UserRegister(), params);
 		

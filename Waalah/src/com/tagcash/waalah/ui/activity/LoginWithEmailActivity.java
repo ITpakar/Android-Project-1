@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +43,8 @@ public class LoginWithEmailActivity extends BaseActivity {
 	private Button btn_retrieve_password;
 	private Button btn_login;
 	private Button btn_facebook_login;
-//	private Button btn_google_login;
-//	private Button btn_twitter_login;
+	private Button btn_signup;
+
 
 	private WAUser mUser;
 
@@ -60,8 +61,8 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_retrieve_password = (Button) findViewById(R.id.btn_retrieve_password);
 		btn_login = (Button) findViewById(R.id.btn_login);
 		btn_facebook_login = (Button) findViewById(R.id.btn_facebook_login);
-//		btn_google_login = (Button) findViewById(R.id.btn_google_login);
-//		btn_twitter_login = (Button) findViewById(R.id.btn_twitter_login);
+		btn_signup = (Button) findViewById(R.id.btn_signup);
+
 
 		btn_retrieve_password.setOnClickListener(new OnClickListener() {
 			@Override
@@ -69,6 +70,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 				onResetPassword();
 			}
 		});
+		
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -84,24 +86,21 @@ public class LoginWithEmailActivity extends BaseActivity {
 				}
 			}
 		});
+		
 		btn_facebook_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				onClickFacebookLogin();
 			}
 		});
-//		btn_google_login.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				onClickGoogleLogin();
-//			}
-//		});
-//		btn_twitter_login.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				onClickTwitterLogin();
-//			}
-//		});
+		
+		btn_signup.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onClickSignup();
+			}
+		});
+
 		
 		// using home activity, it means user could use another account, so clear database
 		DBManager.getInstance().deleteAllUser();
@@ -113,20 +112,15 @@ public class LoginWithEmailActivity extends BaseActivity {
 		WAModelManager.getInstance().setCurrentPost(null);
 
 		// set font
-		((TextView) findViewById(R.id.txt_title)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, this));
-		((TextView) findViewById(R.id.txt_login)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, this));
 		edt_email.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, this));
 		edt_password.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, this));
 		btn_login.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
-		((TextView) findViewById(R.id.txt_line0)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, this));
-		((TextView) findViewById(R.id.txt_line1)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, this));
 		btn_facebook_login.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
-//		btn_google_login.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
-//		btn_twitter_login.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
+		btn_signup.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
 	}
 
 	private boolean isValid() {
-		if (!Validation.EmptyValidation(edt_email, "Please input your user name or email address"))
+		if (!Validation.EmptyValidation(edt_email, "Please input your email address"))
 			return false;
 		if (!Validation.EmptyValidation(edt_password, "Please input password"))
 			return false;
@@ -143,13 +137,13 @@ public class LoginWithEmailActivity extends BaseActivity {
 
 		new AlertDialog.Builder(this)
 		.setView(view)
-		.setTitle("Reset Password")
+		.setTitle("Forgot Password")
 		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				final String user_name = edt_user.getText().toString().trim();
 				if (TextUtils.isEmpty(user_name)) {
-					MessageUtil.showMessage("Please enter your username or email", true);
+					MessageUtil.showMessage("Please enter your email", true);
 					return;
 				}
 				if (!Validation.EmptyValidation(new_pwd, "Please enter your password"))
@@ -163,7 +157,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 
 				new AlertDialog.Builder(LoginWithEmailActivity.this)
 				.setIcon(android.R.drawable.ic_dialog_email)
-				.setTitle("Please Confirm your username or email")
+				.setTitle("Please Confirm your email")
 				.setMessage(user_name)
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					@Override
@@ -191,25 +185,33 @@ public class LoginWithEmailActivity extends BaseActivity {
 		intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
 		startActivity(intent);
 	}
+	
+	private void onClickSignup() {
+		Intent intent = new Intent(this, SignUpActivity.class);
+		intent.putExtra(Constants.KEY_FLAG, Constants.MODE_REGISTER);
+		startActivity(intent);
+	}
 
-//	private void onClickGoogleLogin() {
-//		Intent intent = new Intent(this, LoginWithGoolgeActivity.class);
-//		intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
-//		startActivity(intent);
-//	}
-//
-//	private void onClickTwitterLogin() {
-//		Intent intent = new Intent(this, LoginWithTwitterActivity.class);
-//		intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
-//		startActivity(intent);
-//	}
-
+	boolean isBackAllowed = false;
 	@Override
 	public void onBackPressed() {
-		finish();
-		Intent intent = new Intent(this, HomeActivity.class);
-		startActivity(intent);
-		overridePendingTransition(R.anim.none, R.anim.out_left);
+		if(!isBackAllowed) {
+			MessageUtil.showMessage(getResources().getString(R.string.press_back_alert), false);
+			isBackAllowed = true;
+
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					isBackAllowed = false;
+				}
+			}, 5000);
+
+		} else {
+			if (MainActivity.instance != null)
+				MainActivity.instance.finish();
+			super.onBackPressed();
+		}
 	}
 
 	class SendPasswordByEmailTask extends AsyncTask<WAUser, Void, String> {

@@ -1,38 +1,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/background"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/img_dark_purple"
-        android:gravity="center"
-        android:text="Welcome Back"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_large" />
+    <View
+        android:id="@+id/vwTop"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingBottom="@dimen/margin_very_large"
-        android:paddingLeft="@dimen/margin_large"
-        android:paddingRight="@dimen/margin_large"
-        android:paddingTop="@dimen/margin_very_large" >
-
-        <TextView
-            android:id="@+id/txt_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/margin_very_large"
-            android:layout_marginTop="@dimen/margin_very_large"
-            android:text="LOGIN WITH EXISTING ACCOUNT"
-            android:textColor="@color/text_dark_grey"
-            android:textSize="@dimen/text_normal" />
+        android:paddingLeft="@dimen/margin_very_large"
+        android:paddingRight="@dimen/margin_very_large"
+        android:paddingTop="@dimen/margin_very_large" 
+        android:layout_marginLeft="@dimen/margin_commentview_leftright"
+        android:layout_marginRight="@dimen/margin_commentview_leftright">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,30 +36,32 @@
             android:orientation="horizontal"
             android:padding="@dimen/margin_normal" >
 
+            <!-- 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="@dimen/margin_large"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_email" />
-
+			-->
+			
             <EditText
                 android:id="@+id/edt_email"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Your User Name or Email Address:"
+                android:hint="email"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
-                android:textColorHint="@color/text_light_grey"
+                android:textColorHint="@drawable/clr_mid_grey"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_marginBottom="@dimen/margin_very_large"
-            android:background="@color/text_dark_grey" />
+            android:background="@color/mid_grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,29 +70,31 @@
             android:orientation="horizontal"
             android:padding="@dimen/margin_normal" >
 
+            <!-- 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="@dimen/margin_large"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_lock" />
-
+			-->
+			
             <EditText
                 android:id="@+id/edt_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:hint="Password:"
+                android:hint="password"
                 android:inputType="textPassword"
                 android:singleLine="true"
-                android:textColorHint="@color/text_light_grey"
+                android:textColorHint="@drawable/clr_mid_grey"
                 android:textSize="@dimen/text_small" />
         </LinearLayout>
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:background="@color/text_dark_grey" />
+            android:layout_height="1dp"
+            android:background="@color/mid_grey" />
 
         <Button
             android:id="@+id/btn_retrieve_password"
@@ -104,49 +102,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@android:color/transparent"
-            android:paddingBottom="@dimen/margin_large"
-            android:paddingLeft="@dimen/margin_large"
-            android:paddingTop="@dimen/margin_large"
-            android:text="Reset Password"
+            android:text="forgot Password?"
             android:textColor="@drawable/clr_mid_grey"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_very_small" />
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
-            android:background="@drawable/bg_mid_grey"
             android:gravity="center"
             android:padding="@dimen/margin_large"
             android:singleLine="true"
             android:text="Login"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txt_line0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="By registering, I accept the"
-                android:textColor="@color/text_dark_grey"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:id="@+id/txt_line1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Terms of Service and Privacy Policy"
-                android:textColor="@color/text_dark_grey"
-                android:textSize="@dimen/text_small" />
-        </LinearLayout>
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_large"
+            android:background="?android:attr/selectableItemBackground"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,39 +129,27 @@
             android:id="@+id/btn_facebook_login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_btn_facebook"
+            android:background="@drawable/facebook_border"
             android:gravity="center"
             android:padding="@dimen/margin_large"
             android:singleLine="true"
-            android:text="Facebook"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
+            android:text="facebook"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_google_login"
+            android:id="@+id/btn_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_btn_google"
+            android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:padding="@dimen/margin_large"
             android:singleLine="true"
-            android:text="Google"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
+            android:text="Sign Up"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_small" />
 
-        <Button
-            android:id="@+id/btn_twitter_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_btn_twitter"
-            android:gravity="center"
-            android:padding="@dimen/margin_large"
-            android:singleLine="true"
-            android:text="Twitter"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_normal" />
     </LinearLayout>
 
 </LinearLayout>
