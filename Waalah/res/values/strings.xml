@@ -1,0 +1,100 @@
+<resources>
+
+    <string name="app_name">Waalah</string>
+    
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Common -->
+    <string name="empty_string_extra_long">__________</string>
+    <string name="empty_string_long">________</string>
+    <string name="empty_string_normal">______</string>
+    <string name="empty_string_short">____</string>
+    <string name="empty_string_extra_short">__</string>
+    
+    <!-- Left Drawer -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="Profile">Profile</string>
+    <string name="HealthDiscussion">Health Discussions</string>
+    <string name="People">People</string>
+    <string name="Messages">Messages</string>
+    <string name="Favorites">Favorites</string>
+    <string name="HealthFeed">Health Feed</string>
+    <string name="Signout">Sign Out</string>
+    <string name="HealthDiscussionDetail">Health Discussion</string>
+    <string name="WritePost">Write Post</string>
+    <string name="EditPost">Edit Post</string>
+    <string name="Inbox">Inbox</string>
+    <string name="ChangeProfile">Change Your Profile</string>
+    <string name="WriteComment">Write Comment</string>
+    <string name="EditComment">Edit Comment</string>
+    <string name="LikePersons">People who like this</string>
+    
+    <!-- Profile -->
+    <string-array name="privacy_array">
+        <item>Everyone</item>
+        <item>People I like</item>
+        <item>Nobody</item>
+    </string-array>
+    <string-array name="gender_array">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
+    <!-- Refresh ListView -->
+    <!-- Time -->
+    <string name="checkin_time_seconds_ago">%1$d seconds ago</string>
+    <string name="checkin_time_minutes_ago">%1$d minutes ago</string>
+    <string name="checkin_time_hours_ago">%1$d hours ago</string>
+    <string name="checkin_time_days_ago">%1$d days ago</string>
+    <string name="checkin_time_weeks_ago">%1$d weeks ago</string>
+    <string name="checkin_time_months_ago">%1$d months ago</string>
+    
+    <!-- Facebook -->
+    <string name="facebook_app_id">656343414443534</string>
+    <string name="facebook_namespace">health_chat</string>
+
+    <!-- Success -->
+    <string name="success_sign_out">Successfully Sign Out</string>
+
+    <!-- Error -->
+    <string name="error_no_account">No Account, Please register first with this account</string>
+    <string name="error_file_not_found">Sorry, File not found</string>
+    <string name="error_null">Null Data</string>
+    <string name="error_no_data">No Data</string>
+
+    <!-- About items -->
+    <string name="send_feedback">SEND US FEEDBACK</string>
+    <string name="report_an_issue">REPORT AN ISSUE</string>
+    <string name="invite_friends">INVITE FRIENDS BY EMAIL/SMS</string>
+    <string name="report_issue">Report An Issue</string>
+    <string name="review_play_store">REVIEW ON PLAY STORE</string>
+    <string name="healthchat_web">healthchat WEB</string>
+    <string name="like_facebook">LIKE US ON FACEBOOK</string>
+    <string name="just_joined_healthchat">Just joined healthchat</string>
+    <string name="new_hotties">New hotties</string>
+    <string name="just_checked_into">JUST CHECKED INTO</string>
+    <string name="recommended">RECOMMENDED</string>
+    <string name="goin_later">Goin later</string>
+
+    <!-- Send Mail -->
+    <string name="crash_alert">Unfortunately,healthchat application has stopped.Please help us improve the app by sharing the crash report.</string>
+    <string name="send_feedback_confirmation">Are you sure want to send feedback?</string>
+    <string name="report_issue_confirmation">Are you sure want to report an issue?</string>
+
+    <!-- Sdcard error -->
+    <string name="sdcard_file_creation_error">Error creating temporary sdcard file</string>
+    <string name="press_back_alert">Press Back once more to exit</string>
+    
+    <!-- register -->
+    <string name="user_already_registered">Email or Username was already registered.</string>
+    
+    <string name="topic_alert">The topic already existed. Please create a different topic.</string>
+
+</resources>

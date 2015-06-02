@@ -1,0 +1,44 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--
+         Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html
+    -->
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    
+    <!-- margin -->
+    <dimen name="margin_extra_small">1dp</dimen>
+    <dimen name="margin_small">2dp</dimen>
+    <dimen name="margin_normal">5dp</dimen>
+    <dimen name="margin_large">8dp</dimen>
+    <dimen name="margin_extra_large">12dp</dimen>
+    <dimen name="margin_very_large">16dp</dimen>
+    <dimen name="margin_commentview_leftright">20dp</dimen>
+    <dimen name="margin_postdelete_icon">18dp</dimen>
+    
+    <dimen name="negative_margin_normal">-5dp</dimen>
+    
+    <!-- images -->
+    <dimen name="image_very_small">16dp</dimen>
+    <dimen name="image_small">22dp</dimen>
+    <dimen name="image_normal">32dp</dimen>
+    <dimen name="image_medium">48dp</dimen>
+    <dimen name="image_large">60dp</dimen>
+    <dimen name="image_very_large">70dp</dimen>
+    <dimen name="image_very_large_half">35dp</dimen>
+    <dimen name="image_extra_large">108dp</dimen>
+    <dimen name="image_very_extra_large">120dp</dimen>
+    
+    <!--  text sizes -->
+    <dimen name="text_tiny">10dp</dimen>
+    <dimen name="text_very_small">12dp</dimen>
+    <dimen name="text_small">15dp</dimen>
+    <dimen name="text_normal">18sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    
+</resources>
+

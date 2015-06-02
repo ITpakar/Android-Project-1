@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dark_grey">#ff3b3b3b</color>
+    <color name="dark_grey_clicked">#ff474747</color>
+    <color name="dark_grey_trans">#dd3b3b3b</color>
+    <color name="dark_grey_trans_clicked">#dd474747</color>
+    <color name="mid_grey">#ff969696</color>
+    <color name="mid_grey_clicked">#ffb2b2b2</color>
+    <color name="mid_grey_trans">#dd969696</color>
+    <color name="light_grey">#fff2f2f2</color>
+    <color name="light_grey_clicked">#ffdddddd</color>
+    <color name="dark_purple">#ff773a6a</color>
+    <color name="dark_purple_clicked">#ff984b88</color>
+    <color name="light_purple">#ffb944b1</color>
+    <color name="light_purple_clicked">#ffd552cd</color>
+    <color name="light_purple_trans">#ddb944b1</color>
+    <color name="light_purple_trans_clicked">#ddd552cd</color>
+    
+    <color name="text_dark_grey">#ff242424</color>
+    <color name="text_mid_grey">#ff68747f</color>
+    <color name="text_light_grey">#ffbfbfbf</color>
+    <color name="text_selected_grey">#958d93</color>
+    
+</resources>
