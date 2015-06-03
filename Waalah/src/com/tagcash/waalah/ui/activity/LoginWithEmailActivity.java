@@ -187,6 +187,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 	}
 	
 	private void onClickSignup() {
+		finish();
 		Intent intent = new Intent(this, SignUpActivity.class);
 		intent.putExtra(Constants.KEY_FLAG, Constants.MODE_REGISTER);
 		startActivity(intent);
@@ -295,6 +296,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
 							//MessageUtil.showMessage("Login With Email Account Success.", false);
 							
+							// TODO by joseph
 							// getUserInformation
 							mUser = new WAUser();
 							mUser.user_id = res_model.user.uid;

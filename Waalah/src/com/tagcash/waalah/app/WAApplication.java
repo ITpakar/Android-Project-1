@@ -66,7 +66,6 @@ public class WAApplication extends Application {
 		mScreenHeight = size.y;
 
 		// initialize SQL DB
-		// TODO joseph
 		new DBManager(this.getApplicationContext());
 
 		checkSignatures();

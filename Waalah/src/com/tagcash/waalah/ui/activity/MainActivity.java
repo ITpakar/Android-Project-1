@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity implements Callback {
 	private LinearLayout child_drawer_layout;
 	private View btn_profile;
 	public ImageView img_user_avatar;
-	public TextView txt_username;
+	public TextView txt_username, txt_location;
 	private ListView lst_menu_item;
 	private ActionBarDrawerToggle mDrawerToggle;
 
@@ -107,11 +107,9 @@ public class MainActivity extends BaseActivity implements Callback {
 	private class LeftMenuItem {
 		public int icon_resource_id;
 		public String title;
-		public int count;
-		public LeftMenuItem(int id, String t, int c) {
+		public LeftMenuItem(int id, String t) {
 			icon_resource_id = id;
 			title = t;
-			count = c;
 		}
 	}
 	private ArrayList<LeftMenuItem> left_menu_list_data = new ArrayList<MainActivity.LeftMenuItem>();
@@ -134,12 +132,12 @@ public class MainActivity extends BaseActivity implements Callback {
 		mBFromNotification = getIntent().getBooleanExtra(Constants.ACTION_FROM_NOTIFICATION, false);
 		mFriendId = getIntent().getIntExtra(Constants.ACTION_FROM_FRIENDID, 0);
 
-		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_discussion, "Health Discussions", -1));
-		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_peoples, "People", -1));
-		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_message_light_grey, "Messages", -1));
-		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_heart_light_grey, "Favorites", -1));
-		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_feed, "Health Feed", -1));
-		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_sign_out, "Sign Out", -1));
+		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_waalah, "Waalah Events"));
+		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_addcoin, "Earn Coins"));
+		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_invite, "Invite Friends"));
+		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_setting, "Settings"));
+		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_help, "Help & Info"));
+//		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_sign_out, "Sign Out"));
 
 		mTitle = getTitle();
 
@@ -161,7 +159,7 @@ public class MainActivity extends BaseActivity implements Callback {
 		});
 		img_user_avatar = (ImageView)findViewById(R.id.img_user_avatar);
 		txt_username = (TextView)findViewById(R.id.txt_username);
-
+		txt_location = (TextView)findViewById(R.id.txt_location);
 		lst_menu_item = (ListView) findViewById(R.id.lst_menu_item);
 
 		// set a custom shadow that overlays the main content when the drawer opens
@@ -195,6 +193,7 @@ public class MainActivity extends BaseActivity implements Callback {
 
 		// set font
 		txt_username.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, this));
+		txt_location.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, this));
 
 		if (mHandler == null)
 			mHandler = new Handler(this);
@@ -323,6 +322,11 @@ public class MainActivity extends BaseActivity implements Callback {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
+		// TODO by joseph
+//		mUser = WAModelManager.getInstance().getSignInUser();
+//		if (mUser == null)
+//			showLoginPage();
 	}
 
 	@Override
@@ -451,6 +455,8 @@ public class MainActivity extends BaseActivity implements Callback {
 			txt_username.setText(mUser.fullname);
 			if (mUser.fullname == null || mUser.fullname.isEmpty())
 				txt_username.setText(mUser.login);
+			// TODO by joseph
+//			txt_location.setText(mUser.location);
 			
 			// left menu
 //			ArrayList<ChatMessage> newMsgs = DBManager.getInstance().getAllRecentChatPerFriendOne(mUser.user_id, true);
@@ -592,7 +598,7 @@ public class MainActivity extends BaseActivity implements Callback {
 		}
 	}
 
-	public void showSesstionTimeoutWarningDlg() {
+	public void showSessionTimeoutWarningDlg() {
 		new AlertDialog.Builder(this)
 		.setTitle("Session Time out")
 		.setIcon(android.R.drawable.ic_dialog_alert)
@@ -637,7 +643,8 @@ public class MainActivity extends BaseActivity implements Callback {
 		class ViewHolder {
 			ImageView img_icon;
 			TextView txt_title;
-			TextView txt_count;
+//			TextView txt_count;
+			ImageView img_toward;
 		}	
 
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -647,11 +654,12 @@ public class MainActivity extends BaseActivity implements Callback {
 				holder = new ViewHolder();
 				holder.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
 				holder.txt_title = (TextView) convertView.findViewById(R.id.txt_title);
-				holder.txt_count = (TextView) convertView.findViewById(R.id.txt_count);
+				holder.img_toward = (ImageView) convertView.findViewById(R.id.img_toward);
+//				holder.txt_count = (TextView) convertView.findViewById(R.id.txt_count);
 
 				// set font
 				holder.txt_title.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, MainActivity.this));
-				holder.txt_count.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainActivity.this));
+//				holder.txt_count.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainActivity.this));
 
 				convertView.setTag(holder);
 
@@ -661,12 +669,13 @@ public class MainActivity extends BaseActivity implements Callback {
 
 			holder.img_icon.setImageResource(left_menu_list_data.get(position).icon_resource_id);
 			holder.txt_title.setText("" + left_menu_list_data.get(position).title);
-			if (left_menu_list_data.get(position).count <= 0) {
-				holder.txt_count.setVisibility(View.GONE);
-			} else {
-				holder.txt_count.setVisibility(View.VISIBLE);
-				holder.txt_count.setText("" + left_menu_list_data.get(position).count);
-			}
+			holder.img_toward.setImageResource(R.drawable.ic_toward);
+//			if (left_menu_list_data.get(position).count <= 0) {
+//				holder.txt_count.setVisibility(View.GONE);
+//			} else {
+//				holder.txt_count.setVisibility(View.VISIBLE);
+//				holder.txt_count.setText("" + left_menu_list_data.get(position).count);
+//			}
 
 			return convertView;
 		}

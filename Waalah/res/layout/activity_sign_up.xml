@@ -69,8 +69,10 @@
                 android:hint="email"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
+                android:textColor="@android:color/white"
                 android:textColorHint="@drawable/clr_mid_grey"
                 android:textSize="@dimen/text_small" />
+
         </LinearLayout>
 
         <View
@@ -101,8 +103,10 @@
                 android:hint="password"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:textColor="@android:color/white"
                 android:textColorHint="@drawable/clr_mid_grey"
                 android:textSize="@dimen/text_small" />
+
         </LinearLayout>
 
 		<View
@@ -133,8 +137,10 @@
                 android:hint="username"
                 android:inputType="text"
                 android:singleLine="true"
+                android:textColor="@android:color/white"
                 android:textColorHint="@drawable/clr_mid_grey"
                 android:textSize="@dimen/text_small" />
+
         </LinearLayout>
 
 		<View

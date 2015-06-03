@@ -12,10 +12,10 @@
 
     <LinearLayout
         android:id="@+id/child_drawer_layout"
-        android:layout_width="260dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#2e3236"
+        android:background="@drawable/menu_background"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -24,15 +24,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_large"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_left_drawer_profile"
+            android:orientation="vertical"
+            android:background="@android:color/transparent"
             android:padding="@dimen/margin_normal" >
 
             <com.tagcash.waalah.view.CircleImageView
                 android:id="@+id/img_user_avatar"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
                 android:scaleType="fitXY"
                 android:src="@drawable/male"
                 makeramen:corner_radius="35dp" />
@@ -41,20 +43,50 @@
                 android:id="@+id/txt_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
                 android:text="Unknown User"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_normal" />
+            
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal" >
+                    
+                    <ImageView
+                        android:id="@+id/img_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_location" />
+                    
+                    <TextView
+                        android:id="@+id/txt_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_large"
+                        android:text="Manchester, UK"
+                        android:textColor="#9d9e9f"
+                        android:textSize="@dimen/text_very_small" />
+            	</LinearLayout>
         </LinearLayout>
 
         <ListView
             android:id="@+id/lst_menu_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_extra_large"
+            android:layout_marginRight="@dimen/margin_extra_large"
             android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="2dp" />
+            android:divider="@drawable/list_divider"
+            android:footerDividersEnabled="false" />
+
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
