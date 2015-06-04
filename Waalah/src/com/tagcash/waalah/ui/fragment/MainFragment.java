@@ -28,9 +28,9 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private MainMyEventsFragment myevents_fragment = MainMyEventsFragment.newInstance();
 	private MainHistoryFragment history_fragment = MainHistoryFragment.newInstance();
 	
-	private MainFragmentAdapter adapter;
+	private MenuAdapter adapter;
 
-	public MainFragment(MainFragmentAdapter mfa) {
+	public MainFragment(MenuAdapter mfa) {
 		super();
 		
 		adapter = mfa;

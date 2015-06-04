@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -50,21 +49,16 @@ import com.tagcash.waalah.http.ResponseModel;
 import com.tagcash.waalah.http.Server;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
+import com.tagcash.waalah.ui.fragment.AddCoinFragment;
 import com.tagcash.waalah.ui.fragment.MainFragment;
-import com.tagcash.waalah.ui.fragment.MainFragmentAdapter;
-//import com.tagcash.waalah.ui.fragments.FavoritesFragment;
-//import com.tagcash.waalah.ui.fragments.HealthDiscussionFragment;
-//import com.tagcash.waalah.ui.fragments.HealthFeedFragment;
-//import com.tagcash.waalah.ui.fragments.InboxFragment;
-//import com.tagcash.waalah.ui.fragments.PeopleFragment;
-//import com.tagcash.waalah.ui.fragments.ProfileFragment;
+import com.tagcash.waalah.ui.fragment.MenuAdapter;
 import com.tagcash.waalah.util.FacebookUtils;
 import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.util.WAImageLoader;
 import com.tagcash.waalah.util.WAPreferenceManager;
 
-public class MainActivity extends FragmentActivity implements Callback, MainFragmentAdapter {
+public class MainActivity extends FragmentActivity implements Callback, MenuAdapter {
 
 	public static MainActivity instance = null;
 	public static int REQUEST_MESSAGEACTIVITY_CODE = 1000;
@@ -504,8 +498,7 @@ public class MainActivity extends FragmentActivity implements Callback, MainFrag
 				fragment = new MainFragment(this);
 				lst_menu_item.setItemChecked(0, true);
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_ADDCOIN) {
-//				fragment = new AddCoinFragment();
-				fragment = new MainFragment(this);
+				fragment = new AddCoinFragment(this);
 				lst_menu_item.setItemChecked(1, true);
 	
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_INVITE) {

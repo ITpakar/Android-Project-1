@@ -1,6 +1,6 @@
 package com.tagcash.waalah.ui.fragment;
 
-public interface MainFragmentAdapter {
+public interface MenuAdapter {
 
 	public void onMenuClicked();
 }
