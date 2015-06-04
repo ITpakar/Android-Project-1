@@ -19,7 +19,7 @@
             android:background="#ffffff"
             android:orientation="vertical" >
 
-            <com.tagcash.waalah.view.SquareImageView
+            <com.jmd.healthchat.view.SquareImageView
                 android:id="@+id/img_user_avatar_left"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -99,7 +99,7 @@
             android:background="#ffffff"
             android:orientation="vertical" >
 
-            <com.tagcash.waalah.view.SquareImageView
+            <com.jmd.healthchat.view.SquareImageView
                 android:id="@+id/img_user_avatar_right"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

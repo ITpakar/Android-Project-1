@@ -40,7 +40,7 @@ import com.tagcash.waalah.view.DragListView.OnRefreshLoadingMoreListener;
 import com.tagcash.waalah.view.SquareImageView;
 
 @SuppressLint("InflateParams")
-public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadingMoreListener, BaseFragment.BaseFragmentInterface {
+public class HistoryFragment extends BaseFragment implements OnRefreshLoadingMoreListener, BaseFragment.BaseFragmentInterface {
 
 	public DragListView lst_people = null;
 	private View btn_refresh;
@@ -53,8 +53,8 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 	private ArrayList<WAUser> _showAL = new ArrayList<WAUser>();
 	private WAUser mUser = null;
 
-	public static MainUpcomingFragment newInstance() {
-		MainUpcomingFragment fragment = new MainUpcomingFragment();
+	public static HistoryFragment newInstance() {
+		HistoryFragment fragment = new HistoryFragment();
 
 		return fragment;
 	}
@@ -94,7 +94,7 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 //							}
 //						}
 //					}
-//					LasyAdapter adapter = new LasyAdapter(MainUpcomingFragment.this.getActivity(), _showAL);
+//					LasyAdapter adapter = new LasyAdapter(HistoryFragment.this.getActivity(), _showAL);
 //					lst_people.setAdapter(adapter);
 //					lst_people.invalidate();
 //
@@ -220,7 +220,7 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.row_event_list, null);
+				convertView = mInflater.inflate(R.layout.row_people_list, null);
 				holder = new ViewHolder();
 				holder.layer_left = (LinearLayout) convertView.findViewById(R.id.layer_left);
 				holder.img_user_avatar_left = (SquareImageView) convertView.findViewById(R.id.img_user_avatar_left);
@@ -234,12 +234,12 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 				holder.txt_age_right = (TextView) convertView.findViewById(R.id.txt_age_right);
 				
 				// set font
-				holder.txt_user_name_left.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, MainUpcomingFragment.this.getActivity()));
-				holder.txt_age_left.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainUpcomingFragment.this.getActivity()));
-				((TextView)convertView.findViewById(R.id.txt_line0_left)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainUpcomingFragment.this.getActivity()));
-				holder.txt_user_name_right.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, MainUpcomingFragment.this.getActivity()));
-				holder.txt_age_right.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainUpcomingFragment.this.getActivity()));
-				((TextView)convertView.findViewById(R.id.txt_line0_right)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainUpcomingFragment.this.getActivity()));
+				holder.txt_user_name_left.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, HistoryFragment.this.getActivity()));
+				holder.txt_age_left.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, HistoryFragment.this.getActivity()));
+				((TextView)convertView.findViewById(R.id.txt_line0_left)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, HistoryFragment.this.getActivity()));
+				holder.txt_user_name_right.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, HistoryFragment.this.getActivity()));
+				holder.txt_age_right.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, HistoryFragment.this.getActivity()));
+				((TextView)convertView.findViewById(R.id.txt_line0_right)).setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, HistoryFragment.this.getActivity()));
 
 				convertView.setTag(holder);
 
@@ -254,11 +254,11 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 				
 				@Override
 				public void onClick(View arg0) {
-//					Intent intent = new Intent(MainUpcomingFragment.this.getActivity(), ProfileActivity.class);
+//					Intent intent = new Intent(HistoryFragment.this.getActivity(), ProfileActivity.class);
 //					intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_ID, tmpUser_left.user_id);
 //					intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_TYPE, tmpUser_left.type);
 //					startActivity(intent);
-//					MainUpcomingFragment.this.getActivity().overridePendingTransition(R.anim.in_up, R.anim.none);
+//					HistoryFragment.this.getActivity().overridePendingTransition(R.anim.in_up, R.anim.none);
 				}
 			});
 			
@@ -290,11 +290,11 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 					
 					@Override
 					public void onClick(View arg0) {
-//						Intent intent = new Intent(MainUpcomingFragment.this.getActivity(), ProfileActivity.class);
+//						Intent intent = new Intent(HistoryFragment.this.getActivity(), ProfileActivity.class);
 //						intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_ID, tmpUser_right.user_id);
 //						intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_TYPE, tmpUser_right.type);
 //						startActivity(intent);
-//						MainUpcomingFragment.this.getActivity().overridePendingTransition(R.anim.in_up, R.anim.none);
+//						HistoryFragment.this.getActivity().overridePendingTransition(R.anim.in_up, R.anim.none);
 					}
 				});
 				
@@ -344,7 +344,7 @@ public class MainUpcomingFragment extends BaseFragment implements OnRefreshLoadi
 		public Object onTaskRunning(int taskId, Object data) {
 			Object result = null;
 			if (taskId == Constants.TASK_USER_GETLIST) {
-				// TODO by joseph
+				// TODY by joseph
 //				result = Server.GetUserList(mUser.token, DBConstant.TYPE_FAVORITE, page_index * Constants.USER_COUNT_PER_ONE_TIME, Constants.USER_COUNT_PER_ONE_TIME);
 			}
 			return result;

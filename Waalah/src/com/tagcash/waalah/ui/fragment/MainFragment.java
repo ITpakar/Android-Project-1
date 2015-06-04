@@ -24,9 +24,9 @@ import com.viewpagerindicator.LinePageIndicator;
 public class MainFragment extends Fragment implements OnClickListener {
 
 	private CustomDurationViewPager pager;
-	private MainUpcomingFragment upcoming_fragment = MainUpcomingFragment.newInstance();
-	private MainMyEventsFragment myevents_fragment = MainMyEventsFragment.newInstance();
-	private MainHistoryFragment history_fragment = MainHistoryFragment.newInstance();
+	private UpcomingFragment upcoming_fragment = UpcomingFragment.newInstance();
+	private MyEventsFragment myevents_fragment = MyEventsFragment.newInstance();
+	private HistoryFragment history_fragment = HistoryFragment.newInstance();
 	
 	private MenuAdapter adapter;
 
