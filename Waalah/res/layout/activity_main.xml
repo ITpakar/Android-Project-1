@@ -5,11 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent" >
 
-    <FrameLayout
-        android:id="@+id/main_content_frame"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical" >
 
+        <!-- header -->
+        <LinearLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_large" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo" />
+        </LinearLayout>
+
+        <!-- content -->
+        <FrameLayout
+            android:id="@+id/main_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/child_drawer_layout"
         android:layout_width="wrap_content"
@@ -24,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_large"
-            android:orientation="vertical"
             android:background="@android:color/transparent"
+            android:orientation="vertical"
             android:padding="@dimen/margin_normal" >
 
             <com.tagcash.waalah.view.CircleImageView
@@ -50,31 +75,31 @@
                 android:text="Unknown User"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_normal" />
-            
-                <LinearLayout
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/img_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:orientation="horizontal" >
-                    
-                    <ImageView
-                        android:id="@+id/img_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_location" />
-                    
-                    <TextView
-                        android:id="@+id/txt_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin_large"
-                        android:text="Manchester, UK"
-                        android:textColor="#9d9e9f"
-                        android:textSize="@dimen/text_very_small" />
-            	</LinearLayout>
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:id="@+id/txt_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_large"
+                    android:text="Manchester, UK"
+                    android:textColor="#9d9e9f"
+                    android:textSize="@dimen/text_very_small" />
+            </LinearLayout>
         </LinearLayout>
 
         <ListView
@@ -86,7 +111,6 @@
             android:choiceMode="singleChoice"
             android:divider="@drawable/list_divider"
             android:footerDividersEnabled="false" />
-
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

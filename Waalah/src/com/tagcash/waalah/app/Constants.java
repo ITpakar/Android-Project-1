@@ -96,13 +96,11 @@ public class Constants {
     /*
 	 * Main Activity Switch content
 	 */
-	public static final int SW_FRAGMENT_PROFILE = 6;
-	public static final int SW_FRAGMENT_HEALTH_DISCUSSION = 0;
-	public static final int SW_FRAGMENT_PEOPLE = 1;
-	public static final int SW_FRAGMENT_INBOX = 2;
-	public static final int SW_FRAGMENT_FAVORITES = 3;
-	public static final int SW_FRAGMENT_HEALTH_FEED = 4;
-	public static final int SW_SIGN_OUT = 5;
+	public static final int SW_FRAGMENT_WAALAH = 0;
+	public static final int SW_FRAGMENT_ADDCOIN = 1;
+	public static final int SW_FRAGMENT_INVITE = 2;
+	public static final int SW_FRAGMENT_SETTING = 3;
+	public static final int SW_FRAGMENT_HELP = 4;
 	
 	/*
 	 * Scrolling factor of Customize view pager

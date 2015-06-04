@@ -22,4 +22,7 @@
     <color name="text_light_grey">#ffbfbfbf</color>
     <color name="text_selected_grey">#958d93</color>
     
+    <color name="title_unselected">#66FFFFFF</color>
+    <color name="title_selected">#FFFFFFFF</color>
+    
 </resources>
