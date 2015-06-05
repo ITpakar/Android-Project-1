@@ -37,6 +37,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		mainActivity = activity;
 		
 		myevents_fragment.setMainActivity(activity);
+		history_fragment.setMainActivity(activity);
 	}
 	
 	@Override

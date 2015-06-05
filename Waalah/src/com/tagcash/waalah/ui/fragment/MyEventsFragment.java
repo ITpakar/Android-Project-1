@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
-import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
@@ -24,7 +24,7 @@ import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.WAFontProvider;
 
 @SuppressLint("InflateParams")
-public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseFragmentInterface {
+public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragmentInterface {
 
 	public ListView lst_events = null;
 
@@ -49,9 +49,9 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 		View view = inflater.inflate(R.layout.fragment_myevents, null);
 
 		mUser = WAModelManager.getInstance().getSignInUser();
-		layout_content = (LinearLayout) view.findViewById(R.id.layout_content);
-		layout_empty = (LinearLayout) view.findViewById(R.id.layout_empty);
-		showEmptyLayout(true);
+//		layout_content = (LinearLayout) view.findViewById(R.id.layout_content);
+//		layout_empty = (LinearLayout) view.findViewById(R.id.layout_empty);
+//		showEmptyLayout(true);
 
         lst_events = (ListView) view.findViewById(R.id.lst_events);
         
@@ -70,12 +70,12 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 
 	private void showList() {
 		if (_resultAL.size() > 0) {
-			showEmptyLayout(false);
+//			showEmptyLayout(false);
 			LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
 			lst_events.setAdapter(adapter);
 
 		} else {
-			showEmptyLayout(true);
+//			showEmptyLayout(true);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 		_resultAL.add(user2);
 		_resultAL.add(user3);
 		_resultAL.add(user4);
-		showEmptyLayout(false);
+//		showEmptyLayout(false);
 		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
 		lst_events.setAdapter(adapter);
 	}
