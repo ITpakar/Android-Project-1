@@ -101,7 +101,9 @@ public class Constants {
 	public static final int SW_FRAGMENT_INVITE = 2;
 	public static final int SW_FRAGMENT_SETTING = 3;
 	public static final int SW_FRAGMENT_HELP = 4;
-	
+
+	public static final int SW_FRAGMENT_DETAIL_EVENT = 10;
+
 	/*
 	 * Scrolling factor of Customize view pager
 	 */

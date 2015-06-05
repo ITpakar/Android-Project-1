@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.tagcash.waalah.R;
 import com.tagcash.waalah.app.Constants;
+import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.view.CustomDurationViewPager;
 import com.viewpagerindicator.LinePageIndicator;
@@ -28,12 +29,14 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private MyEventsFragment myevents_fragment = MyEventsFragment.newInstance();
 	private HistoryFragment history_fragment = HistoryFragment.newInstance();
 	
-	private MenuAdapter adapter;
+	private MainActivity mainActivity;
 
-	public MainFragment(MenuAdapter mfa) {
+	public MainFragment(MainActivity activity) {
 		super();
 		
-		adapter = mfa;
+		mainActivity = activity;
+		
+		myevents_fragment.setMainActivity(activity);
 	}
 	
 	@Override
@@ -173,7 +176,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_menu:
-			adapter.onMenuClicked();
+			mainActivity.onMenuClicked();
 			break;
 		case R.id.layout_upcoming:
 			pager.setCurrentItem(0);

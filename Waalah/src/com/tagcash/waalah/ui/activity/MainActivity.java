@@ -50,6 +50,7 @@ import com.tagcash.waalah.http.Server;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.fragment.AddCoinFragment;
+import com.tagcash.waalah.ui.fragment.DetailEventFragment;
 import com.tagcash.waalah.ui.fragment.MainFragment;
 import com.tagcash.waalah.ui.fragment.MenuAdapter;
 import com.tagcash.waalah.util.FacebookUtils;
@@ -69,16 +70,11 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000; // for GCM
     String SENDER_ID = "1077342770386";
     public static String regid = "";
-    private boolean mBFromNotification = false;
-    private boolean mBFirstCreate = true;
-    private int mFriendId = 0;
-
 	/*
 	 * UI
 	 */
 	private DrawerLayout parent_drawer_layout;
 	private LinearLayout child_drawer_layout;
-	private View btn_profile;
 	public ImageView img_user_avatar;
 	public TextView txt_username, txt_location;
 	private ListView lst_menu_item;
@@ -125,8 +121,6 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 
 		instance = this;
 		isLoginSuccesed = false;
-		mBFromNotification = getIntent().getBooleanExtra(Constants.ACTION_FROM_NOTIFICATION, false);
-		mFriendId = getIntent().getIntExtra(Constants.ACTION_FROM_FRIENDID, 0);
 
 		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_waalah, "Waalah Events"));
 		left_menu_list_data.add(new LeftMenuItem(R.drawable.ic_addcoin, "Earn Coins"));
@@ -215,8 +209,7 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		
     
 	    //WAUser logUser = WAModelManager.getInstance().getSignInUser();
-	    if (!mBFromNotification)
-	    	SwitchContent(Constants.SW_FRAGMENT_WAALAH);
+		SwitchContent(Constants.SW_FRAGMENT_WAALAH);
 	    
 	    // tmp make db file
 	    //SqliteUtil.exportSQLite(MainActivity.this, "healthchat.db", "healthchat.db");
@@ -342,8 +335,6 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		super.onNewIntent(intent);
 		
 		setIntent(intent);
-		mBFromNotification = getIntent().getBooleanExtra(Constants.ACTION_FROM_NOTIFICATION, false);
-		mFriendId = getIntent().getIntExtra(Constants.ACTION_FROM_FRIENDID, 0);
 	}
 
 	boolean isBackAllowed = false;
@@ -462,17 +453,13 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		}
 
 		// first show health feed UI
-		mBFirstCreate = false;
-		if (!mBFromNotification)
-			SwitchContent(Constants.SW_FRAGMENT_WAALAH);
-		else {
+		SwitchContent(Constants.SW_FRAGMENT_WAALAH);
 //			mBFromNotification = false;
 //			Intent intent = new Intent(this, MessageActivity.class);
 //			intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_ID, mFriendId);
 //			intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_TYPE, DBConstant.TYPE_ALL);
 //			startActivityForResult(intent, REQUEST_MESSAGEACTIVITY_CODE);
 //			overridePendingTransition(R.anim.fliping_in, R.anim.none);
-		}
 	}
 
 	/* The click listner for ListView in the navigation drawer */
@@ -488,12 +475,7 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		Fragment fragment = null;
 		if (mCurrentFragmentIndex != fragment_index) {
 			mCurrentFragmentIndex = fragment_index;
-//			titlebar_btn_edit.setVisibility(View.GONE);
-//			if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_PROFILE) {
-//				fragment = new ProfileFragment();
-//				titlebar_btn_edit.setVisibility(View.VISIBLE);
-//	
-//			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_HEALTH_DISCUSSION) {
+
 			if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_WAALAH) {
 				fragment = new MainFragment(this);
 				lst_menu_item.setItemChecked(0, true);
@@ -502,17 +484,14 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 				lst_menu_item.setItemChecked(1, true);
 	
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_INVITE) {
-//				fragment = new InviteFragment();
 				fragment = new MainFragment(this);
 				lst_menu_item.setItemChecked(2, true);
 	
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_SETTING) {
-//				fragment = new SettingFragment();
 				fragment = new MainFragment(this);
 				lst_menu_item.setItemChecked(3, true);
 	
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_HELP) {
-//				fragment = new HelpFragment();
 				fragment = new MainFragment(this);
 				lst_menu_item.setItemChecked(4, true);
 			}
@@ -528,11 +507,6 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 				}
 			}
 		}
-//		else {
-//			if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_WAALAH) {
-//				((HealthFeedFragment)mCurrentFragment).manualRefresh();
-//			}
-//		}
 
 		// update selected item and title, then close the drawer
 		if (child_drawer_layout.isShown())
@@ -939,5 +913,23 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		} else {
 			parent_drawer_layout.openDrawer(child_drawer_layout);
 		}
+	}
+	
+	public void showDetailEventFragment(int event_id, boolean isJoined)
+	{
+		DetailEventFragment fragment = new DetailEventFragment(this, event_id, isJoined);
+		mCurrentFragment = fragment;
+		mCurrentFragmentIndex = Constants.SW_FRAGMENT_DETAIL_EVENT;
+		try {
+			FragmentManager fragmentManager = this.getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.main_content_frame, fragment).commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		// update selected item and title, then close the drawer
+		if (child_drawer_layout.isShown())
+			parent_drawer_layout.closeDrawer(child_drawer_layout);
 	}
 }

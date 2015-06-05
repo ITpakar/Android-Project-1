@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -19,17 +18,10 @@ import android.widget.TextView;
 import com.tagcash.waalah.R;
 import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
-import com.tagcash.waalah.base.BaseTask;
-import com.tagcash.waalah.base.BaseTask.TaskListener;
-import com.tagcash.waalah.database.DBConstant;
-import com.tagcash.waalah.database.DBManager;
-import com.tagcash.waalah.http.ResponseModel;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
-import com.tagcash.waalah.util.MessageUtil;
+import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.WAFontProvider;
-import com.tagcash.waalah.view.DragListView;
-import com.tagcash.waalah.view.DragListView.OnRefreshLoadingMoreListener;
 
 @SuppressLint("InflateParams")
 public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseFragmentInterface {
@@ -39,6 +31,7 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 	// prevent list to scroll to top
 	private ArrayList<WAUser> _resultAL = new ArrayList<WAUser>();
 	private WAUser mUser = null;
+	private MainActivity mainActivity;
 
 	public static MyEventsFragment newInstance() {
 		MyEventsFragment fragment = new MyEventsFragment();
@@ -87,6 +80,8 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 	}
 
 	private void showListTest() {
+		_resultAL.clear();
+		
 		WAUser user1 = new WAUser();
 		WAUser user2 = new WAUser();
 		WAUser user3 = new WAUser();
@@ -159,6 +154,17 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 			holder.txt_time.setText("12:34 AM  APR 23. 2015 ");
 			holder.img_background.setImageResource(R.drawable.row_myevent_back);
         
+			convertView.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO by joseph
+					int event_id = 0; // from position
+					boolean is_joined = false; // from position
+					
+					mainActivity.showDetailEventFragment(event_id, is_joined);
+				}
+			});
 			return convertView;
 		}
 	}
@@ -167,5 +173,9 @@ public class MyEventsFragment extends BaseFragment implements BaseFragment.BaseF
 	public void manualRefresh() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setMainActivity(MainActivity activity) {
+		mainActivity = activity;
 	}
 }

@@ -36,7 +36,7 @@
         android:keepScreenOn="true"
         android:label="@string/app_name" >
         <activity
-            android:name="com.tagcash.waalah.ui.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -54,11 +54,7 @@
         <activity
             android:name=".ui.activity.LoginWithEmailActivity"
             android:theme="@style/AppTheme_Fullscreen" />
-        <activity
-            android:name=".ui.activity.ProfileActivity"
-            android:theme="@style/AppTheme" />
 
-        <!-- Heathchat Service & Receiver -->
         <service android:name=".service.KeepLoginService" />
 
         <!-- Facebook -->
