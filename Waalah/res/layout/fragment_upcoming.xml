@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+   	xmlns:quilt="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" 
+    xmlns:app="http://schemas.android.com/apk/res/com.tagcash.waalah">
+
+    <com.tagcash.waalah.view.StaggeredGridView
+        android:id="@+id/grid_upcoming"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:item_margin="@dimen/margin_large"
+        app:column_count="2" >
+    </com.tagcash.waalah.view.StaggeredGridView>
     
-    <ListView
-        android:id="@+id/lst_events"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
-        android:dividerHeight="0dp"
-        android:footerDividersEnabled="false" />
-    
-</LinearLayout>
+</FrameLayout>

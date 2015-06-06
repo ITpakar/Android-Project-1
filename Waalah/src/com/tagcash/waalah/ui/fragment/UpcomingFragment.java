@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
@@ -22,11 +20,12 @@ import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.WAFontProvider;
+import com.tagcash.waalah.view.StaggeredGridView;
 
 @SuppressLint("InflateParams")
 public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragmentInterface {
 
-	public ListView lst_events = null;
+	private StaggeredGridView grid_events;
 
 	// prevent list to scroll to top
 	private ArrayList<WAUser> _resultAL = new ArrayList<WAUser>();
@@ -46,14 +45,11 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_myevents, null);
+		View view = inflater.inflate(R.layout.fragment_upcoming, null);
 
 		mUser = WAModelManager.getInstance().getSignInUser();
-//		layout_content = (LinearLayout) view.findViewById(R.id.layout_content);
-//		layout_empty = (LinearLayout) view.findViewById(R.id.layout_empty);
-//		showEmptyLayout(true);
 
-        lst_events = (ListView) view.findViewById(R.id.lst_events);
+		grid_events = (StaggeredGridView) view.findViewById(R.id.grid_upcoming);
         
         return view;
     }
@@ -70,12 +66,9 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 
 	private void showList() {
 		if (_resultAL.size() > 0) {
-//			showEmptyLayout(false);
 			LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
-			lst_events.setAdapter(adapter);
+			grid_events.setAdapter(adapter);
 
-		} else {
-//			showEmptyLayout(true);
 		}
 	}
 
@@ -86,13 +79,14 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 		WAUser user2 = new WAUser();
 		WAUser user3 = new WAUser();
 		WAUser user4 = new WAUser();
+		WAUser user5 = new WAUser();
 		_resultAL.add(user1);
 		_resultAL.add(user2);
 		_resultAL.add(user3);
 		_resultAL.add(user4);
-//		showEmptyLayout(false);
+		_resultAL.add(user5);
 		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
-		lst_events.setAdapter(adapter);
+		grid_events.setAdapter(adapter);
 	}
 
 	private  class LasyAdapter extends BaseAdapter {
@@ -122,20 +116,20 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 
 		class ViewHolder {
 			TextView txt_name, txt_coin, txt_time;
-			ImageView img_background;
-
+			LinearLayout layout_row, layout_footer;
 		}	
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.row_myevent_list, null);
+				convertView = mInflater.inflate(R.layout.row_upcoming_list, null);
 				holder = new ViewHolder();
 
 				holder.txt_name = (TextView) convertView.findViewById(R.id.txt_name);
 				holder.txt_coin = (TextView) convertView.findViewById(R.id.txt_coin);
 				holder.txt_time = (TextView) convertView.findViewById(R.id.txt_time);
-				holder.img_background = (ImageView) convertView.findViewById(R.id.img_background);
+				holder.layout_row = (LinearLayout) convertView.findViewById(R.id.layout_row);
+				holder.layout_footer = (LinearLayout) convertView.findViewById(R.id.layout_row_footer);
 				
 				// set font
 				holder.txt_name.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, UpcomingFragment.this.getActivity()));
@@ -149,10 +143,23 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 			}
 			
 			// TODO by joseph
-			holder.txt_name.setText("Stanley Pauls");
-			holder.txt_coin.setText("320");
-			holder.txt_time.setText("APR 23. 2015 ");
-			holder.img_background.setImageResource(R.drawable.row_upcoming_back);
+			if ((position % 2) == 0)
+			{
+				holder.txt_name.setText("Stanley Pauls");
+				holder.txt_coin.setText("320");
+				holder.txt_time.setText("12:34 AM APR 23, 2015");
+				holder.layout_row.setBackgroundResource(R.drawable.row_upcoming_small_back);
+				holder.layout_footer.setBackgroundResource(R.drawable.row_upcoming_small_footer);
+			}
+			else
+			{
+				holder.txt_name.setText("Hayley Williams");
+				holder.txt_coin.setText("320");
+				holder.txt_time.setText("12:34 AM APR 23, 2015");
+				holder.layout_row.setBackgroundResource(R.drawable.row_upcoming_tall_back);
+				holder.layout_footer.setBackgroundResource(R.drawable.row_upcoming_tall_footer);
+			}
+			
         
 			convertView.setOnClickListener(new OnClickListener() {
 				
