@@ -15,34 +15,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:padding="@dimen/margin_normal"
+            android:padding="@dimen/margin_extra_large"
             android:src="@drawable/ic_menu" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginTop="@dimen/margin_large"
             android:gravity="center"
             android:orientation="vertical" >
-
-            <LinearLayout
-                android:id="@+id/layout_freecoin"
+            
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_very_large"
-                android:orientation="vertical" >
+                android:layout_marginBottom="@dimen/margin_extra_large"
+                android:src="@drawable/ic_purchasecoin" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_freecoin" />
+            <LinearLayout
+                android:id="@+id/layout_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_extra_large"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Earn free coins"
+                    android:text="$0.99"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_large" />
 
@@ -50,40 +51,77 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Easily earn coins by downloading"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="5 interview coins to win"
                     android:textColor="@color/mid_grey"
                     android:textSize="@dimen/text_very_small" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/layout_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_extra_large"
+                android:orientation="vertical" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:text="apps or completing tasks."
+                    android:text="$1.99"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_large" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="15 interview coins to win"
+                    android:textColor="@color/mid_grey"
+                    android:textSize="@dimen/text_very_small" />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/layout_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_extra_large"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="$2.99"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_large" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="40 interview coins to win"
                     android:textColor="@color/mid_grey"
                     android:textSize="@dimen/text_very_small" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_purchase"
+                android:id="@+id/layout_fouth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_very_large"
+                android:layout_margin="@dimen/margin_extra_large"
                 android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_purchasecoin" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Purchase"
+                    android:text="$9.99"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_large" />
 
@@ -91,40 +129,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Get more coins by buing"
-                    android:textColor="@color/mid_grey"
-                    android:textSize="@dimen/text_very_small" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="tickets through the store."
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="100 interview coins to win"
                     android:textColor="@color/mid_grey"
                     android:textSize="@dimen/text_very_small" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_social"
+                android:id="@+id/layout_fifth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_very_large"
+                android:layout_margin="@dimen/margin_extra_large"
                 android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_socialmedia" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Social media"
+                    android:text="$29.99"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_large" />
 
@@ -132,51 +155,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Share us with your firends"
-                    android:textColor="@color/mid_grey"
-                    android:textSize="@dimen/text_very_small" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_follow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_very_large"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_followus" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Follow us"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_large" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="Earn 3 entries by"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="500 interview coins to win"
                     android:textColor="@color/mid_grey"
                     android:textSize="@dimen/text_very_small" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:text="following us on twitter."
-                    android:textColor="@color/mid_grey"
-                    android:textSize="@dimen/text_very_small" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

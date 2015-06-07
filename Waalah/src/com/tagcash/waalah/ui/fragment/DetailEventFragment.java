@@ -48,7 +48,7 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_menu:
-			mainActivity.onMenuClicked();
+			mainActivity.showMenu();
 			break;
 		case R.id.layout_addcoin:
 			break;

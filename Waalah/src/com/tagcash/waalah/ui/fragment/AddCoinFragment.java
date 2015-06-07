@@ -10,15 +10,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.tagcash.waalah.R;
+import com.tagcash.waalah.ui.activity.MainActivity;
 
 public class AddCoinFragment extends Fragment implements OnClickListener {
 
-	private MenuAdapter adapter;
+	private MainActivity mainActivity;
 	
-	public AddCoinFragment(MenuAdapter mfa) {
+	public AddCoinFragment(MainActivity activity) {
 		super();
 		
-		adapter = mfa;
+		mainActivity = activity;
 	}
 	
 	@Override
@@ -46,11 +47,13 @@ public class AddCoinFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_menu:
-			adapter.onMenuClicked();
+			mainActivity.showMenu();
 			break;
 		case R.id.layout_freecoin:
+			mainActivity.showFreeCoinFragment();
 			break;
 		case R.id.layout_purchase:
+			mainActivity.showPurchaseFragment();
 			break;
 		case R.id.layout_social:
 			break;

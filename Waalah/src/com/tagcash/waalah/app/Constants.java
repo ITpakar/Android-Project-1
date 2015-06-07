@@ -103,7 +103,10 @@ public class Constants {
 	public static final int SW_FRAGMENT_HELP = 4;
 
 	public static final int SW_FRAGMENT_DETAIL_EVENT = 10;
+	public static final int SW_FRAGMENT_FREE_COINS = 11;
+	public static final int SW_FRAGMENT_PURCHASE = 12;
 
+	
 	/*
 	 * Scrolling factor of Customize view pager
 	 */

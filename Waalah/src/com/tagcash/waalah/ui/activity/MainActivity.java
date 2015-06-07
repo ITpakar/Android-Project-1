@@ -51,15 +51,16 @@ import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.fragment.AddCoinFragment;
 import com.tagcash.waalah.ui.fragment.DetailEventFragment;
+import com.tagcash.waalah.ui.fragment.FreeCoinFragment;
 import com.tagcash.waalah.ui.fragment.MainFragment;
-import com.tagcash.waalah.ui.fragment.MenuAdapter;
+import com.tagcash.waalah.ui.fragment.PurchaseFragment;
 import com.tagcash.waalah.util.FacebookUtils;
 import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.util.WAImageLoader;
 import com.tagcash.waalah.util.WAPreferenceManager;
 
-public class MainActivity extends FragmentActivity implements Callback, MenuAdapter {
+public class MainActivity extends FragmentActivity implements Callback {
 
 	public static MainActivity instance = null;
 	public static int REQUEST_MESSAGEACTIVITY_CODE = 1000;
@@ -906,8 +907,7 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		editor.commit();
 	}
 
-	@Override
-	public void onMenuClicked() {
+	public void showMenu() {
 		if (child_drawer_layout.isShown()) {
 			parent_drawer_layout.closeDrawer(child_drawer_layout);
 		} else {
@@ -920,6 +920,42 @@ public class MainActivity extends FragmentActivity implements Callback, MenuAdap
 		DetailEventFragment fragment = new DetailEventFragment(this, event_id, isJoined);
 		mCurrentFragment = fragment;
 		mCurrentFragmentIndex = Constants.SW_FRAGMENT_DETAIL_EVENT;
+		try {
+			FragmentManager fragmentManager = this.getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.main_content_frame, fragment).commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		// update selected item and title, then close the drawer
+		if (child_drawer_layout.isShown())
+			parent_drawer_layout.closeDrawer(child_drawer_layout);
+	}
+	
+	public void showFreeCoinFragment()
+	{
+		FreeCoinFragment fragment = new FreeCoinFragment(this);
+		mCurrentFragment = fragment;
+		mCurrentFragmentIndex = Constants.SW_FRAGMENT_FREE_COINS;
+		try {
+			FragmentManager fragmentManager = this.getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.main_content_frame, fragment).commit();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		// update selected item and title, then close the drawer
+		if (child_drawer_layout.isShown())
+			parent_drawer_layout.closeDrawer(child_drawer_layout);
+	}
+	
+	public void showPurchaseFragment()
+	{
+		PurchaseFragment fragment = new PurchaseFragment(this);
+		mCurrentFragment = fragment;
+		mCurrentFragmentIndex = Constants.SW_FRAGMENT_PURCHASE;
 		try {
 			FragmentManager fragmentManager = this.getSupportFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.main_content_frame, fragment).commit();
