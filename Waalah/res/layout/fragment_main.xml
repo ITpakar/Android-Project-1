@@ -148,6 +148,7 @@
     <com.tagcash.waalah.view.CustomDurationViewPager
         android:id="@+id/pager"
         android:layout_width="fill_parent"
+        android:background="@drawable/transparent_background"
         android:layout_height="0dp"
         android:layout_weight="1" />
 

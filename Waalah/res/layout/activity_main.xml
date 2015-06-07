@@ -13,6 +13,7 @@
 
 
         <!-- content -->
+
         <FrameLayout
             android:id="@+id/main_content_frame"
             android:layout_width="match_parent"

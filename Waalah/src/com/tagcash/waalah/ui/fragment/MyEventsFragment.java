@@ -49,9 +49,6 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 		View view = inflater.inflate(R.layout.fragment_myevents, null);
 
 		mUser = WAModelManager.getInstance().getSignInUser();
-//		layout_content = (LinearLayout) view.findViewById(R.id.layout_content);
-//		layout_empty = (LinearLayout) view.findViewById(R.id.layout_empty);
-//		showEmptyLayout(true);
 
         lst_events = (ListView) view.findViewById(R.id.lst_events);
         
@@ -70,12 +67,9 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 
 	private void showList() {
 		if (_resultAL.size() > 0) {
-//			showEmptyLayout(false);
 			LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
 			lst_events.setAdapter(adapter);
 
-		} else {
-//			showEmptyLayout(true);
 		}
 	}
 
@@ -90,7 +84,6 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 		_resultAL.add(user2);
 		_resultAL.add(user3);
 		_resultAL.add(user4);
-//		showEmptyLayout(false);
 		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
 		lst_events.setAdapter(adapter);
 	}

@@ -80,11 +80,13 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 		WAUser user3 = new WAUser();
 		WAUser user4 = new WAUser();
 		WAUser user5 = new WAUser();
+		
 		_resultAL.add(user1);
 		_resultAL.add(user2);
 		_resultAL.add(user3);
 		_resultAL.add(user4);
 		_resultAL.add(user5);
+		
 		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
 		grid_events.setAdapter(adapter);
 	}
