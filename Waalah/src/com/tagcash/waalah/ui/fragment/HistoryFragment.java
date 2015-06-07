@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,13 +13,17 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
+import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
+import com.tagcash.waalah.ui.activity.HistoryDetailActivity;
+import com.tagcash.waalah.ui.activity.LoginWithFacebookActivity;
 import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.WAFontProvider;
 
@@ -124,6 +129,7 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 			TextView txt_name, txt_won, txt_time;
 			ImageView img_won;
 			ImageView img_background;
+			LinearLayout layout_name, layout_result;
 
 		}	
 
@@ -138,6 +144,9 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 				holder.txt_won = (TextView) convertView.findViewById(R.id.txt_won);
 				holder.txt_time = (TextView) convertView.findViewById(R.id.txt_time);
 				holder.img_background = (ImageView) convertView.findViewById(R.id.img_background);
+				
+				holder.layout_name = (LinearLayout) convertView.findViewById(R.id.layout_name);
+				holder.layout_result = (LinearLayout) convertView.findViewById(R.id.layout_result);
 				
 				// set font
 				holder.txt_name.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, HistoryFragment.this.getActivity()));
@@ -166,17 +175,26 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 			holder.txt_time.setText("MAY 23. 2015 ");
 			holder.img_background.setImageResource(R.drawable.row_history_back);
         
-			convertView.setOnClickListener(new OnClickListener() {
+			holder.layout_name.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					// TODO by joseph
-//					int event_id = 0; // from position
-//					boolean is_joined = false; // from position
-//					
-//					mainActivity.showDetailEventFragment(event_id, is_joined);
+					// TODO Auto-generated method stub
+					
 				}
 			});
+			
+			holder.layout_result.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					Intent intent = new Intent(HistoryFragment.this.getActivity(), HistoryDetailActivity.class);
+					startActivity(intent);
+					
+				}
+			});
+			
 			return convertView;
 		}
 	}
