@@ -153,7 +153,7 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 				public void onClick(View v) {
 					// TODO by joseph
 					int event_id = 0; // from position
-					boolean is_joined = false; // from position
+					boolean is_joined = true; // from position
 					
 					mainActivity.showDetailEventFragment(event_id, is_joined);
 				}

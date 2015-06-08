@@ -29,7 +29,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
     <application
         android:name=".app.WAApplication"
         android:icon="@drawable/ic_launcher"
@@ -41,6 +43,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+
         <activity
             android:name=".ui.activity.SignUpActivity"
             android:theme="@style/AppTheme_Fullscreen" />
@@ -56,14 +59,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.HistoryDetailActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".ui.activity.UpcomingDetailActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".ui.activity.MyEventsDetailActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
 
         <service android:name=".service.KeepLoginService" />
-
-        <!-- Facebook -->
+<!-- Facebook -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

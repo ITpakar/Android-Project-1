@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_extra_large"
+        android:text="BRUNO MARS"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_coins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_normal"
+        android:text="12"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Event Coins:"
+        android:textColor="@color/mid_grey"
+        android:textSize="@dimen/text_small" />
+
+    <EditText
+        android:id="@+id/edt_coins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_large"
+        android:background="@drawable/ic_amount_coins"
+        android:ellipsize="end"
+        android:lines="1"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:scrollHorizontally="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_normal" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin_extra_large"
+        android:text="Total Account Coins: 634"
+        android:textColor="@color/mid_grey"
+        android:textSize="@dimen/text_small" />
+
+    <Button
+        android:id="@+id/btn_add_coins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_extra_large"
+        android:background="@drawable/btn_add_coins"
+        android:text="Add Coins"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_normal" />
+
+</LinearLayout>

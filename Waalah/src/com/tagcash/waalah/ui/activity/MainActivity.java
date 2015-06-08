@@ -985,4 +985,9 @@ public class MainActivity extends FragmentActivity implements Callback {
 		if (child_drawer_layout.isShown())
 			parent_drawer_layout.closeDrawer(child_drawer_layout);
 	}
+	
+	public void showEainCoinsFragment()
+	{
+		SwitchContent(Constants.SW_FRAGMENT_ADDCOIN);
+	}
 }

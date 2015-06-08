@@ -58,12 +58,22 @@ public class HexagonImageView extends ImageView {
 		final Rect rect = new Rect(0, 0, finalBitmap.getWidth(),
 				finalBitmap.getHeight());
 
-		Point point1_draw = new Point(37, 0);
-		Point point2_draw = new Point(0, 18);
-		Point point3_draw = new Point(0, 57);
-		Point point4_draw = new Point(37, 75);
-		Point point5_draw = new Point(74, 57);
-		Point point6_draw = new Point(74, 18);
+//		Point point1_draw = new Point(37, 0);
+//		Point point2_draw = new Point(0, 18);
+//		Point point3_draw = new Point(0, 57);
+//		Point point4_draw = new Point(37, 75);
+//		Point point5_draw = new Point(74, 57);
+//		Point point6_draw = new Point(74, 18);
+		
+		int x0 = 0, x1 = radius/2, x2 = radius;
+		int y0 = 0, y1 = radius/4 - 2, y2 = radius * 3 /4 + 2, y3 = radius;
+		
+		Point point1_draw = new Point(x1, y0);
+		Point point2_draw = new Point(x0, y1);
+		Point point3_draw = new Point(x0, y2);
+		Point point4_draw = new Point(x1, y3);
+		Point point5_draw = new Point(x2, y2);
+		Point point6_draw = new Point(x2, y1);
 
 		Path path = new Path();
 		path.moveTo(point1_draw.x, point1_draw.y);

@@ -20,11 +20,10 @@ import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.view.HexagonImageView;
 
-public class HistoryDetailActivity extends Activity {
+public class UpcomingDetailActivity extends Activity {
 
 	private ImageView img_back;
 	private ListView lst_history;
-	private TextView txt_count;
 	
 	// prevent list to scroll to top
 	private ArrayList<WAUser> _resultAL = new ArrayList<WAUser>();
@@ -34,7 +33,7 @@ public class HistoryDetailActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.activity_detail_history);
+		setContentView(R.layout.activity_detail_upcoming);
 	
 		img_back = (ImageView) findViewById(R.id.img_back);
 		img_back.setOnClickListener(new OnClickListener() {
@@ -47,7 +46,6 @@ public class HistoryDetailActivity extends Activity {
 		
 		
 		lst_history = (ListView) findViewById(R.id.lst_detail_history);
-		txt_count = (TextView) findViewById(R.id.txt_count);
 	}
 
 	@Override
@@ -135,13 +133,13 @@ public class HistoryDetailActivity extends Activity {
 
 		class ViewHolder {
 			TextView txt_number, txt_name, txt_location, txt_time;
-			ImageView img_call, img_picture;
+			ImageView img_picture;
 		}	
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = mInflater.inflate(R.layout.row_detail_history, null);
+				convertView = mInflater.inflate(R.layout.row_detail_upcoming, null);
 				holder = new ViewHolder();
 
 				holder.txt_number = (TextView) convertView.findViewById(R.id.txt_number);
@@ -149,13 +147,12 @@ public class HistoryDetailActivity extends Activity {
 				holder.txt_location = (TextView) convertView.findViewById(R.id.txt_location);
 				holder.txt_time = (TextView) convertView.findViewById(R.id.txt_time);
 				holder.img_picture = (HexagonImageView) convertView.findViewById(R.id.img_picture);
-				holder.img_call = (ImageView) convertView.findViewById(R.id.img_call);
 				
 				// set font
-				holder.txt_number.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, HistoryDetailActivity.this));
-				holder.txt_name.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, HistoryDetailActivity.this));
-				holder.txt_location.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, HistoryDetailActivity.this));
-				holder.txt_time.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, HistoryDetailActivity.this));
+				holder.txt_number.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, UpcomingDetailActivity.this));
+				holder.txt_name.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, UpcomingDetailActivity.this));
+				holder.txt_location.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, UpcomingDetailActivity.this));
+				holder.txt_time.setTypeface(WAFontProvider.getFont(WAFontProvider.GOTHAM_BOLD, UpcomingDetailActivity.this));
 
 				convertView.setTag(holder);
 
@@ -170,11 +167,6 @@ public class HistoryDetailActivity extends Activity {
 			holder.txt_time.setText("11:34 AM");
 			
 			holder.img_picture.setImageResource(R.drawable.ic_sample_picture);
-			
-			if (position > 1)
-				holder.img_call.setImageResource(R.drawable.ic_call);
-			else
-				holder.img_call.setImageResource(R.drawable.ic_call_store);
 			
 			return convertView;
 		}

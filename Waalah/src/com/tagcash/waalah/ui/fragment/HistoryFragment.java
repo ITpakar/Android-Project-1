@@ -3,7 +3,9 @@ package com.tagcash.waalah.ui.fragment;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,12 +20,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
-import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.activity.HistoryDetailActivity;
-import com.tagcash.waalah.ui.activity.LoginWithFacebookActivity;
 import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.WAFontProvider;
 
@@ -181,6 +181,16 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					
+					AlertDialog alertDialog = new AlertDialog.Builder(HistoryFragment.this.getActivity()).create();
+					alertDialog.setTitle("Alert");
+					alertDialog.setMessage("Video call is Coming soon ");
+					alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+					    new DialogInterface.OnClickListener() {
+					        public void onClick(DialogInterface dialog, int which) {
+					            dialog.dismiss();
+					        }
+					    });
+					alertDialog.show();					
 				}
 			});
 			
