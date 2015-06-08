@@ -16,7 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.tagcash.waalah.R;
 import com.tagcash.waalah.app.Constants;
@@ -28,10 +27,10 @@ import com.tagcash.waalah.http.Server;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.util.GMailSender;
-import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.util.MD5Util;
 import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.Validation;
+import com.tagcash.waalah.util.WAFontProvider;
 
 
 @SuppressLint("InflateParams")
@@ -74,16 +73,23 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (isValid()) {
-					ArrayList<String> strs = new ArrayList<String>();
-					strs.add(edt_email.getText().toString().trim());
-					strs.add(MD5Util.getMD5(edt_password.getText().toString().trim()));
+				finish();
+				Intent intent = new Intent(instance, MainActivity.class);
+				intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
+				startActivity(intent);
+				
+				// TODO joseph
 
-					BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
-					loginTask.setListener(mTaskListener);
-					loginTask.setData(strs);
-					loginTask.execute();
-				}
+//				if (isValid()) {
+//					ArrayList<String> strs = new ArrayList<String>();
+//					strs.add(edt_email.getText().toString().trim());
+//					strs.add(MD5Util.getMD5(edt_password.getText().toString().trim()));
+//
+//					BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
+//					loginTask.setListener(mTaskListener);
+//					loginTask.setData(strs);
+//					loginTask.execute();
+//				}
 			}
 		});
 		
