@@ -72,7 +72,21 @@
         <activity
             android:name=".ui.activity.LoginWithFacebookActivity"
             android:theme="@style/TransTheme" />
+        <activity
+            android:name=".ui.activity.LoginWithTwitterActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/TransTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
-    </application>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="twitter-healthchat"
+                    android:scheme="oauth" />
+            </intent-filter>
+        </activity>
+</application>
 
 </manifest>

@@ -467,7 +467,24 @@ public class MainActivity extends FragmentActivity implements Callback {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			SwitchContent(position);
+			if (Constants.SW_FRAGMENT_INVITE == position)
+			{
+				// update selected item and title, then close the drawer
+				if (child_drawer_layout.isShown())
+					parent_drawer_layout.closeDrawer(child_drawer_layout);
+				
+				
+			    Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+			    intent.putExtra(Intent.EXTRA_TITLE, getResources().getString(R.string.app_name));
+			    intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name));
+			    intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.strShareUrl));
+			    intent.setType("*/*");
+			    startActivity(Intent.createChooser(intent, ""));	
+			}
+			else
+			{
+				SwitchContent(position);
+			}
 		}
 	}
 
