@@ -2,29 +2,28 @@ package com.tagcash.waalah.ui.fragment;
 
 import java.util.Calendar;
 
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
-import com.tagcash.waalah.ui.activity.HistoryDetailActivity;
 import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.ui.activity.MyEventsDetailActivity;
 import com.tagcash.waalah.ui.activity.UpcomingDetailActivity;
@@ -35,7 +34,11 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 	private int mEventId;
 	private boolean mEventJoined;
 	
+	private int event_count = 0;
 	private final static int REQUEST_CALENDAR = 10000;
+	
+	private Button btn_join;
+	private LinearLayout layout_member;
 	
 	public DetailEventFragment(MainActivity activity, int event_id, boolean isJoined) {
 		super();
@@ -54,9 +57,10 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		final ImageView img_menu = (ImageView) v.findViewById(R.id.img_menu);
 		final LinearLayout layout_addcoin = (LinearLayout) v.findViewById(R.id.layout_addcoin);
 		final LinearLayout layout_myevent = (LinearLayout) v.findViewById(R.id.layout_myevent);
-		final LinearLayout layout_member = (LinearLayout) v.findViewById(R.id.layout_member);
 		final Button btn_earn_coin = (Button) v.findViewById(R.id.btn_earn_coin);
-		final Button btn_join = (Button) v.findViewById(R.id.btn_join);
+		
+		layout_member = (LinearLayout) v.findViewById(R.id.layout_member);
+		btn_join = (Button) v.findViewById(R.id.btn_join);
 
 		
 		img_menu.setOnClickListener(this);
@@ -90,9 +94,15 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		
 		if (requestCode == REQUEST_CALENDAR)
 		{
-			if (resultCode == Activity.RESULT_CANCELED)
+			int new_event_count = getEventCount();
+			
+			if (event_count != new_event_count) // save action
 			{
-
+				mEventJoined = true;
+				btn_join.setBackgroundResource(R.drawable.event_joined);
+				btn_join.setText("");
+				
+				layout_member.setVisibility(View.VISIBLE);
 			}
 		}
 		
@@ -151,12 +161,17 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 					}
 				};
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+				AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
 				builder.setTitle("Calendar");
 				builder.setMessage("Would you like to add the event to your calendar?");
 				builder.setNegativeButton("No", dialogClickListener);
 				builder.setPositiveButton("Yes", dialogClickListener);
-				builder.show();	
+				
+				AlertDialog dialog = builder.show();
+				TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+				messageText.setGravity(Gravity.CENTER);
+				
+				dialog.show();	
 			}
 			break;
 		}
@@ -164,6 +179,8 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 
 	public void addTask()
 	{
+		event_count = getEventCount();
+		
 		Calendar cal = Calendar.getInstance();
 		Intent intent = new Intent(Intent.ACTION_EDIT);
 		intent.setType("vnd.android.cursor.item/event");
@@ -174,6 +191,19 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		intent.putExtra("title", "A Test Event");
 		startActivityForResult(intent, REQUEST_CALENDAR);
 //		startActivity(intent);	
+	}
+	
+	public int getEventCount()
+	{
+        Cursor cursor = this.getActivity().getContentResolver()
+                .query(
+                        Uri.parse("content://com.android.calendar/events"),
+                        new String[] { "calendar_id", "title", "description",
+                                "dtstart", "dtend", "eventLocation" }, null,
+                        null, null);
+        cursor.moveToFirst();
+
+        return cursor.getCount();
 	}
 	
 	public void addCoins()
