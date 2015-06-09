@@ -131,7 +131,6 @@ public class Server {
 		params.addParam("email", email);
 		params.addParam("password", password);
 		params.addParam("full_name", fullname);
-		params.addParam("gender", Integer.toString(WAUser.sGengerToiGender(gender)));
 		params.addParam("birthday", birthday);
 		params.addParam("address", hometown);
 		params.addParam("health_topic_array", health_topics_array);

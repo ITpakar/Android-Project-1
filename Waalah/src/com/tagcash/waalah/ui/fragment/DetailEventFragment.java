@@ -117,7 +117,36 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 			break;
 			
 		case R.id.layout_addcoin:
-			addCoins();
+			if (mEventJoined == true)
+			{
+				addCoins();
+			}
+			else
+			{
+				DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which){
+						case DialogInterface.BUTTON_POSITIVE:
+				            dialog.dismiss();
+							break;
+						}
+					}
+				};
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+				builder.setTitle("Waalah");
+				builder.setMessage("Please join the event");
+				builder.setPositiveButton("Ok", dialogClickListener);
+				
+				AlertDialog dialog = builder.show();
+				TextView messageText = (TextView)dialog.findViewById(android.R.id.message);
+				messageText.setGravity(Gravity.CENTER);
+				
+				dialog.show();	
+				
+			}
 			break;
 			
 		case R.id.layout_myevent:
@@ -186,11 +215,9 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		intent.setType("vnd.android.cursor.item/event");
 		intent.putExtra("beginTime", cal.getTimeInMillis());
 		intent.putExtra("allDay", false);
-//		intent.putExtra("rrule", "FREQ=YEARLY");
 		intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
 		intent.putExtra("title", "A Test Event");
 		startActivityForResult(intent, REQUEST_CALENDAR);
-//		startActivity(intent);	
 	}
 	
 	public int getEventCount()
@@ -208,12 +235,8 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 	
 	public void addCoins()
 	{
-//		AlertDialog.Builder builder;
-//		AlertDialog alertDialog;
-//
 		final Dialog dialog = new Dialog(this.getActivity());
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 		dialog.getWindow().setBackgroundDrawableResource(R.drawable.background_addcoins);
 		
 		LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -227,12 +250,6 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 				dialog.hide();
 			}
 		});
-
-//		builder = new AlertDialog.Builder(getActivity());
-//		builder.setView(view);
-//		alertDialog = builder.create();
-//		alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//		alertDialog.show();
 
 		dialog.setContentView(view);
 		dialog.show();

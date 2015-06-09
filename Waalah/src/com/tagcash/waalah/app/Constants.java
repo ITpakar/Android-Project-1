@@ -45,7 +45,7 @@ public class Constants {
     public static final int MODE_ADD = 20;
     public static final int MODE_EDIT = 21;
 
-    public static final String SHARE_UPLOAD_FOLDERNAME = "/healthchat/temp/";
+    public static final String SHARE_UPLOAD_FOLDERNAME = "/waalah/temp/";
     public static final String SHARE_UPLOAD_FILENAME = "upload.jpg";
     /*
      * Login Type
@@ -154,11 +154,11 @@ public class Constants {
 	/*
 	 * Notification
 	 */
-	public static final String ACTION_LOGIN_SUCCESS = "com.jmd.healthchat.ACTION_LOGIN_SUCCESS";
-	public static final String ACTION_SWITCHTO_PROFILE = "com.jmd.healthchat.ACTION_SWITCHTO_PROFILE";
-    public static final String ACTION_NEW_CHATMESSAGE = "com.jmd.healthchat.ACTION_NEW_CHATMESSAGE";
-    public static final String ACTION_FROM_NOTIFICATION = "com.jmd.healthchat.ACTION_FROM_NOTIFICATION";
-    public static final String ACTION_FROM_FRIENDID = "com.jmd.healthchat.ACTION_FROM_FRIENDID";
+	public static final String ACTION_LOGIN_SUCCESS = "com.tagcash.waalah.ACTION_LOGIN_SUCCESS";
+	public static final String ACTION_SWITCHTO_PROFILE = "com.tagcash.waalah.ACTION_SWITCHTO_PROFILE";
+    public static final String ACTION_NEW_CHATMESSAGE = "com.tagcash.waalah.ACTION_NEW_CHATMESSAGE";
+    public static final String ACTION_FROM_NOTIFICATION = "com.tagcash.waalah.ACTION_FROM_NOTIFICATION";
+    public static final String ACTION_FROM_FRIENDID = "com.tagcash.waalah.ACTION_FROM_FRIENDID";
 
 	/*
 	 * Http Action Status
@@ -196,41 +196,6 @@ public class Constants {
 	public static final int TASK_USER_FAVORITE = 9;
 	public static final int TASK_USER_UNFAVORITE = 10;
 	public static final int TASK_USER_GETONE = 11;
-	
-	public static final int TASK_TOPIC_ADD = 21;
-	public static final int TASK_TOPIC_GETLIST = 22;
-	public static final int TASK_TOPIC_FAVORITE = 23;
-	public static final int TASK_TOPIC_UNFAVORITE = 24;
-	public static final int TASK_TOPIC_FLAG = 25;
-	public static final int TASK_TOPIC_UNFLAG = 26;
-	
-	public static final int TASK_POST_ADD = 41;
-	public static final int TASK_POST_GETLIST = 42;
-	public static final int TASK_POST_FAVORITE = 43;
-	public static final int TASK_POST_UNFAVORITE = 44;
-	public static final int TASK_POST_COMMENT = 45;
-	public static final int TASK_POST_UNCOMMENT = 46;
-	public static final int TASK_POST_FLAG = 47;
-	public static final int TASK_POST_UNFLAG = 48;
-	public static final int TASK_POST_SHARE = 49;
-	public static final int TASK_POST_EDIT = 50;
-	public static final int TASK_POST_DELETE = 51;
-	public static final int TASK_POST_GETONE = 52;
-	
-	public static final int TASK_POSTLIKE_GETLIST = 56;
-	
-	public static final int TASK_COMMENT_ADD = 61;
-	public static final int TASK_COMMENT_GETLIST = 62;
-	public static final int TASK_COMMENT_FAVORITE = 63;
-	public static final int TASK_COMMENT_UNFAVORITE = 64;
-	public static final int TASK_COMMENT_FLAG = 65;
-	public static final int TASK_COMMENT_UNFLAG = 66;
-	public static final int TASK_COMMENT_EDIT = 67;
-	public static final int TASK_COMMENT_DELETE = 68;
-	
-	public static final int TASK_MESSAGE_CONNECTED = 81;
-	public static final int TASK_MESSAGE_SEND = 82;
-	public static final int TASK_MESSAGE_SEARCH = 83;
 	
 	
 	public static final int TASK_GET_GCMREGID = 100;

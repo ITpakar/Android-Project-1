@@ -18,7 +18,6 @@ import com.tagcash.waalah.http.Server;
 import com.tagcash.waalah.http.SocialModel.FacebookModel;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
-import com.tagcash.waalah.util.DateTimeUtil;
 import com.tagcash.waalah.util.FacebookUtils;
 import com.tagcash.waalah.util.WAPreferenceManager;
 import com.tagcash.waalah.util.FacebookUtils.OnFacebookListener;
@@ -82,40 +81,11 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 		mUser = new WAUser();
 
 		mUser.login = Constants.ID_PREVFIX.FACEBOOK + inModel.id;
-		mUser.fullname = inModel.name;
 		mUser.password = WAUser.DEFAULT_PASSWORD;
 		mUser.picture_url = "https://graph.facebook.com/"+inModel.id+"/picture?type=large";
-		String birthday = inModel.birthday;
-		birthday = DateTimeUtil.dateStringToOtherDateString(birthday, "MM/dd/yyyy", "yyyy-MM-dd");
-		if (birthday != null)
-			mUser.birthday = birthday;
-		String gender = inModel.gender;
-		if (gender != null) {
-			if (gender.equalsIgnoreCase(Constants.GENDER.sMale)) {
-				mUser.gender = Constants.GENDER.sMale;
-			} else if (gender.equalsIgnoreCase(Constants.GENDER.sFemale)) {
-				mUser.gender = Constants.GENDER.sFemale;
-			} else {
-				mUser.gender = Constants.GENDER.sOther;
-			}
-		}
 		if (inModel.location != null) {
 			mUser.hometown = inModel.location.name;
 		}
-		String aboutme = "";
-		if (inModel.education != null) {
-			aboutme = "\nMy Education:";	
-			for (int i = 0; i < inModel.education.size(); i++) {
-				aboutme += "\n" + inModel.education.get(i).school.name;
-			}
-		}
-		if (inModel.work != null) {
-			aboutme += "\nMy Work:";	
-			for (int i = 0; i < inModel.work.size(); i++) {
-				aboutme += "\n" + inModel.work.get(i).employer.name;
-			}
-		}
-		mUser.about = aboutme;
 	}
 
 	TaskListener mTaskListener = new TaskListener() {
@@ -183,14 +153,9 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 							// getUserInformation
 							mUser = new WAUser();
 							mUser.user_id = res_model.user.uid;
-							mUser.online = Constants.HTTP_ACTION_ONLINE;
-							mUser.token = res_model.token;
 							mUser.email = res_model.user.email;
 							mUser.login = res_model.user.name;
 							mUser.password = res_model.user.password;
-							mUser.birthday = res_model.user.birthday;
-							mUser.fullname = res_model.user.full_name;
-							mUser.gender = WAUser.iGengerToSGender(Integer.parseInt(res_model.user.gender));;
 							mUser.hometown = res_model.user.address;
 							if (!TextUtils.isEmpty(res_model.user.picture_url))
 								mUser.picture_url = res_model.user.picture_url;
@@ -198,12 +163,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 								if (!TextUtils.isEmpty(res_model.user.social_picture_url))
 									mUser.picture_url = res_model.user.social_picture_url;
 							}
-							mUser.health_topics_array = res_model.user.health_topic_array;
-							mUser.diagnosed_with_array = res_model.user.diagnosed_with_array;
-							mUser.diagnosed_with_privacy = res_model.user.diagnosed_with_privacy;
-							mUser.medicated_array = res_model.user.medicated_array;
-							mUser.medicated_privacy = res_model.user.medicated_privacy;
-							mUser.about = res_model.user.about;
+
 							WAModelManager.getInstance().setSignInUser(mUser);
 
 							if (MainActivity.instance != null)

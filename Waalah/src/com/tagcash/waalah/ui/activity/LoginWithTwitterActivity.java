@@ -157,15 +157,10 @@ public class LoginWithTwitterActivity extends Activity {
 
 			mUser = new WAUser();
 			mUser.login = Constants.ID_PREVFIX.TWITTER + twitter_user.getId();
-			mUser.fullname = twitter_user.getName();
 			//user.setEmail("twitter@not.alw");
 			mUser.password = WAUser.DEFAULT_PASSWORD;
-			mUser.gender = Constants.GENDER.sFemale;
 			mUser.picture_url = twitter_user.getOriginalProfileImageURL();
-			mUser.birthday = WAUser.DEFAULT_BIRTHDAY;
-			mUser.gender = Constants.GENDER.sMale;
 			mUser.hometown = twitter_user.getLocation();
-			mUser.about = twitter_user.getDescription();
 
 			if (mFlag == Constants.MODE_REGISTER) {
 				// register
@@ -245,14 +240,9 @@ public class LoginWithTwitterActivity extends Activity {
 							// getUserInformation
 							mUser = new WAUser();
 							mUser.user_id = res_model.user.uid;
-							mUser.online = Constants.HTTP_ACTION_ONLINE;
-							mUser.token = res_model.token;
 							mUser.email = res_model.user.email;
 							mUser.login = res_model.user.name;
 							mUser.password = res_model.user.password;
-							mUser.birthday = res_model.user.birthday;
-							mUser.fullname = res_model.user.full_name;
-							mUser.gender = WAUser.iGengerToSGender(Integer.parseInt(res_model.user.gender));;
 							mUser.hometown = res_model.user.address;
 							if (!TextUtils.isEmpty(res_model.user.picture_url))
 								mUser.picture_url = res_model.user.picture_url;
@@ -260,12 +250,7 @@ public class LoginWithTwitterActivity extends Activity {
 								if (!TextUtils.isEmpty(res_model.user.social_picture_url))
 									mUser.picture_url = res_model.user.social_picture_url;
 							}
-							mUser.health_topics_array = res_model.user.health_topic_array;
-							mUser.diagnosed_with_array = res_model.user.diagnosed_with_array;
-							mUser.diagnosed_with_privacy = res_model.user.diagnosed_with_privacy;
-							mUser.medicated_array = res_model.user.medicated_array;
-							mUser.medicated_privacy = res_model.user.medicated_privacy;
-							mUser.about = res_model.user.about;
+
 							WAModelManager.getInstance().setSignInUser(mUser);
 
 							if (MainActivity.instance != null)

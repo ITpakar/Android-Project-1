@@ -32,9 +32,6 @@ public class SignUpActivity extends BaseActivity {
 	private Button btn_signup;
 	private ImageView img_back;
 
-
-	private boolean isShowFirstLayout = true;
-	
 	private WAUser mUser;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -163,22 +160,11 @@ public class SignUpActivity extends BaseActivity {
 							//getUserInformation();
 							mUser = new WAUser();
 							mUser.user_id = res_model.user.uid;
-							mUser.online = Constants.HTTP_ACTION_ONLINE;
-							mUser.token = res_model.token;
 							mUser.email = res_model.user.email;
 							mUser.login = res_model.user.name;
 							mUser.password = res_model.user.password;
-							mUser.birthday = res_model.user.birthday;
-							mUser.fullname = res_model.user.full_name;
-							mUser.gender = WAUser.iGengerToSGender(Integer.parseInt(res_model.user.gender));
 							mUser.hometown = res_model.user.address;
 							mUser.picture_url = res_model.user.picture_url;
-							mUser.health_topics_array = res_model.user.health_topic_array;
-							mUser.diagnosed_with_array = res_model.user.diagnosed_with_array;
-							mUser.diagnosed_with_privacy = res_model.user.diagnosed_with_privacy;
-							mUser.medicated_array = res_model.user.medicated_array;
-							mUser.medicated_privacy = res_model.user.medicated_privacy;
-							mUser.about = res_model.user.about;
 							
 							WAModelManager.getInstance().setSignInUser(mUser);
 							// finish and go to MainActivity

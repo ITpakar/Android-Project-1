@@ -110,12 +110,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 		
 		// using home activity, it means user could use another account, so clear database
 		DBManager.getInstance().deleteAllUser();
-		DBManager.getInstance().deleteAllTopic();
-		DBManager.getInstance().deleteAllPost();
-		DBManager.getInstance().deleteAllPostlike();
 		WAModelManager.getInstance().setSignInUser(null);
-		WAModelManager.getInstance().setCurrentTopic(null);
-		WAModelManager.getInstance().setCurrentPost(null);
 
 		// set font
 		edt_email.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, this));
@@ -303,25 +298,13 @@ public class LoginWithEmailActivity extends BaseActivity {
 							//MessageUtil.showMessage("Login With Email Account Success.", false);
 							
 							// TODO by joseph
-							// getUserInformation
 							mUser = new WAUser();
 							mUser.user_id = res_model.user.uid;
-							mUser.online = Constants.HTTP_ACTION_ONLINE;
-							mUser.token = res_model.token;
 							mUser.email = res_model.user.email;
 							mUser.login = res_model.user.name;
 							mUser.password = res_model.user.password;
-							mUser.birthday = res_model.user.birthday;
-							mUser.fullname = res_model.user.full_name;
-							mUser.gender = WAUser.iGengerToSGender(Integer.parseInt(res_model.user.gender));
-							mUser.hometown = res_model.user.address;
 							mUser.picture_url = res_model.user.picture_url;
-							mUser.health_topics_array = res_model.user.health_topic_array;
-							mUser.diagnosed_with_array = res_model.user.diagnosed_with_array;
-							mUser.diagnosed_with_privacy = res_model.user.diagnosed_with_privacy;
-							mUser.medicated_array = res_model.user.medicated_array;
-							mUser.medicated_privacy = res_model.user.medicated_privacy;
-							mUser.about = res_model.user.about;
+
 							WAModelManager.getInstance().setSignInUser(mUser);
 
 							// finish and go to MainActivity

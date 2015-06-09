@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity implements Callback {
 
 	public static boolean isBackPressed = false;
 	private Timer mCheckServerTimer = null;
-	private TimerTask mSetOnlineTask;
+//	private TimerTask mSetOnlineTask;
 	
 	private Handler mHandler = null;
 
@@ -197,16 +197,16 @@ public class MainActivity extends FragmentActivity implements Callback {
 		filter.addAction(Constants.ACTION_NEW_CHATMESSAGE);
 		registerReceiver(mReceiver, filter);
 
-		mSetOnlineTask = new TimerTask() {
-			@Override
-			public void run() {
-				if (mUser != null) {
-					BaseTask task = new BaseTask(Constants.TASK_USER_SETONLINE);
-					task.setListener(mTaskListener);
-					task.execute();
-				}
-			}
-		};
+//		mSetOnlineTask = new TimerTask() {
+//			@Override
+//			public void run() {
+//				if (mUser != null) {
+//					BaseTask task = new BaseTask(Constants.TASK_USER_SETONLINE);
+//					task.setListener(mTaskListener);
+//					task.execute();
+//				}
+//			}
+//		};
 		
     
 	    //WAUser logUser = WAModelManager.getInstance().getSignInUser();
@@ -420,10 +420,10 @@ public class MainActivity extends FragmentActivity implements Callback {
 		if (mUser != null) {
 			showMainUI();
 
-			if (mCheckServerTimer == null) {
-				mCheckServerTimer = new Timer();
-				mCheckServerTimer.schedule(mSetOnlineTask, 0, Constants.SERVER_CHECK_TIME);
-			}
+//			if (mCheckServerTimer == null) {
+//				mCheckServerTimer = new Timer();
+//				mCheckServerTimer.schedule(mSetOnlineTask, 0, Constants.SERVER_CHECK_TIME);
+//			}
 		}
 	}
 
@@ -431,36 +431,18 @@ public class MainActivity extends FragmentActivity implements Callback {
 		// show user's info on the left drawer
 		mUser = WAModelManager.getInstance().getSignInUser();
 		if (mUser != null) {
-			if (TextUtils.isEmpty(mUser.picture_url)) {
-				if (mUser.gender.equalsIgnoreCase(Constants.GENDER.sFemale))
-					img_user_avatar.setImageDrawable(getResources().getDrawable(R.drawable.female));
-				else
-					img_user_avatar.setImageDrawable(getResources().getDrawable(R.drawable.male));
-			}
+			if (TextUtils.isEmpty(mUser.picture_url)) 
+				img_user_avatar.setImageDrawable(getResources().getDrawable(R.drawable.female));
 			else
-				WAImageLoader.showImage(img_user_avatar, mUser.picture_url, mUser.gender);
-			txt_username.setText(mUser.fullname);
-			if (mUser.fullname == null || mUser.fullname.isEmpty())
-				txt_username.setText(mUser.login);
-			// TODO by joseph
-//			txt_location.setText(mUser.location);
+				WAImageLoader.showImage(img_user_avatar, mUser.picture_url, "Male");
+
+			txt_username.setText(mUser.login);
+			txt_location.setText(mUser.hometown);
 			
-			// left menu
-//			ArrayList<ChatMessage> newMsgs = DBManager.getInstance().getAllRecentChatPerFriendOne(mUser.user_id, true);
-//			int nCount = newMsgs.size();
-//			left_menu_list_data.get(2).count = nCount;	// Chat message menu
-//			if (mLeftMenuAdapter != null)
-//				mLeftMenuAdapter.notifyDataSetChanged();
 		}
 
 		// first show health feed UI
 		SwitchContent(Constants.SW_FRAGMENT_WAALAH);
-//			mBFromNotification = false;
-//			Intent intent = new Intent(this, MessageActivity.class);
-//			intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_ID, mFriendId);
-//			intent.putExtra(ProfileActivity.PROFILE_ACTIVITY_USER_TYPE, DBConstant.TYPE_ALL);
-//			startActivityForResult(intent, REQUEST_MESSAGEACTIVITY_CODE);
-//			overridePendingTransition(R.anim.fliping_in, R.anim.none);
 	}
 
 	/* The click listner for ListView in the navigation drawer */
@@ -629,7 +611,6 @@ public class MainActivity extends FragmentActivity implements Callback {
 		class ViewHolder {
 			ImageView img_icon;
 			TextView txt_title;
-//			TextView txt_count;
 			ImageView img_toward;
 		}	
 
@@ -641,11 +622,9 @@ public class MainActivity extends FragmentActivity implements Callback {
 				holder.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
 				holder.txt_title = (TextView) convertView.findViewById(R.id.txt_title);
 				holder.img_toward = (ImageView) convertView.findViewById(R.id.img_toward);
-//				holder.txt_count = (TextView) convertView.findViewById(R.id.txt_count);
 
 				// set font
 				holder.txt_title.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE_LIGHT, MainActivity.this));
-//				holder.txt_count.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_NEUE, MainActivity.this));
 
 				convertView.setTag(holder);
 
@@ -656,12 +635,6 @@ public class MainActivity extends FragmentActivity implements Callback {
 			holder.img_icon.setImageResource(left_menu_list_data.get(position).icon_resource_id);
 			holder.txt_title.setText("" + left_menu_list_data.get(position).title);
 			holder.img_toward.setImageResource(R.drawable.ic_toward);
-//			if (left_menu_list_data.get(position).count <= 0) {
-//				holder.txt_count.setVisibility(View.GONE);
-//			} else {
-//				holder.txt_count.setVisibility(View.VISIBLE);
-//				holder.txt_count.setText("" + left_menu_list_data.get(position).count);
-//			}
 
 			return convertView;
 		}
@@ -686,9 +659,6 @@ public class MainActivity extends FragmentActivity implements Callback {
 				@SuppressWarnings("unchecked")
 				ArrayList<String> strs = (ArrayList<String>) data;
 				result = Server.Login(strs.get(0), strs.get(1));
-			}
-			else if (taskId == Constants.TASK_USER_SETONLINE) {
-				result = Server.SetOnline(mUser.token);
 			}
 			else if (taskId == Constants.TASK_GET_GCMREGID) {
 	            String msg = "";
@@ -721,22 +691,12 @@ public class MainActivity extends FragmentActivity implements Callback {
 							// getUserInformation
 							mUser = new WAUser();
 							mUser.user_id = res_model.user.uid;
-							mUser.online = Constants.HTTP_ACTION_ONLINE;
-							mUser.token = res_model.token;
 							mUser.email = res_model.user.email;
 							mUser.login = res_model.user.name;
 							mUser.password = res_model.user.password;
-							mUser.birthday = res_model.user.birthday;
-							mUser.fullname = res_model.user.full_name;
-							mUser.gender = WAUser.iGengerToSGender(Integer.parseInt(res_model.user.gender));
 							mUser.hometown = res_model.user.address;
 							mUser.picture_url = res_model.user.picture_url;
-							mUser.health_topics_array = res_model.user.health_topic_array;
-							mUser.diagnosed_with_array = res_model.user.diagnosed_with_array;
-							mUser.diagnosed_with_privacy = res_model.user.diagnosed_with_privacy;
-							mUser.medicated_array = res_model.user.medicated_array;
-							mUser.medicated_privacy = res_model.user.medicated_privacy;
-							mUser.about = res_model.user.about;
+
 							WAModelManager.getInstance().setSignInUser(mUser);
 							
 							initData();
@@ -752,22 +712,22 @@ public class MainActivity extends FragmentActivity implements Callback {
 					
 				}
 			}
-			else if (taskId == Constants.TASK_USER_SETONLINE) {
-				int oldStatus = mUser.online;
-				int newStatus = Constants.HTTP_ACTION_OFFLINE;
-				if (result != null) {
-					if (result instanceof ResponseModel.GeneralModel) {
-						ResponseModel.GeneralModel res_model = (ResponseModel.GeneralModel) result;
-						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-							newStatus = Constants.HTTP_ACTION_ONLINE;
-						}
-					}
-				}
-				if (oldStatus != newStatus) {
-					mUser.online = newStatus;
-					DBManager.getInstance().addOrUpdateOneUser(mUser);
-				}
-			}
+//			else if (taskId == Constants.TASK_USER_SETONLINE) {
+//				int oldStatus = mUser.online;
+//				int newStatus = Constants.HTTP_ACTION_OFFLINE;
+//				if (result != null) {
+//					if (result instanceof ResponseModel.GeneralModel) {
+//						ResponseModel.GeneralModel res_model = (ResponseModel.GeneralModel) result;
+//						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
+//							newStatus = Constants.HTTP_ACTION_ONLINE;
+//						}
+//					}
+//				}
+//				if (oldStatus != newStatus) {
+//					mUser.online = newStatus;
+//					DBManager.getInstance().addOrUpdateOneUser(mUser);
+//				}
+//			}
 			else if (taskId == Constants.TASK_GET_GCMREGID) {
 				String strResult = (String) result;
 				if(strResult.contains("Error")) {
