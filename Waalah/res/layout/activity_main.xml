@@ -58,7 +58,6 @@
                 android:layout_marginLeft="@dimen/margin_large"
                 android:layout_marginRight="@dimen/margin_large"
                 android:layout_marginTop="@dimen/margin_large"
-                android:text="Unknown User"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_normal" />
 
@@ -82,7 +81,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/margin_large"
-                    android:text="Manchester, UK"
                     android:textColor="#9d9e9f"
                     android:textSize="@dimen/text_very_small" />
             </LinearLayout>

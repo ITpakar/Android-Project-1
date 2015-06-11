@@ -54,14 +54,28 @@
         <requestFocus />
     </EditText>
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/margin_extra_large"
-        android:text="Total Account Coins: 634"
-        android:textColor="@color/mid_grey"
-        android:textSize="@dimen/text_small" />
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Account Coins: "
+            android:textColor="@color/mid_grey"
+            android:textSize="@dimen/text_small" />
+        
+        <TextView
+            android:id="@+id/txt_total_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/mid_grey"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_add_coins"

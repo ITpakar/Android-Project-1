@@ -73,10 +73,24 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				WAUser user = new WAUser();
+				user.coins = 632;
+				user.email = "test1@gmail.com";
+				user.hometown = "Manchester, UK";
+				user.id = 3;
+				user.login = "Emily Green";
+				user.password = "emily";
+				user.user_id = 3;
+				user.picture_url = "";
+
+				WAModelManager.getInstance().setSignInUser(user);
+
 				finish();
-				Intent intent = new Intent(instance, MainActivity.class);
-				intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
-				startActivity(intent);
+				
+				Intent intent_main = new Intent(instance, MainActivity.class);
+				intent_main.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
+				startActivity(intent_main);
 				
 				// TODO joseph
 

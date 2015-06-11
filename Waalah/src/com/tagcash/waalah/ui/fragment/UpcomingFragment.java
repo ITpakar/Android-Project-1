@@ -75,32 +75,32 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 		WAEvent event1 = new WAEvent();
 		event1.event_id = 0;
 		event1.event_owner = "Brandon Maslow";
-		event1.event_coin = 320;
 		event1.event_date = new Date(2015-1900, 8, 23, 12, 34);
+		event1.event_coin = 0;
 		
 		WAEvent event2 = new WAEvent();
 		event2.event_id = 1;
 		event2.event_owner = "Stanley Pauls";
-		event2.event_coin = 120;
 		event2.event_date = new Date(2015-1900, 7, 13, 12, 34);
+		event2.event_coin = 0;
 		
 		WAEvent event3 = new WAEvent();
 		event3.event_id = 2;
 		event3.event_owner = "Lana Del Ray";
-		event3.event_coin = 420;
 		event3.event_date = new Date(2015-1900, 6, 23, 12, 34);
+		event3.event_coin = 0;
 		
 		WAEvent event4 = new WAEvent();
 		event4.event_id = 3;
 		event4.event_owner = "Hayley Williams";
-		event4.event_coin = 540;
 		event4.event_date = new Date(2015-1900, 7, 1, 12, 34);
+		event4.event_coin = 0;
 		
 		WAEvent event5 = new WAEvent();
 		event5.event_id = 4;
 		event5.event_owner = "Tom O'dell";
-		event5.event_coin = 275;
 		event5.event_date = new Date(2015-1900, 6, 30, 12, 34);
+		event5.event_coin = 0;
 		
 		_resultAL.add(event1);
 		_resultAL.add(event2);
@@ -191,10 +191,9 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 				@Override
 				public void onClick(View v) {
 
-					int event_id = event.event_id; 
 					boolean is_joined = false;
 					
-					mainActivity.showDetailEventFragment(event_id, is_joined);
+					mainActivity.showDetailEventFragment(event, is_joined);
 				}
 			});
 			

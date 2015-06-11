@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,36 +22,42 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
 import com.tagcash.waalah.model.WAEvent;
+import com.tagcash.waalah.model.WAModelManager;
+import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.ui.activity.MyEventsDetailActivity;
 import com.tagcash.waalah.ui.activity.UpcomingDetailActivity;
+import com.tagcash.waalah.util.MessageUtil;
 
 public class DetailEventFragment extends Fragment implements OnClickListener {
 
 	private ArrayList<WAEvent> _resultAL = new ArrayList<WAEvent>();
 
 	private MainActivity mainActivity;
-	private int mEventId;
 	private boolean mEventJoined;
+	private WAEvent mEvent;
+	private WAUser mUser = null;
 	
 	private int event_count = 0;
 	private final static int REQUEST_CALENDAR = 10000;
 	
 	private Button btn_join;
 	private LinearLayout layout_member;
+	private TextView txt_event_coin;
 	
 	@SuppressWarnings("deprecation")
-	public DetailEventFragment(MainActivity activity, int event_id, boolean isJoined) {
+	public DetailEventFragment(MainActivity activity, WAEvent event, boolean isJoined) {
 		super();
 		
 		mainActivity = activity;
-		mEventId = event_id;
+		mEvent = event;
 		mEventJoined = isJoined;
 		
 		_resultAL.clear();
@@ -90,6 +97,9 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		_resultAL.add(event3);
 		_resultAL.add(event4);
 		_resultAL.add(event5);
+
+		mUser = WAModelManager.getInstance().getSignInUser();
+
 	}
 	
 	@Override
@@ -105,19 +115,17 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		final TextView txt_time = (TextView) v.findViewById(R.id.txt_time);
 		final TextView txt_name = (TextView) v.findViewById(R.id.txt_name);
 		final TextView txt_name1 = (TextView) v.findViewById(R.id.txt_name1);
-		final TextView txt_coins = (TextView) v.findViewById(R.id.txt_coins);
 		final TextView txt_events = (TextView) v.findViewById(R.id.txt_events);
-		
-		WAEvent event = _resultAL.get(mEventId);
-		
-		Date currentDate = Calendar.getInstance().getTime();
-		txt_time.setText(getDifference(currentDate, event.event_date));
-		txt_name.setText(event.event_owner);
-		txt_name1.setText(event.event_owner);
 		
 		layout_member = (LinearLayout) v.findViewById(R.id.layout_member);
 		btn_join = (Button) v.findViewById(R.id.btn_join);
+		txt_event_coin = (TextView) v.findViewById(R.id.txt_coins);
 
+		Date currentDate = Calendar.getInstance().getTime();
+		txt_time.setText(getDifference(currentDate, mEvent.event_date));
+		txt_name.setText(mEvent.event_owner);
+		txt_name1.setText(mEvent.event_owner);
+		txt_event_coin.setText(String.valueOf(mEvent.event_coin));
 		
 		img_menu.setOnClickListener(this);
 		layout_addcoin.setOnClickListener(this);
@@ -192,6 +200,9 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 				btn_join.setText("");
 				
 				layout_member.setVisibility(View.VISIBLE);
+				
+				mEvent.event_coin ++;
+				txt_event_coin.setText(String.valueOf(mEvent.event_coin));
 			}
 		}
 		
@@ -305,7 +316,7 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		intent.putExtra("beginTime", cal.getTimeInMillis());
 		intent.putExtra("allDay", false);
 		intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-		intent.putExtra("title", "A Test Event");
+		intent.putExtra("title", mEvent.event_owner);
 		startActivityForResult(intent, REQUEST_CALENDAR);
 	}
 	
@@ -330,15 +341,43 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View view = inflater.inflate(R.layout.dialog_add_coins, null);
+
+		final TextView txt_coins = (TextView) view.findViewById(R.id.txt_coins);
+		final EditText edt_coins = (EditText) view.findViewById(R.id.edt_coins);
+		final TextView txt_total_coins = (TextView) view.findViewById(R.id.txt_total_coin);
+		
+		txt_coins.setText(String.valueOf(mEvent.event_coin));
+		txt_total_coins.setText(String.valueOf(mUser.coins));
 		
 		Button btn_addcoins = (Button) view.findViewById(R.id.btn_add_coins);
 		btn_addcoins.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				String strCoin = edt_coins.getText().toString();
+				if (TextUtils.isEmpty(strCoin))
+				{
+					MessageUtil.showMessage("Please input coins", false);
+				}
+				else
+				{
+					int coins = Integer.valueOf(strCoin);
+					if (coins > mUser.coins)
+						MessageUtil.showMessage("Please earn more coins", false);
+					else
+					{
+						mUser.coins -= coins;
+						mEvent.event_coin += coins;
+						
+						txt_event_coin.setText(String.valueOf(mEvent.event_coin));
+					}
+				}
+				
 				dialog.hide();
 			}
 		});
+		
+
 
 		dialog.setContentView(view);
 		dialog.show();

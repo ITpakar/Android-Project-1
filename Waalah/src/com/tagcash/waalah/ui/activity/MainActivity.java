@@ -46,6 +46,7 @@ import com.tagcash.waalah.base.BaseTask;
 import com.tagcash.waalah.base.BaseTask.TaskListener;
 import com.tagcash.waalah.http.ResponseModel;
 import com.tagcash.waalah.http.Server;
+import com.tagcash.waalah.model.WAEvent;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.fragment.AddCoinFragment;
@@ -139,18 +140,6 @@ public class MainActivity extends FragmentActivity implements Callback {
 		parent_drawer_layout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		child_drawer_layout = (LinearLayout) findViewById(R.id.child_drawer_layout);
 
-//		btn_profile = findViewById(R.id.btn_profile);
-//		btn_profile.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				parent_drawer_layout.closeDrawer(child_drawer_layout);
-//				if (isLoginSuccesed) {
-//					SwitchContent(Constants.SW_FRAGMENT_PROFILE);
-//				} else {
-//					LoginWithLastAccount();
-//				}
-//			}
-//		});
 		img_user_avatar = (ImageView)findViewById(R.id.img_user_avatar);
 		txt_username = (TextView)findViewById(R.id.txt_username);
 		txt_location = (TextView)findViewById(R.id.txt_location);
@@ -201,18 +190,8 @@ public class MainActivity extends FragmentActivity implements Callback {
 		filter.addAction(Constants.ACTION_NEW_CHATMESSAGE);
 		registerReceiver(mReceiver, filter);
 
-//		mSetOnlineTask = new TimerTask() {
-//			@Override
-//			public void run() {
-//				if (mUser != null) {
-//					BaseTask task = new BaseTask(Constants.TASK_USER_SETONLINE);
-//					task.setListener(mTaskListener);
-//					task.execute();
-//				}
-//			}
-//		};
-		
-    
+	    initData();
+	    
 	    //WAUser logUser = WAModelManager.getInstance().getSignInUser();
 		SwitchContent(Constants.SW_FRAGMENT_WAALAH);
 	    
@@ -344,9 +323,9 @@ public class MainActivity extends FragmentActivity implements Callback {
 		super.onStart();
 		
 		// TODO by joseph
-//		mUser = WAModelManager.getInstance().getSignInUser();
-//		if (mUser == null)
-//			showLoginPage();
+		mUser = WAModelManager.getInstance().getSignInUser();
+		if (mUser == null)
+			showLoginPage();
 	}
 
 	@Override
@@ -927,9 +906,9 @@ public class MainActivity extends FragmentActivity implements Callback {
 		}
 	}
 	
-	public void showDetailEventFragment(int event_id, boolean isJoined)
+	public void showDetailEventFragment(WAEvent event, boolean isJoined)
 	{
-		DetailEventFragment fragment = new DetailEventFragment(this, event_id, isJoined);
+		DetailEventFragment fragment = new DetailEventFragment(this, event, isJoined);
 		mCurrentFragment = fragment;
 		mCurrentFragmentIndex = Constants.SW_FRAGMENT_DETAIL_EVENT;
 		try {

@@ -1,11 +1,13 @@
 package com.tagcash.waalah.ui.fragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,10 +20,13 @@ import android.widget.TextView;
 
 import com.tagcash.waalah.R;
 import com.tagcash.waalah.app.WAApplication;
+import com.tagcash.waalah.model.WAEvent;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.activity.MainActivity;
+import com.tagcash.waalah.util.DateTimeUtil;
 import com.tagcash.waalah.util.WAFontProvider;
+import com.tagcash.waalah.util.WAImageLoader;
 
 @SuppressLint("InflateParams")
 public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragmentInterface {
@@ -29,7 +34,7 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 	public ListView lst_events = null;
 
 	// prevent list to scroll to top
-	private ArrayList<WAUser> _resultAL = new ArrayList<WAUser>();
+	private ArrayList<WAEvent> _resultAL = new ArrayList<WAEvent>();
 	private WAUser mUser = null;
 	private MainActivity mainActivity;
 
@@ -59,31 +64,48 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 	public void onStart() {
 		super.onStart();
 
-//		GetDataFromDB();
-		
-		// TODO by joseph
 		showListTest();
-	}
-
-	private void showList() {
-		if (_resultAL.size() > 0) {
-			LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
-			lst_events.setAdapter(adapter);
-
-		}
 	}
 
 	private void showListTest() {
 		_resultAL.clear();
 		
-		WAUser user1 = new WAUser();
-		WAUser user2 = new WAUser();
-		WAUser user3 = new WAUser();
-		WAUser user4 = new WAUser();
-		_resultAL.add(user1);
-		_resultAL.add(user2);
-		_resultAL.add(user3);
-		_resultAL.add(user4);
+		WAEvent event1 = new WAEvent();
+		event1.event_id = 0;
+		event1.event_owner = "Brandon Maslow";
+		event1.event_date = new Date(2015-1900, 8, 23, 12, 34);
+		event1.event_coin = 21;
+		
+		WAEvent event2 = new WAEvent();
+		event2.event_id = 1;
+		event2.event_owner = "Stanley Pauls";
+		event2.event_date = new Date(2015-1900, 7, 13, 12, 34);
+		event2.event_coin = 10;
+		
+		WAEvent event3 = new WAEvent();
+		event3.event_id = 2;
+		event3.event_owner = "Lana Del Ray";
+		event3.event_date = new Date(2015-1900, 6, 23, 12, 34);
+		event3.event_coin = 38;
+		
+		WAEvent event4 = new WAEvent();
+		event4.event_id = 3;
+		event4.event_owner = "Hayley Williams";
+		event4.event_date = new Date(2015-1900, 7, 1, 12, 34);
+		event4.event_coin = 121;
+		
+		WAEvent event5 = new WAEvent();
+		event5.event_id = 4;
+		event5.event_owner = "Tom O'dell";
+		event5.event_date = new Date(2015-1900, 6, 30, 12, 34);
+		event5.event_coin = 59;
+		
+		_resultAL.add(event1);
+		_resultAL.add(event2);
+		_resultAL.add(event3);
+		_resultAL.add(event4);
+		_resultAL.add(event5);
+		
 		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
 		lst_events.setAdapter(adapter);
 	}
@@ -91,9 +113,9 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 	private  class LasyAdapter extends BaseAdapter {
 
 		private LayoutInflater mInflater;
-		private ArrayList<WAUser> list_data = new ArrayList<WAUser>();
+		private ArrayList<WAEvent> list_data = new ArrayList<WAEvent>();
 
-		public LasyAdapter(Context context, ArrayList<WAUser> list_data) {
+		public LasyAdapter(Context context, ArrayList<WAEvent> list_data) {
 			if (context == null)
 				context = WAApplication.getContext();
 			mInflater = LayoutInflater.from(context);
@@ -106,7 +128,7 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 		}
 
 		public Object getItem(int position) {
-			return position;
+			return list_data.get(position);
 		}
 
 		public long getItemId(int position) {
@@ -141,21 +163,29 @@ public class MyEventsFragment extends Fragment implements BaseFragment.BaseFragm
 				holder = (ViewHolder) convertView.getTag();
 			}
 			
-			// TODO by joseph
-			holder.txt_name.setText("Lana Del Ray");
-			holder.txt_coin.setText("450");
-			holder.txt_time.setText("12:34 AM  APR 23. 2015 ");
-			holder.img_background.setImageResource(R.drawable.row_myevent_back);
-        
+
+			final WAEvent event = (WAEvent) getItem(position);
+			
+			holder.txt_name.setText(event.event_owner);
+			holder.txt_coin.setText(String.valueOf(event.event_coin));
+			String format = "hh:mma • MMM dd, yyyy";
+			holder.txt_time.setText(DateTimeUtil.dateToString(event.event_date, format));
+			
+			if (TextUtils.isEmpty(event.picture_url)) {
+				holder.img_background.setImageResource(R.drawable.row_myevent_back);
+			}else {
+				WAImageLoader.showImage(holder.img_background, event.picture_url);
+			}
+				
 			convertView.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					// TODO by joseph
-					int event_id = 0; // from position
-					boolean is_joined = true; // from position
 					
-					mainActivity.showDetailEventFragment(event_id, is_joined);
+					int event_id = event.event_id; 
+					boolean is_joined = true;
+					
+					mainActivity.showDetailEventFragment(event, is_joined);
 				}
 			});
 			return convertView;
