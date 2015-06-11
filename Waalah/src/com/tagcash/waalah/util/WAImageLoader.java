@@ -93,18 +93,11 @@ public class WAImageLoader {
 		}
 	}
 	
-	public static void showImage(ImageView imgView, String url, int type) {
+	public static void showImage(ImageView imgView, String url) {
 		if (TextUtils.isEmpty(url))
 			return;
 		
 		DisplayImageOptions option = normal_options;
-		if (type == IMG_TYPE.MALE) {
-			option = male_options;
-		} else if (type == IMG_TYPE.FEMALE) {
-			option = female_options;
-		} else if (type == IMG_TYPE.CAMERA) {
-			option = camera_options;
-		}
 		
 		try {
 			instance.displayImage(url, imgView, option, animateFirstListener);

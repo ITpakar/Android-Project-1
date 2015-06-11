@@ -2,7 +2,6 @@ package com.tagcash.waalah.ui.activity;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -25,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.Surface;
@@ -44,7 +44,6 @@ import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
 import com.tagcash.waalah.base.BaseTask;
 import com.tagcash.waalah.base.BaseTask.TaskListener;
-import com.tagcash.waalah.database.DBManager;
 import com.tagcash.waalah.http.ResponseModel;
 import com.tagcash.waalah.http.Server;
 import com.tagcash.waalah.model.WAModelManager;
@@ -55,6 +54,8 @@ import com.tagcash.waalah.ui.fragment.FreeCoinFragment;
 import com.tagcash.waalah.ui.fragment.MainFragment;
 import com.tagcash.waalah.ui.fragment.PurchaseFragment;
 import com.tagcash.waalah.util.FacebookUtils;
+import com.tagcash.waalah.util.IabHelper;
+import com.tagcash.waalah.util.IabResult;
 import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.util.WAImageLoader;
@@ -62,6 +63,7 @@ import com.tagcash.waalah.util.WAPreferenceManager;
 
 public class MainActivity extends FragmentActivity implements Callback {
 
+	private static String TAG = "MainActivity";
 	public static MainActivity instance = null;
 	public static int REQUEST_MESSAGEACTIVITY_CODE = 1000;
 	
@@ -107,6 +109,8 @@ public class MainActivity extends FragmentActivity implements Callback {
 	}
 	private ArrayList<LeftMenuItem> left_menu_list_data = new ArrayList<MainActivity.LeftMenuItem>();
 	public AppPreferences prefs;
+
+	IabHelper mHelper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -213,7 +217,34 @@ public class MainActivity extends FragmentActivity implements Callback {
 		SwitchContent(Constants.SW_FRAGMENT_WAALAH);
 	    
 	    // tmp make db file
-	    //SqliteUtil.exportSQLite(MainActivity.this, "healthchat.db", "healthchat.db");
+		//SqliteUtil.exportSQLite(MainActivity.this, "healthchat.db", "healthchat.db");
+
+		// compute your public key and store it in base64EncodedPublicKey
+		mHelper = new IabHelper(this, Constants.BILLING_PUBLIC_KEY);
+
+        // enable debug logging (for a production application, you should set this to false).
+        mHelper.enableDebugLogging(true);
+
+        // Start setup. This is asynchronous and the specified listener
+        // will be called once setup completes.
+        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            public void onIabSetupFinished(IabResult result) {
+                Log.d(TAG, "Setup finished.");
+
+                if (!result.isSuccess()) {
+                    // Oh noes, there was a problem.
+                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                }
+
+                // Have we been disposed of in the meantime? If so, quit.
+                if (mHelper == null) return;
+
+                // IAB is fully set up. Now, let's get an inventory of stuff we own.
+                Log.d(TAG, "Setup successful. Querying inventory.");
+                
+//                mHelper.queryInventoryAsync(mGotInventoryListener);
+            }
+        });
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -328,6 +359,10 @@ public class MainActivity extends FragmentActivity implements Callback {
 	public void onDestroy() {
     	unregisterReceiver(mReceiver);
 		super.onDestroy();
+
+		if (mHelper != null) mHelper.dispose();
+		mHelper = null;
+
 		System.out.println(" ######### MainActivity onDestroy ######### ");
 	}
 	

@@ -41,7 +41,7 @@ import com.tagcash.waalah.R;
 public class StaggeredGridView extends ExtendableListView {
 
     private static final String TAG = "StaggeredGridView";
-    private static final boolean DBG = false;
+    private static final boolean DBG = true;
 
     private static final int DEFAULT_COLUMNS_PORTRAIT = 2;
     private static final int DEFAULT_COLUMNS_LANDSCAPE = 3;

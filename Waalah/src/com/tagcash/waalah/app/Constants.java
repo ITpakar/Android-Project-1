@@ -212,4 +212,10 @@ public class Constants {
 	public static final int PIICTURE_TAKE_NONE = 0;
 	public static final int PIICTURE_TAKE_CAMERA = 1;
 	public static final int PIICTURE_TAKE_GALLERY = 2;
+	
+	/*
+	 * Google Play billing
+	 */
+	
+	public static final String BILLING_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkirwC/1jalSx0MLRpr04Hd5BT4LS5VukEzGrdSLq3q22Dq47MZhzP9eDXmyfimbg66lJsXm5HEHwng5IiQi+MzjOzp/+YP+DsslUGio1oGqcrt95uY1yPhYrX2OOgJwbuAV4IrgylOFR89h1+Q7IZIBDZACFGDDwelzLfwDhlhIh/CUa9MXeea1pEcw4U6BCrYCP0Viryn24LtLE4B9+X6lbgFZKemjYBtg5SW8xvvXsFLpeZBdVqgnmr73ASnxHS6wEjYKZHSOmiGKF5HBK0JFsmIK6r0DSHs378bcDTWsOC7s6dxlwoRbcBVOgxo4yt43Iio87W4Gax7mLVKpKlwIDAQAB"; 
 }
