@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:choiceMode="singleChoice"
         android:dividerHeight="0dp"
-        android:footerDividersEnabled="false" />
+        android:footerDividersEnabled="false"
+        android:scrollbars="none" />
     
 </LinearLayout>
