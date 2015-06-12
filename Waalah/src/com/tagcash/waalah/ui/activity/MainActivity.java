@@ -27,9 +27,9 @@ import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.TextUtils;
@@ -79,8 +79,6 @@ import com.tagcash.waalah.ui.fragment.IncomeCallFragment;
 import com.tagcash.waalah.ui.fragment.MainFragment;
 import com.tagcash.waalah.ui.fragment.PurchaseFragment;
 import com.tagcash.waalah.util.FacebookUtils;
-import com.tagcash.waalah.util.IabHelper;
-import com.tagcash.waalah.util.IabResult;
 import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.util.WAImageLoader;
@@ -133,7 +131,6 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 	private ArrayList<LeftMenuItem> left_menu_list_data = new ArrayList<MainActivity.LeftMenuItem>();
 	public AppPreferences prefs;
 
-	IabHelper mHelper;
 
     public static final String CONFERENCE_TYPE = "conference_type";
     public static final String OPPONENTS_CALL_FRAGMENT = "opponents_call_fragment";
@@ -239,33 +236,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 	    // tmp make db file
 		//SqliteUtil.exportSQLite(MainActivity.this, "healthchat.db", "healthchat.db");
 
-		// compute your public key and store it in base64EncodedPublicKey
-		mHelper = new IabHelper(this, Constants.BILLING_PUBLIC_KEY);
 
-        // enable debug logging (for a production application, you should set this to false).
-        mHelper.enableDebugLogging(true);
-
-        // Start setup. This is asynchronous and the specified listener
-        // will be called once setup completes.
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                Log.d(TAG, "Setup finished.");
-
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
-                }
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                Log.d(TAG, "Setup successful. Querying inventory.");
-                
-//                mHelper.queryInventoryAsync(mGotInventoryListener);
-            }
-        });
-        
         // Quickblox
         QBSettings.getInstance().fastConfigInit(Constants.APP_ID, Constants.AUTH_KEY, Constants.AUTH_SECRET);
 
@@ -276,6 +247,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
         
 	}
 	
+   
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
@@ -390,9 +362,6 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 	public void onDestroy() {
     	unregisterReceiver(mReceiver);
 		super.onDestroy();
-
-		if (mHelper != null) mHelper.dispose();
-		mHelper = null;
 
 		if (QBChatService.isInitialized()) {
 			QBRTCClient.getInstance().close();
