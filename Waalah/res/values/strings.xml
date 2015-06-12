@@ -91,5 +91,9 @@
     <string name="user_already_registered">Email or Username was already registered.</string>
     
     <string name="topic_alert">The topic already existed. Please create a different topic.</string>
-
+    
+    <!-- video call -->
+    <string name="incoming_video_call">Incoming Video Call</string>
+    <string name="incoming_audio_call">Incoming Audio Call</string>
+    
 </resources>

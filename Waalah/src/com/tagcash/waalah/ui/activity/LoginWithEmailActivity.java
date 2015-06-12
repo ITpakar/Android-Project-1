@@ -246,9 +246,9 @@ public class LoginWithEmailActivity extends BaseActivity {
 						+ "****************************************************************\n\n\n"
 						+ "Please keep your security of your password.\n"
 						+ "Hope your kind feedback to our service.\n\n\n"
-						+ "Best Regards.\n\nHealthChat Support Team.";
+						+ "Best Regards.\n\nWaalah Support Team.";
 
-				sender.sendMail("HealthChat: Retreive Password", body, Constants.HEALTHCHAT_EMAIL_ADDRESS, users[0].email);
+				sender.sendMail("Waalah: Retreive Password", body, Constants.HEALTHCHAT_EMAIL_ADDRESS, users[0].email);
 
 				return "Sent email successfully";
 

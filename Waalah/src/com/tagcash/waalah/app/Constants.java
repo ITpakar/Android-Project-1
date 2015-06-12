@@ -217,5 +217,13 @@ public class Constants {
 	 * Google Play billing
 	 */
 	
-	public static final String BILLING_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkirwC/1jalSx0MLRpr04Hd5BT4LS5VukEzGrdSLq3q22Dq47MZhzP9eDXmyfimbg66lJsXm5HEHwng5IiQi+MzjOzp/+YP+DsslUGio1oGqcrt95uY1yPhYrX2OOgJwbuAV4IrgylOFR89h1+Q7IZIBDZACFGDDwelzLfwDhlhIh/CUa9MXeea1pEcw4U6BCrYCP0Viryn24LtLE4B9+X6lbgFZKemjYBtg5SW8xvvXsFLpeZBdVqgnmr73ASnxHS6wEjYKZHSOmiGKF5HBK0JFsmIK6r0DSHs378bcDTWsOC7s6dxlwoRbcBVOgxo4yt43Iio87W4Gax7mLVKpKlwIDAQAB"; 
+	public static final String BILLING_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkirwC/1jalSx0MLRpr04Hd5BT4LS5VukEzGrdSLq3q22Dq47MZhzP9eDXmyfimbg66lJsXm5HEHwng5IiQi+MzjOzp/+YP+DsslUGio1oGqcrt95uY1yPhYrX2OOgJwbuAV4IrgylOFR89h1+Q7IZIBDZACFGDDwelzLfwDhlhIh/CUa9MXeea1pEcw4U6BCrYCP0Viryn24LtLE4B9+X6lbgFZKemjYBtg5SW8xvvXsFLpeZBdVqgnmr73ASnxHS6wEjYKZHSOmiGKF5HBK0JFsmIK6r0DSHs378bcDTWsOC7s6dxlwoRbcBVOgxo4yt43Iio87W4Gax7mLVKpKlwIDAQAB";
+	
+	/*
+	 * QuickBlox Constants
+	 */
+	public static final String APP_ID = "24217";
+	public static final String AUTH_KEY	= "42vOuhnUpevybEk";
+	public static final String AUTH_SECRET = "7ex-Lbd9ZRhAwVR";
+	
 }

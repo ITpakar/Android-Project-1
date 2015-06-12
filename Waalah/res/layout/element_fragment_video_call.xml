@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res/com.tagcash.waalah"
+    android:id="@+id/actionVideoButtons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/selfVideoView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        />    
+    
+    <com.todddavies.components.progressbar.ProgressWheel
+        android:id="@+id/pw_spinner"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        ProgressWheel:barColor="@color/mid_grey"
+        ProgressWheel:barLength="60dp"
+        ProgressWheel:barWidth="1dp"
+        ProgressWheel:rimColor="#330097D6"
+        ProgressWheel:rimWidth="2dp"
+        ProgressWheel:text="1:05"
+        ProgressWheel:textColor="@color/mid_grey"
+        ProgressWheel:textSize="14sp" />
+    
+    <ImageView
+        android:id="@+id/img_end_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_endcall" />
+"
+    
+</LinearLayout>
