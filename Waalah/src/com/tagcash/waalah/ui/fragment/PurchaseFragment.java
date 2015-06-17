@@ -1,6 +1,7 @@
 package com.tagcash.waalah.ui.fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,8 +9,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,7 +45,7 @@ public class PurchaseFragment extends Fragment implements OnClickListener {
 	IabHelper mHelper;
 
 
-	private ArrayList<WAPurchase> _resultAL = new ArrayList<WAPurchase>();
+	private ArrayList<WAPurchase> list_data = new ArrayList<WAPurchase>();
 	
 	public PurchaseFragment(MainActivity activity) {
 		super();
@@ -66,6 +67,7 @@ public class PurchaseFragment extends Fragment implements OnClickListener {
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
                     Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                    return;
                 }
 
                 // Have we been disposed of in the meantime? If so, quit.
@@ -74,7 +76,12 @@ public class PurchaseFragment extends Fragment implements OnClickListener {
                 // IAB is fully set up. Now, let's get an inventory of stuff we own.
                 Log.d(TAG, "Setup successful. Querying inventory.");
                 
-                mHelper.queryInventoryAsync(mGotInventoryListener);
+                List<String> additionalSkuList = new ArrayList<String>();
+                additionalSkuList.add(SKU_COIN_1);
+//                additionalSkuList.add(SKU_BANANA);
+                mHelper.queryInventoryAsync(true, additionalSkuList, mGotInventoryListener);
+
+//                mHelper.queryInventoryAsync(mGotInventoryListener);
             }
         });
 	}
@@ -131,29 +138,16 @@ public class PurchaseFragment extends Fragment implements OnClickListener {
              * verifyDeveloperPayload().
              */
 
-            // Do we have the premium upgrade?
-//            Purchase premiumPurchase = inventory.getPurchase(SKU_PREMIUM);
-//            mIsPremium = (premiumPurchase != null && verifyDeveloperPayload(premiumPurchase));
-//            Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
-//
-//            // Do we have the infinite gas plan?
-//            Purchase infiniteGasPurchase = inventory.getPurchase(SKU_INFINITE_GAS);
-//            mSubscribedToInfiniteGas = (infiniteGasPurchase != null &&
-//                    verifyDeveloperPayload(infiniteGasPurchase));
-//            Log.d(TAG, "User " + (mSubscribedToInfiniteGas ? "HAS" : "DOES NOT HAVE")
-//                        + " infinite gas subscription.");
-//            if (mSubscribedToInfiniteGas) mTank = TANK_MAX;
-//
-//            // Check for gas delivery -- if we own gas, we should fill up the tank immediately
-//            Purchase gasPurchase = inventory.getPurchase(SKU_GAS);
-//            if (gasPurchase != null && verifyDeveloperPayload(gasPurchase)) {
-//                Log.d(TAG, "We have gas. Consuming it.");
-//                mHelper.consumeAsync(inventory.getPurchase(SKU_GAS), mConsumeFinishedListener);
-//                return;
-//            }
-//
-//            updateUi();
-//            setWaitScreen(false);
+
+//            String coin1_price = inventory.getSkuDetails(SKU_COIN_1).getPrice();
+//            String coin1_title = inventory.getSkuDetails(SKU_COIN_1).getTitle();
+//            WAPurchase purchase = new WAPurchase();
+//            purchase.price = coin1_price;
+//            purchase.title = coin1_title;
+//            
+//            list_data.add(purchase);
+            lst_purchase.invalidate();      
+            
             Log.d(TAG, "Initial inventory query finished; enabling main UI.");
         }
     };
@@ -202,23 +196,21 @@ public class PurchaseFragment extends Fragment implements OnClickListener {
 	}
 
 	private void showListTest() {
-		_resultAL.clear();
+		list_data.clear();
 		
 		
-		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
+		LasyAdapter adapter = new LasyAdapter(this.getActivity());
 		lst_purchase.setAdapter(adapter);
 	}
 	
 	private  class LasyAdapter extends BaseAdapter {
 
 		private LayoutInflater mInflater;
-		private ArrayList<WAPurchase> list_data = new ArrayList<WAPurchase>();
 
-		public LasyAdapter(Context context, ArrayList<WAPurchase> list_data) {
+		public LasyAdapter(Context context) {
 			if (context == null)
 				context = WAApplication.getContext();
 			mInflater = LayoutInflater.from(context);
-			this.list_data = list_data;
 		}
 
 		public int getCount() {

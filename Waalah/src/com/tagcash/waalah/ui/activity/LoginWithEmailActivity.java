@@ -75,12 +75,14 @@ public class LoginWithEmailActivity extends BaseActivity {
 			public void onClick(View v) {
 				
 				WAUser user = new WAUser();
-				user.coins = 632;
-				user.email = "test1@gmail.com";
-				user.hometown = "Manchester, UK";
+				
 				user.id = 3;
-				user.login = "Emily Green";
-				user.password = "emily";
+				user.fullname = "Emily Green";
+				user.login = "emily";
+				user.password = "emily123";
+				user.email = "emily@gmail.com";
+				user.hometown = "Manchester, UK";
+				user.coins = 632;
 				user.user_id = 3;
 				user.picture_url = "";
 

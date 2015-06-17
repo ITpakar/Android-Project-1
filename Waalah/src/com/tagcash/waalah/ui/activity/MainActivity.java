@@ -349,7 +349,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 		if (mUser == null)
 			showLoginPage();
 		
-//		createSession(mUser.login, mUser.password);
+		createSession(mUser.login, mUser.password);
 	}
 
 	@Override
@@ -484,7 +484,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 			else
 				WAImageLoader.showImage(img_user_avatar, mUser.picture_url, "Male");
 
-			txt_username.setText(mUser.login);
+			txt_username.setText(mUser.fullname);
 			txt_location.setText(mUser.hometown);
 			
 		}
@@ -1021,8 +1021,6 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
                         Log.d(TAG, "onSuccess login to chat with params");
 //                        Intent intent = new Intent(ListUsersActivity.this, CallActivity.class);
 //                        intent.putExtra("login", login);
-                        
-                        initQBRTCClient();
                     }
 
                     @Override
@@ -1050,7 +1048,6 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
             public void onSuccess() {
                 super.onSuccess();
                 Log.d(TAG, "onSuccess create session");
-                initQBRTCClient();
             }
 
             @Override
@@ -1326,32 +1323,62 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
     }
 
 
-    public void addConversationFragmentStartCall(List<Integer> opponents,
-                                                 QBRTCTypes.QBConferenceType qbConferenceType,
-                                                 Map<String, String> userInfo) {
+//    public void addConversationFragmentStartCall(List<Integer> opponents,
+//                                                 QBRTCTypes.QBConferenceType qbConferenceType,
+//                                                 Map<String, String> userInfo) {
+//
+//        // init session for new call
+//        try {
+//            QBRTCSession newSessionWithOpponents = QBRTCClient.getInstance().createNewSessionWithOpponents(opponents, qbConferenceType);
+//            setCurrentSession(newSessionWithOpponents);
+//
+//            ConversationFragment fragment = new ConversationFragment(this);
+//            Bundle bundle = new Bundle();
+//
+//            bundle.putInt(CONFERENCE_TYPE, qbConferenceType.getValue());
+//            bundle.putInt(START_CONVERSATION_REASON, StartConversetionReason.OUTCOME_CALL_MADE.ordinal());
+////            bundle.putString(CALLER_NAME, DataHolder.getUserNameByID(opponents.get(0)));
+//
+//            for (String key : userInfo.keySet()) {
+//                bundle.putString("UserInfo:" + key, userInfo.get(key));
+//            }
+//            fragment.setArguments(bundle);
+//            getFragmentManager().beginTransaction().replace(R.id.main_content_frame, fragment, CONVERSATION_CALL_FRAGMENT).commit();
+//        } catch (IllegalStateException e) {
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
+    
+    public void addConversationFragmentStartCall(String sessionID) {
 
-        // init session for new call
-        try {
-            QBRTCSession newSessionWithOpponents = QBRTCClient.getInstance().createNewSessionWithOpponents(opponents, qbConferenceType);
-            setCurrentSession(newSessionWithOpponents);
+		QBRTCTypes.QBConferenceType qbConferenceType = QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_VIDEO;
 
-            ConversationFragment fragment = new ConversationFragment(this);
-            Bundle bundle = new Bundle();
+    	// init session for new call
+    	try {
+            ArrayList<Integer> opponents = new ArrayList<Integer>();
+            opponents.add(Integer.valueOf("3569055"));
+            
+    		QBRTCSession newSessionWithOpponents = QBRTCClient.getInstance().createNewSessionWithOpponents(opponents, qbConferenceType);
+    		setCurrentSession(newSessionWithOpponents);
 
-            bundle.putInt(CONFERENCE_TYPE, qbConferenceType.getValue());
-            bundle.putInt(START_CONVERSATION_REASON, StartConversetionReason.OUTCOME_CALL_MADE.ordinal());
-//            bundle.putString(CALLER_NAME, DataHolder.getUserNameByID(opponents.get(0)));
+    		ConversationFragment fragment = new ConversationFragment(this);
+    		Bundle bundle = new Bundle();
 
-            for (String key : userInfo.keySet()) {
-                bundle.putString("UserInfo:" + key, userInfo.get(key));
-            }
-            fragment.setArguments(bundle);
-            getFragmentManager().beginTransaction().replace(R.id.main_content_frame, fragment, CONVERSATION_CALL_FRAGMENT).commit();
-        } catch (IllegalStateException e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+    		bundle.putInt(CONFERENCE_TYPE, qbConferenceType.getValue());
+    		bundle.putInt(START_CONVERSATION_REASON, StartConversetionReason.OUTCOME_CALL_MADE.ordinal());
+    		//bundle.putString(CALLER_NAME, DataHolder.getUserNameByID(opponents.get(0)));
 
-    }
+//    		for (String key : userInfo.keySet()) {
+//    			bundle.putString("UserInfo:" + key, userInfo.get(key));
+//    		}
+    		fragment.setArguments(bundle);
+    		getFragmentManager().beginTransaction().replace(R.id.main_content_frame, fragment, CONVERSATION_CALL_FRAGMENT).commit();
+    	} catch (IllegalStateException e) {
+    		Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+    	}
+
+}
 
     public void addConversationFragmentReceiveCall(String sessionID) {
 
@@ -1368,7 +1395,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
         Bundle bundle = new Bundle();
         bundle.putInt(CONFERENCE_TYPE, session.getConferenceType().getValue());
         bundle.putInt(START_CONVERSATION_REASON, StartConversetionReason.INCOME_CALL_FOR_ACCEPTION.ordinal());
-        bundle.putString(SESSION_ID, sessionID);
+//        bundle.putString(SESSION_ID, sessionID);
 //        bundle.putString(CALLER_NAME, DataHolder.getUserNameByID(session.getCallerID()));
 
         if (session.getUserInfo() != null) {

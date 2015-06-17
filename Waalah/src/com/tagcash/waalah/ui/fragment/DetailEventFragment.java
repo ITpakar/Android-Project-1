@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -46,7 +45,12 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 	private WAUser mUser = null;
 	
 	private int event_count = 0;
+	
 	private final static int REQUEST_CALENDAR = 10000;
+	private final static int REQUEST_MYEVENTS = 10001;
+	private final static int REQUEST_UPCOMING = 10002;
+	
+	public final static String REQUEST_VALUE_USER_ID = "user_id";
 	
 	private Button btn_join;
 	private LinearLayout layout_member;
@@ -205,6 +209,19 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 				txt_event_coin.setText(String.valueOf(mEvent.event_coin));
 			}
 		}
+		else if (requestCode == REQUEST_MYEVENTS)
+		{
+			if (resultCode == mainActivity.RESULT_OK)
+			{
+				String user_id = data.getStringExtra(REQUEST_VALUE_USER_ID);
+				
+				mainActivity.addConversationFragmentStartCall(user_id);
+			}
+		}
+		else if (requestCode == REQUEST_UPCOMING)
+		{
+			
+		}
 		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -253,12 +270,12 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 			if (mEventJoined == true)
 			{
 				Intent intent = new Intent(this.getActivity(), MyEventsDetailActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_MYEVENTS);
 			}
 			else
 			{
 				Intent intent = new Intent(this.getActivity(), UpcomingDetailActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent,  REQUEST_UPCOMING);
 			}
 			break;
 			

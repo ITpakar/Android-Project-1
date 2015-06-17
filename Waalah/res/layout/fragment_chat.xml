@@ -8,10 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/img_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_very_large"
+        android:src="@drawable/ic_menu" />
+
     <include
         android:id="@+id/element_set_video_buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         layout="@layout/element_fragment_video_call" />

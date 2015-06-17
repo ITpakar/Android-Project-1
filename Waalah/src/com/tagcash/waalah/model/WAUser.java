@@ -13,6 +13,7 @@ public class WAUser {
 	public String email;
 	public String login;
 	public String password;
+	public String fullname;
 	public String picture_url;
 	public String hometown; 
 	public int coins;
@@ -25,6 +26,7 @@ public class WAUser {
 		this.picture_url = "";
 		this.hometown = "";
 		this.coins = 0;
+		this.fullname = "";
 	}
 
 	public WAUser() {
@@ -42,5 +44,6 @@ public class WAUser {
 		picture_url = user.picture_url;
 		hometown = user.hometown;
 		coins = user.coins;
+		fullname = user.fullname;
 	}
 }

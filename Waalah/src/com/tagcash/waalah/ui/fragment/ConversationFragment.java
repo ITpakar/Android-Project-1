@@ -1,5 +1,11 @@
 package com.tagcash.waalah.ui.fragment;
 
+import java.io.Serializable;
+import java.util.Map;
+
+import org.webrtc.VideoRenderer;
+import org.webrtc.VideoRendererGui;
+
 import android.app.Fragment;
 import android.media.MediaPlayer;
 import android.opengl.GLSurfaceView;
@@ -8,23 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
-import com.tagcash.waalah.R;
-import com.tagcash.waalah.ui.activity.MainActivity;
-import com.quickblox.core.exception.QBResponseException;
-import com.quickblox.users.QBUsers;
-import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.QBRTCTypes;
-
-import org.webrtc.VideoRenderer;
-import org.webrtc.VideoRendererGui;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.tagcash.waalah.R;
+import com.tagcash.waalah.ui.activity.MainActivity;
 
 
 public class ConversationFragment extends Fragment implements Serializable {
@@ -32,16 +27,16 @@ public class ConversationFragment extends Fragment implements Serializable {
     private String TAG = "ConversationFragment";
     private int qbConferenceType;
     private int startReason;
-    //    private QBGLVideoView videoView;
+
     private GLSurfaceView videoView;
-    //    private QBRTCSessionDescription sessionDescription;
+    private GLSurfaceView selfVideoView;
+
     private static VideoRenderer.Callbacks REMOTE_RENDERER;
 
-    private ImageButton handUpVideoCall;
+    private ImageView handUpVideoCall;
     private View view;
     private Map<String, String> userInfo;
 
-    private String callerName;
     private boolean isMessageProcessed;
     private MediaPlayer ringtone;
 
@@ -60,11 +55,7 @@ public class ConversationFragment extends Fragment implements Serializable {
         Log.d(TAG, "Fragment. Thread id: " + Thread.currentThread().getId());
 
         if (getArguments() != null) {
-            startReason = getArguments().getInt(mainActivity.START_CONVERSATION_REASON);
-            callerName = getArguments().getString(mainActivity.CALLER_NAME);
-
-            Log.d("Track", "CALLER_NAME: " + callerName);
-
+            startReason = getArguments().getInt(MainActivity.START_CONVERSATION_REASON);
         }
 
         initViews(view);
@@ -93,11 +84,13 @@ public class ConversationFragment extends Fragment implements Serializable {
 
 
         videoView.setEnabled(enability);
+        selfVideoView.setEnabled(enability);
         handUpVideoCall.setEnabled(enability);
 
 
         // inactivate toggle buttons
         videoView.setActivated(enability);
+        selfVideoView.setActivated(enability);
     }
 
 
@@ -149,9 +142,9 @@ public class ConversationFragment extends Fragment implements Serializable {
     private void initViews(View view) {
 
         videoView = (GLSurfaceView) view.findViewById(R.id.videoView);
+        selfVideoView = (GLSurfaceView) view.findViewById(R.id.selfVideoView);
 
-
-        handUpVideoCall = (ImageButton) view.findViewById(R.id.img_end_call);
+        handUpVideoCall = (ImageView) view.findViewById(R.id.img_end_call);
     }
 
 
