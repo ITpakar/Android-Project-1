@@ -2,31 +2,33 @@ package com.tagcash.waalah.model;
 
 import com.tagcash.waalah.util.MD5Util;
 
-import android.location.Location;
-
 public class WAUser {
 	public static final String DEFAULT_PASSWORD = MD5Util.getMD5("socialpassword");  // for facebook, twitter, google
 
-
-	public int id; // primary key
-	public int user_id;
-	public String email;
-	public String login;
+	public int id;
+	public String username;
 	public String password;
-	public String fullname;
+	public String email;
+	public String firstname;
+	public String lastname;
+	public String address;
+	public String city;
+	public String state;
+	public String zip;
+	public String country;
+	public String api_token;
+	public String quickblox_id;
+	public String allow_notifications;
 	public String picture_url;
-	public String hometown; 
 	public int coins;
 	
 	private void init() {
-		this.user_id = 0;
+		this.id = 0;
 		this.email = "";
-		this.login = "";
+		this.username = "";
 		this.password = "";
 		this.picture_url = "";
-		this.hometown = "";
 		this.coins = 0;
-		this.fullname = "";
 	}
 
 	public WAUser() {
@@ -37,13 +39,23 @@ public class WAUser {
 		init();
 		if (user == null)
 			return;
-		
-		user_id = user.user_id;
+
+		id = user.id;
+		username = user.username;
+		password = user.password;
 		email = user.email;
-		login = user.login;
+		firstname = user.firstname;
+		lastname = user.lastname;
+		address = user.address;
+		city = user.city;
+		state = user.state;
+		zip = user.zip;
+		country = user.country;
+		api_token = user.api_token;
+		quickblox_id = user.quickblox_id;
+		allow_notifications = user.allow_notifications;
 		picture_url = user.picture_url;
-		hometown = user.hometown;
 		coins = user.coins;
-		fullname = user.fullname;
+
 	}
 }

@@ -244,7 +244,6 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
             QBChatService.init(this);
             chatService = QBChatService.getInstance();
         }
-        
 	}
 	
    
@@ -349,7 +348,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 		if (mUser == null)
 			showLoginPage();
 		
-		createSession(mUser.login, mUser.password);
+		createSession(mUser.username, mUser.password);
 	}
 
 	@Override
@@ -484,8 +483,8 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 			else
 				WAImageLoader.showImage(img_user_avatar, mUser.picture_url, "Male");
 
-			txt_username.setText(mUser.fullname);
-			txt_location.setText(mUser.hometown);
+			txt_username.setText(mUser.firstname + " " + mUser.lastname);
+			txt_location.setText(mUser.city + ", " + mUser.country);
 			
 		}
 
@@ -708,42 +707,29 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 				ArrayList<String> strs = (ArrayList<String>) data;
 				result = Server.Login(strs.get(0), strs.get(1));
 			}
-			else if (taskId == Constants.TASK_GET_GCMREGID) {
-	            String msg = "";
-//	            try {
-//	                if (gcm == null) {
-//	                    gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-//	                }
-//	                regid = gcm.register(SENDER_ID);
-//	                msg = "Device registered, registration ID=" + regid;
-//	            } catch (IOException ex) {
-//	                msg = "Error :" + ex.getMessage();
-//	                // If there is an error, don't just keep trying to register.
-//	                // Require the user to click a button again, or perform
-//	                // exponential back-off.
-//	            }
-	            return msg;
+			else if (taskId == Constants.TASK_USER_GETME) {
+				
 			}
+
 			return result;
 		}
 		
 		@Override
 		public void onTaskResult(int taskId, Object result) {
-			if (taskId == Constants.TASK_USER_LOGIN) {
+			if (taskId == Constants.TASK_USER_GETME) {
 				if (result != null) {
 					if (result instanceof ResponseModel.LoginResultModel) {
 						ResponseModel.LoginResultModel res_model = (ResponseModel.LoginResultModel) result;
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-							//MessageUtil.showMessage("Login success.", false);
 							
 							// getUserInformation
-							mUser = new WAUser();
-							mUser.user_id = res_model.user.uid;
-							mUser.email = res_model.user.email;
-							mUser.login = res_model.user.name;
-							mUser.password = res_model.user.password;
-							mUser.hometown = res_model.user.address;
-							mUser.picture_url = res_model.user.picture_url;
+//							mUser = new WAUser();
+//							mUser.user_id = res_model.user.uid;
+//							mUser.email = res_model.user.email;
+//							mUser.login = res_model.user.name;
+//							mUser.password = res_model.user.password;
+//							mUser.hometown = res_model.user.address;
+//							mUser.picture_url = res_model.user.picture_url;
 
 							WAModelManager.getInstance().setSignInUser(mUser);
 							
@@ -751,7 +737,7 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 						}
 						else {
 							// error
-							MessageUtil.showMessage(res_model.msg, false);
+							MessageUtil.showMessage(res_model.reason, false);
 							showLoginPage();
 						}
 					}
@@ -759,45 +745,6 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 				else {
 					
 				}
-			}
-//			else if (taskId == Constants.TASK_USER_SETONLINE) {
-//				int oldStatus = mUser.online;
-//				int newStatus = Constants.HTTP_ACTION_OFFLINE;
-//				if (result != null) {
-//					if (result instanceof ResponseModel.GeneralModel) {
-//						ResponseModel.GeneralModel res_model = (ResponseModel.GeneralModel) result;
-//						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-//							newStatus = Constants.HTTP_ACTION_ONLINE;
-//						}
-//					}
-//				}
-//				if (oldStatus != newStatus) {
-//					mUser.online = newStatus;
-//					DBManager.getInstance().addOrUpdateOneUser(mUser);
-//				}
-//			}
-			else if (taskId == Constants.TASK_GET_GCMREGID) {
-				String strResult = (String) result;
-				if(strResult.contains("Error")) {
-					MessageUtil.showMessage("Cannot register device to GCM...", true);
-				}
-				else {
-	                // You should send the registration ID to your server over HTTP,
-	                // so it can use GCM/HTTP or CCS to send messages to your app.
-	                // The request to your server should be authenticated if your app
-	                // is using accounts.
-	                sendRegistrationIdToBackend();
-
-	                // For this demo: we don't need to send it because the device
-	                // will send upstream messages to a server that echo back the
-	                // message using the 'from' address in the message.
-
-	                // Persist the regID - no need to register again.
-	                storeRegistrationId(getApplicationContext(), regid);
-				}
-
-				// login
-        		LoginWithLastAccount();
 			}
 			
 			if (taskId == Constants.TASK_USER_LOGIN) {

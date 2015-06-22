@@ -1,5 +1,6 @@
 package com.tagcash.waalah.ui.activity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,7 +41,6 @@ public class SignUpActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
 
-		// 1st page
 		edt_email = (EditText) findViewById(R.id.edt_email);
 		edt_username = (EditText) findViewById(R.id.edt_username);
 		edt_password = (EditText) findViewById(R.id.edt_password);
@@ -117,26 +117,29 @@ public class SignUpActivity extends BaseActivity {
 				boolean bShow = false;
 				if (result != null) {
 					if (result instanceof ResponseModel.RegisterModel) {
+						
 						ResponseModel.RegisterModel res_model = (ResponseModel.RegisterModel) result;
+						
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-							//MessageUtil.showMessage(res_model.msg, false);
+							
 							// if register success, using that information, start login
 							BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
 							loginTask.setListener(mTaskListener);
 							loginTask.execute();
+							
 							bShow = true;
 						}
 						else {
 							// error
-							if (res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_NAMEOREMAIL_ALREADY_REGISTERED ||
-								res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_NAME_ALREADY_REGISTERED ||
-								res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_EMAIL_ALREADY_REGISTERED) {
+							if (res_model.status == Constants.HTTP_ACTION_ERRORCODE_NAMEOREMAIL_ALREADY_REGISTERED ||
+								res_model.status == Constants.HTTP_ACTION_ERRORCODE_NAME_ALREADY_REGISTERED ||
+								res_model.status == Constants.HTTP_ACTION_ERRORCODE_EMAIL_ALREADY_REGISTERED) {
 								MessageUtil.showMessage(getString(R.string.user_already_registered), false);
 								dlg_progress.hide();
 								onBackPressed();
 							}
 							else
-								MessageUtil.showMessage(res_model.msg, false);
+								MessageUtil.showMessage(res_model.reason, false);
 						}
 					}
 					else
@@ -154,27 +157,28 @@ public class SignUpActivity extends BaseActivity {
 					if (result instanceof ResponseModel.LoginResultModel) {
 						ResponseModel.LoginResultModel res_model = (ResponseModel.LoginResultModel) result;
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-							//MessageUtil.showMessage("Login success.", false);
 							
 							// TODO by joseph
 							//getUserInformation();
-							mUser = new WAUser();
-							mUser.user_id = res_model.user.uid;
-							mUser.email = res_model.user.email;
-							mUser.login = res_model.user.name;
-							mUser.password = res_model.user.password;
-							mUser.hometown = res_model.user.address;
-							mUser.picture_url = res_model.user.picture_url;
+//							mUser = new WAUser();
+//							mUser.user_id = res_model.user.uid;
+//							mUser.email = res_model.user.email;
+//							mUser.login = res_model.user.name;
+//							mUser.password = res_model.user.password;
+//							mUser.hometown = res_model.user.address;
+//							mUser.picture_url = res_model.user.picture_url;
 							
 							WAModelManager.getInstance().setSignInUser(mUser);
 							// finish and go to MainActivity
+							Intent intent = new Intent(instance, MainActivity.class);
+							intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
+							startActivity(intent);
 							finish();
-							final Intent intent = new Intent(Constants.ACTION_LOGIN_SUCCESS);
-					        sendBroadcast(intent);
+							return;
 						}
 						else {
 							// error
-							MessageUtil.showMessage(res_model.msg, false);
+							MessageUtil.showMessage(res_model.reason, true);
 							finish();
 							Intent intent = new Intent(SignUpActivity.this, LoginWithEmailActivity.class);
 							startActivity(intent);

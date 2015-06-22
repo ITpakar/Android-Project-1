@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.quickblox.core.QBSettings;
 import com.tagcash.waalah.R;
 import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.base.BaseTask;
@@ -74,38 +75,36 @@ public class LoginWithEmailActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				
-				WAUser user = new WAUser();
-				
-				user.id = 3;
-				user.fullname = "Emily Green";
-				user.login = "emily";
-				user.password = "emily123";
-				user.email = "emily@gmail.com";
-				user.hometown = "Manchester, UK";
-				user.coins = 632;
-				user.user_id = 3;
-				user.picture_url = "";
-
-				WAModelManager.getInstance().setSignInUser(user);
-
-				finish();
-				
-				Intent intent_main = new Intent(instance, MainActivity.class);
-				intent_main.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
-				startActivity(intent_main);
-				
-				// TODO joseph
-
-//				if (isValid()) {
-//					ArrayList<String> strs = new ArrayList<String>();
-//					strs.add(edt_email.getText().toString().trim());
-//					strs.add(MD5Util.getMD5(edt_password.getText().toString().trim()));
+//				WAUser user = new WAUser();
+//				
+//				user.fullname = "Emily Green";
+//				user.login = "emily";
+//				user.password = "emily123";
+//				user.email = "emily@gmail.com";
+//				user.hometown = "Manchester, UK";
+//				user.coins = 632;
+//				user.user_id = 3;
+//				user.picture_url = "";
 //
-//					BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
-//					loginTask.setListener(mTaskListener);
-//					loginTask.setData(strs);
-//					loginTask.execute();
-//				}
+//				WAModelManager.getInstance().setSignInUser(user);
+//
+//				finish();
+//				
+//				Intent intent_main = new Intent(instance, MainActivity.class);
+//				intent_main.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
+//				startActivity(intent_main);
+				
+
+				if (isValid()) {
+					ArrayList<String> strs = new ArrayList<String>();
+					strs.add(edt_email.getText().toString().trim());
+					strs.add(MD5Util.getMD5(edt_password.getText().toString().trim()));
+
+					BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
+					loginTask.setListener(mTaskListener);
+					loginTask.setData(strs);
+					loginTask.execute();
+				}
 			}
 		});
 		
@@ -134,6 +133,8 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_login.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
 		btn_facebook_login.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
 		btn_signup.setTypeface(WAFontProvider.getFont(WAFontProvider.HELVETICA_CE, this));
+		
+        QBSettings.getInstance().fastConfigInit(Constants.APP_ID, Constants.AUTH_KEY, Constants.AUTH_SECRET);
 	}
 
 	private boolean isValid() {
@@ -238,7 +239,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 		protected String doInBackground(WAUser... users) {
 			try {   
 				GMailSender sender = new GMailSender(Constants.HEALTHCHAT_EMAIL_ADDRESS, Constants.HEALTHCHAT_EMAIL_PASSWORD);
-				String body = "\nDear, " + users[0].login + "!\n\n\n"
+				String body = "\nDear, " + users[0].username + "!\n\n\n"
 						+ "Welcome to return to Healthchat.\n"
 						+ "We retrieved your password by your request and sent you, Please try this password.\n\n\n"
 						+ "****************************************************************\n"
@@ -272,11 +273,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 		@Override
 		public Object onTaskRunning(int taskId, Object data) {
 			Object result = null;
-			if (taskId == Constants.TASK_USER_ISREGISTER) {
-				String str = (String) data;
-				result = Server.IsRegister(str);
-			}
-			else if (taskId == Constants.TASK_USER_LOGIN) {
+			if (taskId == Constants.TASK_USER_LOGIN) {
 				ArrayList<String> strs = (ArrayList<String>) data;
 				result = Server.Login(strs.get(0), strs.get(1));
 			}
@@ -284,53 +281,32 @@ public class LoginWithEmailActivity extends BaseActivity {
 				ArrayList<String> strs = (ArrayList<String>) data;
 				result = Server.Reset_Password(strs.get(0), MD5Util.getMD5(strs.get(1)));
 			}
+			else if (taskId == Constants.TASK_USER_GETME) {
+				ArrayList<String> strs = (ArrayList<String>) data;
+				result = Server.GetCurrentUser(strs.get(0));
+			}
 			return result;
 		}
 		
 		@Override
 		public void onTaskResult(int taskId, Object result) {
-			if (taskId == Constants.TASK_USER_ISREGISTER) {
-				if (result != null) {
-					if (result instanceof ResponseModel.CheckRegisterModel) {
-						ResponseModel.CheckRegisterModel res_model = (ResponseModel.CheckRegisterModel) result;
-						WAUser user = new WAUser();
-						user.email = res_model.email;
-						user.login = res_model.login;
-						user.password = res_model.password;
-						new SendPasswordByEmailTask().execute(user);
-					}
-					else
-						MessageUtil.showMessage(result.toString(), false);
-				}
-				else {
-					
-				}
-			}
-			else if (taskId == Constants.TASK_USER_LOGIN) {
+			if (taskId == Constants.TASK_USER_LOGIN) {
 				if (result != null) {
 					if (result instanceof ResponseModel.LoginResultModel) {
 						ResponseModel.LoginResultModel res_model = (ResponseModel.LoginResultModel) result;
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-							//MessageUtil.showMessage("Login With Email Account Success.", false);
 							
-							// TODO by joseph
-							mUser = new WAUser();
-							mUser.user_id = res_model.user.uid;
-							mUser.email = res_model.user.email;
-							mUser.login = res_model.user.name;
-							mUser.password = res_model.user.password;
-							mUser.picture_url = res_model.user.picture_url;
+							ArrayList<String> strs = new ArrayList<String>();
+							strs.add(res_model.api_token);
 
-							WAModelManager.getInstance().setSignInUser(mUser);
-
-							// finish and go to MainActivity
-							finish();
-							final Intent intent = new Intent(Constants.ACTION_LOGIN_SUCCESS);
-					        sendBroadcast(intent);
+							BaseTask meTask = new BaseTask(Constants.TASK_USER_GETME);
+							meTask.setListener(mTaskListener);
+							meTask.setData(strs);
+							meTask.execute();
 						}
 						else {
 							// error
-							MessageUtil.showMessage(res_model.msg, false);
+							MessageUtil.showMessage(res_model.reason, false);
 						}
 					}
 					else
@@ -351,6 +327,48 @@ public class LoginWithEmailActivity extends BaseActivity {
 					
 				}
 			}
+			else if (taskId == Constants.TASK_USER_GETME) {
+				if (result != null) {
+					if (result instanceof ResponseModel.CurrentUserResultModel) {
+						ResponseModel.CurrentUserResultModel res_model = (ResponseModel.CurrentUserResultModel) result;
+						
+						mUser = new WAUser();
+						if (res_model.me != null)
+						{
+							mUser.id = res_model.me.id;
+							mUser.username = res_model.me.username;
+//							mUser.password = res_model.me.password;
+							mUser.password = MD5Util.getMD5(edt_password.getText().toString().trim());
+							mUser.email = res_model.me.email;
+							mUser.firstname = res_model.me.firstname;
+							mUser.lastname = res_model.me.lastname;
+							mUser.address = res_model.me.address;
+							mUser.city = res_model.me.city;
+							mUser.state = res_model.me.state;
+							mUser.zip = res_model.me.zip;
+							mUser.country = res_model.me.country;
+							mUser.api_token = res_model.me.api_token;
+							mUser.quickblox_id = res_model.me.quickblox_id;
+							mUser.allow_notifications = res_model.me.allow_notifications;
+						}
+						
+						if (res_model.img != null)
+							mUser.picture_url = res_model.img.original;
+						
+						if (res_model.balance != null)
+							mUser.coins = (int)res_model.balance.coins;
+						
+						WAModelManager.getInstance().setSignInUser(mUser);
+
+						// finish and go to MainActivity
+						Intent intent = new Intent(instance, MainActivity.class);
+						intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
+						startActivity(intent);
+						finish();
+						return;
+					}
+				}
+			}
 			
 			LoginWithEmailActivity.this.dlg_progress.hide();
 		}
@@ -362,12 +380,12 @@ public class LoginWithEmailActivity extends BaseActivity {
 		
 		@Override
 		public void onTaskPrepare(int taskId, Object data) {
-			LoginWithEmailActivity.this.dlg_progress.show();
+//			LoginWithEmailActivity.this.dlg_progress.show();
 		}
 		
 		@Override
 		public void onTaskCancelled(int taskId) {
-			LoginWithEmailActivity.this.dlg_progress.hide();
+//			LoginWithEmailActivity.this.dlg_progress.hide();
 		}
 	};
 }

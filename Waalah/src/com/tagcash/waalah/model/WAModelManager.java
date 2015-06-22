@@ -25,7 +25,7 @@ public class WAModelManager {
 		
 		if (user != null) {
 			// save last logged user info to preference.
-			WAPreferenceManager.setString(WAPreferenceManager.PreferenceKeys.STRING_LAST_SINGED_USER_LOGIN, user.login);
+			WAPreferenceManager.setString(WAPreferenceManager.PreferenceKeys.STRING_LAST_SINGED_USER_LOGIN, user.username);
 			WAPreferenceManager.setString(WAPreferenceManager.PreferenceKeys.STRING_LAST_SINGED_USER_EMAIL, user.email);
 			WAPreferenceManager.setString(WAPreferenceManager.PreferenceKeys.STRING_LAST_SINGED_USER_PASSWORD, user.password);
 			

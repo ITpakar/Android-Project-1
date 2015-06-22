@@ -38,15 +38,15 @@ public class DBManager {
 	synchronized public void addOrUpdateOneUser(WAUser user) {
 		synchronized (DBOpenHelper.DB_LOCK) {
 			ContentValues values = new ContentValues();
-			values.put(DBConstant.USER_ID, user.user_id);
+			values.put(DBConstant.USER_ID, user.id);
 			values.put(DBConstant.USER_EMAIL, user.email);
-			values.put(DBConstant.USER_LOGIN, user.login);
+			values.put(DBConstant.USER_LOGIN, user.username);
 			values.put(DBConstant.USER_PASSWORD, user.password);
 			values.put(DBConstant.USER_PICTURE_URL, user.picture_url);
 
 			if (mdb != null) {
 				String sql_duplication_check = SELECT_DB_STR + DBConstant.TABLE_USER
-						+ " where " + DBConstant.USER_ID + "=" + user.user_id;
+						+ " where " + DBConstant.USER_ID + "=" + user.id;
 				Cursor cursor = mdb.rawQuery(sql_duplication_check, null);
 				if (cursor != null) {
 					int count = cursor.getCount();
@@ -73,9 +73,9 @@ public class DBManager {
 
 				for (WAUser user : list_data) {
 					ContentValues values = new ContentValues();
-					values.put(DBConstant.USER_ID, user.user_id);
+					values.put(DBConstant.USER_ID, user.id);
 					values.put(DBConstant.USER_EMAIL, user.email);
-					values.put(DBConstant.USER_LOGIN, user.login);
+					values.put(DBConstant.USER_LOGIN, user.username);
 					values.put(DBConstant.USER_PASSWORD, user.password);
 					values.put(DBConstant.USER_PICTURE_URL, user.picture_url);
 
@@ -103,10 +103,9 @@ public class DBManager {
 						cursor.moveToFirst();
 						do {
 							WAUser user = new WAUser();
-							user.id = cursor.getInt(cursor.getColumnIndex(DBConstant.TBL_COLUMN_ID));
-							user.user_id = cursor.getInt(cursor.getColumnIndex(DBConstant.USER_ID));
+							user.id = cursor.getInt(cursor.getColumnIndex(DBConstant.USER_ID));
 							user.email = cursor.getString(cursor.getColumnIndex(DBConstant.USER_EMAIL));
-							user.login = cursor.getString(cursor.getColumnIndex(DBConstant.USER_LOGIN));
+							user.username = cursor.getString(cursor.getColumnIndex(DBConstant.USER_LOGIN));
 							user.password = cursor.getString(cursor.getColumnIndex(DBConstant.USER_PASSWORD));
 							user.picture_url = cursor.getString(cursor.getColumnIndex(DBConstant.USER_PICTURE_URL));
 
@@ -138,10 +137,9 @@ public class DBManager {
 						cursor.moveToFirst();
 						user = new WAUser();
 
-						user.id = cursor.getInt(cursor.getColumnIndex(DBConstant.TBL_COLUMN_ID));
-						user.user_id = cursor.getInt(cursor.getColumnIndex(DBConstant.USER_ID));
+						user.id = cursor.getInt(cursor.getColumnIndex(DBConstant.USER_ID));
 						user.email = cursor.getString(cursor.getColumnIndex(DBConstant.USER_EMAIL));
-						user.login = cursor.getString(cursor.getColumnIndex(DBConstant.USER_LOGIN));
+						user.username = cursor.getString(cursor.getColumnIndex(DBConstant.USER_LOGIN));
 						user.password = cursor.getString(cursor.getColumnIndex(DBConstant.USER_PASSWORD));
 						user.picture_url = cursor.getString(cursor.getColumnIndex(DBConstant.USER_PICTURE_URL));
 					}

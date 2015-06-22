@@ -163,7 +163,7 @@ public class Constants {
 	/*
 	 * Http Action Status
 	 */
-	public static final int HTTP_ACTION_STATUS_SUCCESS = 1;
+	public static final int HTTP_ACTION_STATUS_SUCCESS = 200;
 	public static final int HTTP_ACTION_STATUS_ERROR = 0;
 
 	/*
@@ -196,6 +196,7 @@ public class Constants {
 	public static final int TASK_USER_FAVORITE = 9;
 	public static final int TASK_USER_UNFAVORITE = 10;
 	public static final int TASK_USER_GETONE = 11;
+	public static final int TASK_USER_GETME = 12;
 	
 	
 	public static final int TASK_GET_GCMREGID = 100;

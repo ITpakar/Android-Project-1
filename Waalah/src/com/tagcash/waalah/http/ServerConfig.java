@@ -9,7 +9,7 @@ public class ServerConfig {
 //	public static String HOST_URL = "10.70.3.61";
 //	public static String HOST_PORT = "8080";
 	// publish server
-	public static String HOST_URL = "54.191.227.63";
+	public static String HOST_URL = "54.164.161.49";
 //	public static String HOST_PORT = "8080";
 
 	public static final int CONNECTION_TIMEOUT = 60;
@@ -24,17 +24,20 @@ public class ServerConfig {
 	}
 
 	// for User moddule
+	public static String getUrl_UserLogin() {
+		return getWebserviceUrl() + "authenticate";
+	}
 	public static String getUrl_UserRegister() {
-		return getWebserviceUrl() + "member/signup";
+		return getWebserviceUrl() + "register";
+	}
+	public static String getUrl_CurrentUser() {
+		return getWebserviceUrl() + "me";
 	}
 	public static String getUrl_UserIsRegister() {
 		return getWebserviceUrl() + "member/check_name_or_email";
 	}
 	public static String getUrl_UserGetList() {
 		return getWebserviceUrl() + "member/search";
-	}
-	public static String getUrl_UserLogin() {
-		return getWebserviceUrl() + "member/login";
 	}
 	public static String getUrl_UserResetPassword() {
 		return getWebserviceUrl() + "member/recover_password";

@@ -31,6 +31,7 @@ public class HttpApi {
 			HttpGet request = new HttpGet();
 			
 			request.setURI(new URI(url));
+			
 			HttpResponse response = client.execute(request);
 			
 			status = response.getStatusLine().getStatusCode();
@@ -82,6 +83,37 @@ public class HttpApi {
 		return resultStr;
 	}
 	
+	public static String sendGetRequest(String url, String token) {
+		String resultStr = null;
+
+	    try {
+	        HttpClient client = new DefaultHttpClient();
+	        
+	        URI website = new URI(url);
+	        
+	        HttpGet request = new HttpGet();
+	        request.addHeader("X-Auth-Token", token);
+	        request.setURI(website);
+	        
+	        HttpResponse response = client.execute(request);
+
+//			status = response.getStatusLine().getStatusCode();
+			String body = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
+			
+			return body;
+
+		} catch (Exception e) {
+			resultStr = e.getMessage();
+			if (resultStr == null) {
+				if (e instanceof java.net.SocketTimeoutException) {
+					resultStr = "It has occured SoketTimeoutException.";
+				}
+			}
+			Log.v(LOG, "send request error");
+	    }
+
+		return resultStr;
+	}
 	
 	/*
 	 * Post Request
@@ -188,38 +220,42 @@ public class HttpApi {
 
 			status = httpresponse.getStatusLine().getStatusCode();
 			String body = EntityUtils.toString(httpresponse.getEntity(), HTTP.UTF_8);
+			
+			cookieStore = httpClient.getCookieStore();
 
-			/** If the status code 200 response successfully */
-			Log.v(LOG, "" + status);
-			Log.v(LOG, "" + body);
-			if (status == 200) {
-				/** Remove the response string */
-				String strResponse = body;
-
-				cookieStore = httpClient.getCookieStore();
-				return strResponse.trim();
-			} else {
-				switch (status) {
-				case 400:
-					resultStr = "Bad Request.";
-					break;
-				case 401:
-					resultStr = "Access denied.";
-					break;
-				case 403:
-					resultStr = "Request is forbidden.";
-					break;
-				case 404:
-					resultStr = "Url not found.";
-					break;
-				case 405:
-					resultStr = "Method Not Allowed.";
-					break;
-				case 500:
-					resultStr = "Internal Server Error.";
-					break;
-				}
-			}
+			return body;
+//
+//			/** If the status code 200 response successfully */
+//			Log.v(LOG, "" + status);
+//			Log.v(LOG, "" + body);
+//			if (status == 200) {
+//				/** Remove the response string */
+//				String strResponse = body;
+//
+//				cookieStore = httpClient.getCookieStore();
+//				return strResponse.trim();
+//			} else {
+//				switch (status) {
+//				case 400:
+//					resultStr = "Bad Request.";
+//					break;
+//				case 401:
+//					resultStr = "Access denied.";
+//					break;
+//				case 403:
+//					resultStr = "Request is forbidden.";
+//					break;
+//				case 404:
+//					resultStr = "Url not found.";
+//					break;
+//				case 405:
+//					resultStr = "Method Not Allowed.";
+//					break;
+//				case 500:
+//					resultStr = "Internal Server Error.";
+//					break;
+//				}
+//			}
 		} catch (Exception e) {
 			resultStr = e.getMessage();
 			if (resultStr == null) {

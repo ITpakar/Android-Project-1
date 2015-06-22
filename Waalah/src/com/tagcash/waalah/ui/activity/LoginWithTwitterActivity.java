@@ -156,11 +156,11 @@ public class LoginWithTwitterActivity extends Activity {
 			User twitter_user = TwitterUtils.twitter.showUser(TwitterUtils.twitter_user_name);
 
 			mUser = new WAUser();
-			mUser.login = Constants.ID_PREVFIX.TWITTER + twitter_user.getId();
+			mUser.username = Constants.ID_PREVFIX.TWITTER + twitter_user.getId();
 			//user.setEmail("twitter@not.alw");
 			mUser.password = WAUser.DEFAULT_PASSWORD;
 			mUser.picture_url = twitter_user.getOriginalProfileImageURL();
-			mUser.hometown = twitter_user.getLocation();
+			mUser.address = twitter_user.getLocation();
 
 			if (mFlag == Constants.MODE_REGISTER) {
 				// register
@@ -189,7 +189,7 @@ public class LoginWithTwitterActivity extends Activity {
 //						mUser.gender, mUser.birthday, mUser.hometown, mUser.picture_url, mUser.about);
 			}
 			else if (taskId == Constants.TASK_USER_LOGIN) {
-				result = Server.Login(mUser.login, mUser.password);
+				result = Server.Login(mUser.username, mUser.password);
 			}
 			return result;
 		}
@@ -211,13 +211,13 @@ public class LoginWithTwitterActivity extends Activity {
 						}
 						else {
 							// error
-							if (res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_NAMEOREMAIL_ALREADY_REGISTERED ||
-								res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_NAME_ALREADY_REGISTERED ||
-								res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_EMAIL_ALREADY_REGISTERED) {
+							if (res_model.status == Constants.HTTP_ACTION_ERRORCODE_NAMEOREMAIL_ALREADY_REGISTERED ||
+								res_model.status == Constants.HTTP_ACTION_ERRORCODE_NAME_ALREADY_REGISTERED ||
+								res_model.status == Constants.HTTP_ACTION_ERRORCODE_EMAIL_ALREADY_REGISTERED) {
 								MessageUtil.showMessage(getString(R.string.user_already_registered), false);
 							}
 							else
-								MessageUtil.showMessage(res_model.msg, false);
+								MessageUtil.showMessage(res_model.reason, false);
 						}
 					}
 					else
@@ -238,18 +238,18 @@ public class LoginWithTwitterActivity extends Activity {
 							//MessageUtil.showMessage("Login With Twitter Account Success.", false);
 							
 							// getUserInformation
-							mUser = new WAUser();
-							mUser.user_id = res_model.user.uid;
-							mUser.email = res_model.user.email;
-							mUser.login = res_model.user.name;
-							mUser.password = res_model.user.password;
-							mUser.hometown = res_model.user.address;
-							if (!TextUtils.isEmpty(res_model.user.picture_url))
-								mUser.picture_url = res_model.user.picture_url;
-							else {
-								if (!TextUtils.isEmpty(res_model.user.social_picture_url))
-									mUser.picture_url = res_model.user.social_picture_url;
-							}
+//							mUser = new WAUser();
+//							mUser.user_id = res_model.user.uid;
+//							mUser.email = res_model.user.email;
+//							mUser.login = res_model.user.name;
+//							mUser.password = res_model.user.password;
+//							mUser.hometown = res_model.user.address;
+//							if (!TextUtils.isEmpty(res_model.user.picture_url))
+//								mUser.picture_url = res_model.user.picture_url;
+//							else {
+//								if (!TextUtils.isEmpty(res_model.user.social_picture_url))
+//									mUser.picture_url = res_model.user.social_picture_url;
+//							}
 
 							WAModelManager.getInstance().setSignInUser(mUser);
 
@@ -262,11 +262,11 @@ public class LoginWithTwitterActivity extends Activity {
 						}
 						else {
 							// error
-							if (res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_INVALID_EMAIL_OR_PASSWORD) {
+							if (res_model.status == Constants.HTTP_ACTION_ERRORCODE_INVALID_EMAIL_OR_PASSWORD) {
 								MessageUtil.showMessage("This account was not registered, Please register with this account in Register Page", true);
 							}
 							else
-								MessageUtil.showMessage(res_model.msg, false);
+								MessageUtil.showMessage(res_model.reason, false);
 						}
 					}
 					else

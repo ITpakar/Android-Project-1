@@ -80,11 +80,11 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 	private void getUserInformation(FacebookModel inModel){
 		mUser = new WAUser();
 
-		mUser.login = Constants.ID_PREVFIX.FACEBOOK + inModel.id;
+		mUser.username = Constants.ID_PREVFIX.FACEBOOK + inModel.id;
 		mUser.password = WAUser.DEFAULT_PASSWORD;
 		mUser.picture_url = "https://graph.facebook.com/"+inModel.id+"/picture?type=large";
 		if (inModel.location != null) {
-			mUser.hometown = inModel.location.name;
+			mUser.address = inModel.location.name;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 		public Object onTaskRunning(int taskId, Object data) {
 			Object result = null;
 			if (taskId == Constants.TASK_USER_REGISTER) {
-				result = Server.Register(mUser.email, mUser.login, mUser.password, mUser.picture_url);
+				result = Server.Register(mUser.email, mUser.username, mUser.password, mUser.picture_url);
 			}
 			else if (taskId == Constants.TASK_USER_LOGIN) {
 //				result = Server.Login(mUser.login, mUser.password);
@@ -113,7 +113,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
 							//MessageUtil.showMessage(res_model.msg, false);
 							// if register success, using that information, start login
-							mStrUser = mUser.login;
+							mStrUser = mUser.username;
 							mStrPwd = mUser.password;
 							
 							progressbar.setVisibility(View.VISIBLE);
@@ -124,13 +124,13 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 						}
 						else {
 							// error
-							if (res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_NAMEOREMAIL_ALREADY_REGISTERED ||
-								res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_NAME_ALREADY_REGISTERED ||
-								res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_EMAIL_ALREADY_REGISTERED) {
+							if (res_model.status == Constants.HTTP_ACTION_ERRORCODE_NAMEOREMAIL_ALREADY_REGISTERED ||
+								res_model.status == Constants.HTTP_ACTION_ERRORCODE_NAME_ALREADY_REGISTERED ||
+								res_model.status == Constants.HTTP_ACTION_ERRORCODE_EMAIL_ALREADY_REGISTERED) {
 								MessageUtil.showMessage(getString(R.string.user_already_registered), false);
 							}
 							else
-								MessageUtil.showMessage(res_model.msg, false);
+								MessageUtil.showMessage(res_model.reason, false);
 						}
 					}
 					else
@@ -151,18 +151,18 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 							//MessageUtil.showMessage("Login With Facebook Account Success.", false);
 							
 							// getUserInformation
-							mUser = new WAUser();
-							mUser.user_id = res_model.user.uid;
-							mUser.email = res_model.user.email;
-							mUser.login = res_model.user.name;
-							mUser.password = res_model.user.password;
-							mUser.hometown = res_model.user.address;
-							if (!TextUtils.isEmpty(res_model.user.picture_url))
-								mUser.picture_url = res_model.user.picture_url;
-							else {
-								if (!TextUtils.isEmpty(res_model.user.social_picture_url))
-									mUser.picture_url = res_model.user.social_picture_url;
-							}
+//							mUser = new WAUser();
+//							mUser.user_id = res_model.user.uid;
+//							mUser.email = res_model.user.email;
+//							mUser.login = res_model.user.name;
+//							mUser.password = res_model.user.password;
+//							mUser.hometown = res_model.user.address;
+//							if (!TextUtils.isEmpty(res_model.user.picture_url))
+//								mUser.picture_url = res_model.user.picture_url;
+//							else {
+//								if (!TextUtils.isEmpty(res_model.user.social_picture_url))
+//									mUser.picture_url = res_model.user.social_picture_url;
+//							}
 
 							WAModelManager.getInstance().setSignInUser(mUser);
 
@@ -175,11 +175,11 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 						}
 						else {
 							// error
-							if (res_model.error_code == Constants.HTTP_ACTION_ERRORCODE_INVALID_EMAIL_OR_PASSWORD) {
+							if (res_model.status == Constants.HTTP_ACTION_ERRORCODE_INVALID_EMAIL_OR_PASSWORD) {
 								MessageUtil.showMessage("This account was not registered, Please register with this account in Register Page", true);
 							}
 							else
-								MessageUtil.showMessage(res_model.msg, false);
+								MessageUtil.showMessage(res_model.reason, false);
 						}
 					}
 					else
@@ -226,7 +226,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 		getUserInformation(inModel);
 		progressbar.setVisibility(View.VISIBLE);
 		
-		mStrUser = mUser.login;
+		mStrUser = mUser.username;
 		mStrPwd = mUser.password;
 
 		if (mFlag == Constants.MODE_REGISTER) {
