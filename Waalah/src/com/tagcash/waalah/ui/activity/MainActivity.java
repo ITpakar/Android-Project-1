@@ -78,6 +78,7 @@ import com.tagcash.waalah.ui.fragment.FreeCoinFragment;
 import com.tagcash.waalah.ui.fragment.IncomeCallFragment;
 import com.tagcash.waalah.ui.fragment.MainFragment;
 import com.tagcash.waalah.ui.fragment.PurchaseFragment;
+import com.tagcash.waalah.ui.fragment.SettingFragment;
 import com.tagcash.waalah.util.FacebookUtils;
 import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
@@ -535,11 +536,11 @@ public class MainActivity extends FragmentActivity implements Callback, QBRTCCli
 				lst_menu_item.setItemChecked(2, true);
 	
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_SETTING) {
-				fragment = new MainFragment(this);
+				fragment = new SettingFragment(this);
 				lst_menu_item.setItemChecked(3, true);
 	
 			} else if (mCurrentFragmentIndex == Constants.SW_FRAGMENT_HELP) {
-				fragment = new MainFragment(this);
+				fragment = new SettingFragment(this);
 				lst_menu_item.setItemChecked(4, true);
 			}
 
