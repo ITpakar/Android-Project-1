@@ -1,2 +1,0 @@
-# Waalah-Android
-Waalah Android

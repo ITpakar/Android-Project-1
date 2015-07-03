@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <android.opengl.GLSurfaceView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/img_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_very_large"
+        android:src="@drawable/ic_menu" />
+
+    <include
+        android:id="@+id/element_set_video_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        layout="@layout/element_fragment_video_call" />
+    
+</RelativeLayout>
+<!-- From: file:/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/src/main/res/layout/fragment_chat.xml -->

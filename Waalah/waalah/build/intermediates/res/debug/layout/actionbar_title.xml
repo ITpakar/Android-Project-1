@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent" >
+
+    <TextView
+        android:id="@+id/titlebar_txt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/text_normal" />
+
+    <LinearLayout
+        android:id="@+id/titlebar_btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_edit_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/margin_large"
+            android:gravity="center"
+            android:text="Edit"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_normal" />
+    </LinearLayout>
+
+</RelativeLayout><!-- From: file:/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/src/main/res/layout/actionbar_title.xml -->

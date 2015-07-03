@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><color android:color="@color/mid_grey_clicked" /></item>
+    <item><color android:color="@color/light_grey" /></item>
+
+</selector><!-- From: file:/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/src/main/res/drawable/bg_light_grey_click.xml -->

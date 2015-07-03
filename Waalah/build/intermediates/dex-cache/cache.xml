@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/signpost-commonshttp4-1.2.1.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="731e05de30cfeb1f41d417f886277f9597fe0f36">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/signpost-commonshttp4-1.2.1.2-80c1f9e9d1377cbdabe5ec4f4924e32dd2878cc0.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/quickblox-android-sdk-core-2.2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="097cba89d381fce644e9e1f321be7e5258c22c74">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/quickblox-android-sdk-core-2.2.4-1d6e41efce268c194f88874566157ca5f9111294.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/exploded-aar/Waalah/androidViewpager/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d031ba48b9240d799ea0d9733819f14eac286cbd">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/classes-de70522c5436cc3e2d3cd42e3589369d4bb64823.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/signpost-core-1.2.1.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="bf95955dcf3d5a78c201e49b0c336787ea73f161">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/signpost-core-1.2.1.2-5f0425da96edb1404d4a0975af1aadab80d258d8.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/quickblox-android-sdk-videochat-webrtc-2.2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9c6176bdb40120e8cdb4e96e16f9fa4554199d16">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/quickblox-android-sdk-videochat-webrtc-2.2.4-484f0bc008f9cddc31a7b729b638ee9c1b2a2db4.jar" />
+    </item>
+    <item
+        jar="/Volumes/DATA/3_Develop/Android/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/support-v4-18.0.0-50f144314cdc6e95df4b60b82637e513bce9011d.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/exploded-aar/Waalah/universalImageLoader/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="de09ba4373f785b392e301a28f903b20fdd45ad6">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/classes-8994bdc28c8ccd6d4e51e5e195098d270d7dd6e9.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/exploded-aar/Waalah/facebookSDK/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ca5468f3cbada37f8a24b93b75262138cc4bab36">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/classes-6c7b8ef5bc5676522c7963ed3988281f4c0167cd.jar" />
+    </item>
+    <item
+        jar="/Users/ideveloper/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.1/2e66da15851f9f5b5079228f856c2f090ba98c38/gson-2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/gson-2.1-e7f1fccd1552a0d12d65532114ebef1bba9f56fd.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/signpost-jetty6-1.2.1.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="50d833636e78a21ac10bfad6fe62b8dac84f4366">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/signpost-jetty6-1.2.1.2-f48a9dd9d0ebcf5df5dedf2a5ebc363c95957503.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/exploded-aar/Waalah/facebookSDK/unspecified/jars/libs/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-89b940a14f579f3dabad93ce2e1bee36a48b89a2.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/activation.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d1257cbff6faa44c1f325ae0d9413522d4644383">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/activation-8b4fff28c6f9f7c6f2234f39616f78be91743f76.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/exploded-aar/Waalah/progressWheel/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="463c6a4983ffaf480e073be74a619d9064993d89">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/classes-2079201053748229b378ac1d30f11bd59e99f181.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/twitter4j-core-4.0.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6555e7c45f5db0006823731b2ddb536d481e11d1">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/twitter4j-core-4.0.2-17ea8f7c2cec1cbecd6c2ace3b4556acaae9f353.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/mail.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="428e267abff0d10802ccde86b915da2c20471160">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/mail-e188bf4eefe55555e9b8fe69561625a38647ea98.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/libs/quickblox-android-sdk-chat-2.2.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="679d19d40a916d78cb80bbd65697d5ceac6d0994">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/quickblox-android-sdk-chat-2.2.4-0cd76885ade83c73ef879955f14717e6e23dc28b.jar" />
+    </item>
+    <item
+        jar="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/exploded-aar/com.android.support/appcompat-v7/18.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8f11f56e350eacabf2273f646d981356eea0ed77">
+        <dex dex="/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/build/intermediates/pre-dexed/debug/classes-682d3f855108fbac359b011cb33e77925a2d3609.jar" />
+    </item>
+
+</items>

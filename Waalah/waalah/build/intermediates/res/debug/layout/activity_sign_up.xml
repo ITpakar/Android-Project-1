@@ -1,0 +1,166 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/vwTop"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_very_large"
+        android:paddingLeft="@dimen/margin_very_large"
+        android:paddingRight="@dimen/margin_very_large"
+        android:paddingTop="@dimen/margin_very_large" 
+        android:layout_marginLeft="@dimen/margin_commentview_leftright"
+        android:layout_marginRight="@dimen/margin_commentview_leftright">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_large"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_back" />
+			    		
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_very_large"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_email" />
+			
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@drawable/clr_mid_grey"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/margin_very_large"
+            android:background="@color/mid_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_passwd" />
+			
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@drawable/clr_mid_grey"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+
+		<View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/margin_very_large"
+            android:background="@color/mid_grey" />
+        
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_normal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_large"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_username" />
+			
+            <EditText
+                android:id="@+id/edt_username"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="username"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@drawable/clr_mid_grey"
+                android:textSize="@dimen/text_small" />
+
+        </LinearLayout>
+
+		<View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/margin_commentview_leftright"
+            android:background="@color/mid_grey" />
+		
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="@dimen/margin_large"
+            android:singleLine="true"
+            android:text="Sign Up"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_large" />
+
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/src/main/res/layout/activity_sign_up.xml -->

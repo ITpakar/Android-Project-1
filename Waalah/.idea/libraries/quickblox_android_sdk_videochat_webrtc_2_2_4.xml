@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="quickblox-android-sdk-videochat-webrtc-2.2.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/waalah/libs/quickblox-android-sdk-videochat-webrtc-2.2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

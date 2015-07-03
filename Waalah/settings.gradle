@@ -1,0 +1,5 @@
+include ':androidViewpager'
+include ':facebookSDK'
+include ':progressWheel'
+include ':universalImageLoader'
+include ':waalah'

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Waalah.iml" filepath="$PROJECT_DIR$/Waalah.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidViewpager/androidViewpager.iml" filepath="$PROJECT_DIR$/androidViewpager/androidViewpager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/facebookSDK/facebookSDK.iml" filepath="$PROJECT_DIR$/facebookSDK/facebookSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/progressWheel/progressWheel.iml" filepath="$PROJECT_DIR$/progressWheel/progressWheel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/universalImageLoader/universalImageLoader.iml" filepath="$PROJECT_DIR$/universalImageLoader/universalImageLoader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/waalah/waalah.iml" filepath="$PROJECT_DIR$/waalah/waalah.iml" />
+    </modules>
+  </component>
+</project>

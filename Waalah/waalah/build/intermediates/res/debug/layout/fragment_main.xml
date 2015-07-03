@@ -1,0 +1,153 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_large" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/layout_bar"
+            android:layout_below="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/margin_large"
+            android:paddingLeft="@dimen/margin_large"
+            android:paddingRight="@dimen/margin_large" >
+
+            <ImageView
+                android:id="@+id/img_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:src="@drawable/ic_menu" />
+
+            <LinearLayout
+                android:id="@+id/layout_upcoming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txt_upcoming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:text="UPCOMING"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/img_upcoming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="@dimen/margin_small"
+                    android:src="@drawable/ic_indicator" />
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_myevents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txt_myevents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="MY EVENTS"
+                    android:textColor="@color/title_unselected"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/img_myevents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:src="@drawable/ic_indicator"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/txt_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="HISTORY"
+                    android:textColor="@color/title_unselected"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/img_history"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:src="@drawable/ic_indicator"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+            
+        </LinearLayout>
+
+        <com.viewpagerindicator.LinePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/layout_bar"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="@dimen/margin_large"
+            android:padding="0dp"
+            app:lineWidth="30dp"
+            app:selectedColor="@color/dark_purple"
+            app:strokeWidth="8dp"
+            app:unselectedColor="#00000000" />
+
+    </RelativeLayout>
+
+    <com.tagcash.waalah.view.CustomDurationViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:background="@drawable/transparent_background"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout><!-- From: file:/Volumes/WORK/Android/AndroidStudioProjects/Waalah-Android/Waalah/waalah/src/main/res/layout/fragment_main.xml -->
