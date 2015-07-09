@@ -63,8 +63,8 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_facebook_login = (Button) findViewById(R.id.btn_facebook_login);
 		btn_signup = (Button) findViewById(R.id.btn_signup);
 
-		edt_email.setText("dragonvalue@gmail.com", EditText.BufferType.EDITABLE);
-		edt_password.setText("abc", EditText.BufferType.EDITABLE);
+//		edt_email.setText("dragonvalue@gmail.com", EditText.BufferType.EDITABLE);
+//		edt_password.setText("abc", EditText.BufferType.EDITABLE);
 
 		btn_retrieve_password.setOnClickListener(new OnClickListener() {
 			@Override
