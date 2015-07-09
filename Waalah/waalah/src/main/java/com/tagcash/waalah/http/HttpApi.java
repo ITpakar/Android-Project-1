@@ -8,6 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
@@ -37,9 +38,10 @@ public class HttpApi {
 			status = response.getStatusLine().getStatusCode();
 			String body = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 			
-			Log.v(LOG, "###### STATUS: "+status);
-			Log.v(LOG, "###### BODY: "+body);
-			
+			Log.v(LOG, "###### sendGetRequest1 STATUS: "+status);
+			Log.v(LOG, "###### sendGetRequest1 BODY: "+resultStr);
+
+
 			if (status == 200) {
 				String strResponse = body;
 				Log.v(LOG, "###### RESPONSE: "+strResponse);
@@ -83,23 +85,37 @@ public class HttpApi {
 		return resultStr;
 	}
 	
-	public static String sendGetRequest(String url, String token) {
+	public static String sendGetRequest(String url, String token, HttpParams params) {
+		int status = -1;
 		String resultStr = null;
 
 	    try {
+
 	        HttpClient client = new DefaultHttpClient();
-	        
+
+			if (params != null) {
+				if (!url.endsWith("?"))
+					url += "?";
+				String paramString = URLEncodedUtils.format(params.getParams(), HTTP.UTF_8);
+				url += paramString;
+			}
+
 	        URI website = new URI(url);
 	        
 	        HttpGet request = new HttpGet();
 	        request.addHeader("X-Auth-Token", token);
 	        request.setURI(website);
-	        
+
 	        HttpResponse response = client.execute(request);
 
-//			status = response.getStatusLine().getStatusCode();
+			status = response.getStatusLine().getStatusCode();
 			String body = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-			
+
+//			body = "{\"status\":200,\"events_count\":30,\"events\":[{\"id\":\"40\",\"event_name\":\"Sigrid Boyle\",\"event_description\":\"Non nam velit velit. Harum sequi a voluptatum velit molestiae amet reiciendis. Distinctio possimus q\",\"event_start_date\":\"2015-05-25 05:17:20\",\"event_owner_id\":\"10\",\"duration\":\"83962\",\"price\":\"0\",\"status\":\"\",\"joined_count\":\"3\",\"image_url\":\"http:\\/\\/54.164.161.49\\/api\\/images\\/events\\/default_image.png\",\"thumb_url\":\"http:\\/\\/54.164.161.49\\/api\\/images\\/events\\/default_thumb.png\",\"video_url\":\"\",\"audio_url\":\"\",\"chat_url\":\"\",\"coins_count\":\"7\",\"diamonds_count\":\"0\",\"event_created\":\"0000-00-00 00:00:00\",\"me\":{\"joined\":\"no\"}}]}";
+
+			Log.v(LOG, "###### sendGetRequest2 STATUS: "+status);
+			Log.v(LOG, "###### sendGetRequest2 BODY: "+resultStr);
+
 			return body;
 
 		} catch (Exception e) {
@@ -142,8 +158,8 @@ public class HttpApi {
 			status = response.getStatusLine().getStatusCode();
 			resultStr = EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 			
-			Log.v(LOG, "###### STATUS: "+status);
-			Log.v(LOG, "###### BODY: "+resultStr);
+			Log.v(LOG, "###### sendPostRequest1 STATUS: "+status);
+			Log.v(LOG, "###### sendPostRequest1 BODY: "+resultStr);
 			
 			/* if the status code is 200, response successfully */
 			if (status == 200) {
@@ -222,6 +238,9 @@ public class HttpApi {
 			String body = EntityUtils.toString(httpresponse.getEntity(), HTTP.UTF_8);
 			
 			cookieStore = httpClient.getCookieStore();
+
+			Log.v(LOG, "###### sendPostRequest2 STATUS: "+status);
+			Log.v(LOG, "###### sendPostRequest2 BODY: "+body);
 
 			return body;
 //

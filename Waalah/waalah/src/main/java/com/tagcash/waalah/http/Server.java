@@ -1,8 +1,10 @@
 package com.tagcash.waalah.http;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
+import com.tagcash.waalah.app.Constants;
 
 
 public class Server {
@@ -16,7 +18,8 @@ public class Server {
 		params.addParam("password", password);
 		if (!TextUtils.isEmpty(picture_url))
 			params.addParam("social_picture_url", picture_url);
-		
+
+		Log.v(Constants.LOG_TAG, ServerConfig.getUrl_UserRegister() + "\nparams -> " + params.getParams());
 		String response = HttpApi.sendPostRequest(ServerConfig.getUrl_UserRegister(), params);
 		
 		if (response != null) {
@@ -60,12 +63,17 @@ public class Server {
 		HttpParams params = new HttpParams();
 		params.addParam("email", username);
 		params.addParam("password", password);
-		
+
+		Log.v(Constants.LOG_TAG, ServerConfig.getUrl_UserLogin() + "\nparams -> " + params.getParams());
+
 		String response = HttpApi.sendPostRequest(ServerConfig.getUrl_UserLogin(), params);
-		
+
+		System.out.println(response);
+
 		if (response != null) {
 			try {
 				Gson gson = new Gson();
+				System.out.print(gson.toJson(response));
 				ResponseModel.LoginResultModel result = gson.fromJson(response, ResponseModel.LoginResultModel.class);
 				return result;
 
@@ -76,10 +84,37 @@ public class Server {
 
 		return response;
 	}
-	
+
+	// Login With Facebook id
+	public static Object LoginWithFacebook(String facebookId, String email, String firstName, String lastName) {
+		HttpParams params = new HttpParams();
+		params.addParam("id", facebookId);
+		params.addParam("email", email);
+		params.addParam("first_name", firstName);
+		params.addParam("last_name", lastName);
+//		if (!TextUtils.isEmpty(picture_url))
+//			params.addParam("social_picture_url", picture_url);
+
+		Log.v(Constants.LOG_TAG, ServerConfig.getUrl_UserLoginWithFacebook() + "\nparams -> " + params.getParams());
+		String response = HttpApi.sendPostRequest(ServerConfig.getUrl_UserLoginWithFacebook(), params);
+
+		if (response != null) {
+			try {
+				Gson gson = new Gson();
+				ResponseModel.RegisterModel result = gson.fromJson(response, ResponseModel.RegisterModel.class);
+				return result;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+
 	public static Object GetCurrentUser(String token) {
 		
-		String response = HttpApi.sendGetRequest(ServerConfig.getUrl_CurrentUser(), token);
+		String response = HttpApi.sendGetRequest(ServerConfig.getUrl_CurrentUser(), token, null);
 		if (response != null) {
 			try {
 				Gson gson = new Gson();
@@ -210,6 +245,62 @@ public class Server {
 
 		return response;
 	}
-	
+
+	public static Object GetMyEvent(String token) {
+
+		String response = HttpApi.sendGetRequest(ServerConfig.getUrl_MyEvents(), token, null);
+		Log.v(Constants.LOG_TAG, ServerConfig.getUrl_MyEvents() + "\nmy event response -> " + response);
+		if (response != null) {
+			try {
+				Gson gson = new Gson();
+				ResponseModel.EventsListModel result = gson.fromJson(response, ResponseModel.EventsListModel.class);
+				return result;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+
+	public static Object GetEventHistory(String token) {
+
+		HttpParams params = new HttpParams();
+		params.addParam("status", "ended");
+
+		String response = HttpApi.sendGetRequest(ServerConfig.getUrl_MyEvents(), token, params);
+		Log.v(Constants.LOG_TAG, ServerConfig.getUrl_MyEvents() + "\nhistory response -> " + response);
+		if (response != null) {
+			try {
+				Gson gson = new Gson();
+				ResponseModel.EventsListModel result = gson.fromJson(response, ResponseModel.EventsListModel.class);
+				return result;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+
+	public static Object GetEventLists(String token) {
+
+		String response = HttpApi.sendGetRequest(ServerConfig.getUrl_EventList(), token, null);
+		Log.v(Constants.LOG_TAG, ServerConfig.getUrl_EventList() + "\nevent list response -> " + response);
+		if (response != null) {
+			try {
+				Gson gson = new Gson();
+				ResponseModel.EventsListModel result = gson.fromJson(response, ResponseModel.EventsListModel.class);
+				return result;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
 
 }

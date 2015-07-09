@@ -94,7 +94,9 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 		public Object onTaskRunning(int taskId, Object data) {
 			Object result = null;
 			if (taskId == Constants.TASK_USER_REGISTER) {
-				result = Server.Register(mUser.email, mUser.username, mUser.password, mUser.picture_url);
+//				result = Server.Register(mUser.email, mUser.username, mUser.password, mUser.picture_url);
+//				LoginWithFacebook(String facebookId, String email, String firstName, String lastName)
+//				result = Server.LoginWithFacebook(mUser.id);
 			}
 			else if (taskId == Constants.TASK_USER_LOGIN) {
 //				result = Server.Login(mUser.login, mUser.password);
@@ -236,7 +238,7 @@ public class LoginWithFacebookActivity extends Activity implements OnFacebookLis
 			task.execute();
 		} else {
 			// login
-			BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
+			BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN_FACEBOOK);
 			loginTask.setListener(mTaskListener);
 			loginTask.execute();
 		}

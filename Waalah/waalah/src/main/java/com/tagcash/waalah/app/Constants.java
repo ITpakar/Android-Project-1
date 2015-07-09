@@ -5,6 +5,8 @@ public class Constants {
     public static final long SESSION_TIME_OUT = 5*60*1000;
     public static final long SERVER_CHECK_TIME = 2*60*1000;
     public static final int PASSWORD_LENGTH = 6;
+
+	public static final String LOG_TAG = "APP_LOG";
     
     /*
      * for chat message
@@ -197,9 +199,15 @@ public class Constants {
 	public static final int TASK_USER_UNFAVORITE = 10;
 	public static final int TASK_USER_GETONE = 11;
 	public static final int TASK_USER_GETME = 12;
-	
-	
+	public static final int TASK_USER_LOGIN_FACEBOOK = 13;
+
+	public static final int TASK_MY_EVENTS = 40;
+
+	public static final int TASK_LIST_EVENTS = 50;
+
+
 	public static final int TASK_GET_GCMREGID = 100;
+
 	
 	/*
 	 * for UI

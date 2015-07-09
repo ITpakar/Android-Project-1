@@ -63,6 +63,8 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_facebook_login = (Button) findViewById(R.id.btn_facebook_login);
 		btn_signup = (Button) findViewById(R.id.btn_signup);
 
+		edt_email.setText("dragonvalue@gmail.com", EditText.BufferType.EDITABLE);
+		edt_password.setText("abc", EditText.BufferType.EDITABLE);
 
 		btn_retrieve_password.setOnClickListener(new OnClickListener() {
 			@Override
@@ -74,26 +76,6 @@ public class LoginWithEmailActivity extends BaseActivity {
 		btn_login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
-//				WAUser user = new WAUser();
-//				
-//				user.fullname = "Emily Green";
-//				user.login = "emily";
-//				user.password = "emily123";
-//				user.email = "emily@gmail.com";
-//				user.hometown = "Manchester, UK";
-//				user.coins = 632;
-//				user.user_id = 3;
-//				user.picture_url = "";
-//
-//				WAModelManager.getInstance().setSignInUser(user);
-//
-//				finish();
-//				
-//				Intent intent_main = new Intent(instance, MainActivity.class);
-//				intent_main.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
-//				startActivity(intent_main);
-				
 
 				if (isValid()) {
 					ArrayList<String> strs = new ArrayList<String>();
@@ -276,6 +258,7 @@ public class LoginWithEmailActivity extends BaseActivity {
 			if (taskId == Constants.TASK_USER_LOGIN) {
 				ArrayList<String> strs = (ArrayList<String>) data;
 				result = Server.Login(strs.get(0), strs.get(1));
+                System.out.println(result);
 			}
 			else if (taskId == Constants.TASK_USER_RESET_PASSWORD) {
 				ArrayList<String> strs = (ArrayList<String>) data;
@@ -380,12 +363,12 @@ public class LoginWithEmailActivity extends BaseActivity {
 		
 		@Override
 		public void onTaskPrepare(int taskId, Object data) {
-//			LoginWithEmailActivity.this.dlg_progress.show();
+			LoginWithEmailActivity.this.dlg_progress.show();
 		}
 		
 		@Override
 		public void onTaskCancelled(int taskId) {
-//			LoginWithEmailActivity.this.dlg_progress.hide();
+			LoginWithEmailActivity.this.dlg_progress.hide();
 		}
 	};
 }

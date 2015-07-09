@@ -5,9 +5,11 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,11 +20,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
+import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
+import com.tagcash.waalah.base.BaseTask;
+import com.tagcash.waalah.http.ResponseModel;
+import com.tagcash.waalah.http.Server;
 import com.tagcash.waalah.model.WAEvent;
 import com.tagcash.waalah.model.WAModelManager;
+import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.activity.MainActivity;
 import com.tagcash.waalah.util.DateTimeUtil;
+import com.tagcash.waalah.util.MD5Util;
+import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
 import com.tagcash.waalah.util.WAImageLoader;
 import com.tagcash.waalah.view.StaggeredGridView;
@@ -30,6 +39,7 @@ import com.tagcash.waalah.view.StaggeredGridView;
 @SuppressLint("InflateParams")
 public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragmentInterface {
 
+	public static UpcomingFragment instance = null;
 	private StaggeredGridView grid_events;
 
 	// prevent list to scroll to top
@@ -49,6 +59,9 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+		instance = this;
+
 		View view = inflater.inflate(R.layout.fragment_upcoming, null);
 
 		WAModelManager.getInstance().getSignInUser();
@@ -62,54 +75,15 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 	public void onStart() {
 		super.onStart();
 
-//		GetDataFromDB();
-		
-		// TODO by joseph
-		showListTest();
-	}
-
-	@SuppressWarnings("deprecation")
-	private void showListTest() {
 		_resultAL.clear();
-		
-		WAEvent event1 = new WAEvent();
-		event1.event_id = 0;
-		event1.event_owner = "Brandon Maslow";
-		event1.event_date = new Date(2015-1900, 8, 23, 12, 34);
-		event1.event_coin = 0;
-		
-		WAEvent event2 = new WAEvent();
-		event2.event_id = 1;
-		event2.event_owner = "Stanley Pauls";
-		event2.event_date = new Date(2015-1900, 7, 13, 12, 34);
-		event2.event_coin = 0;
-		
-		WAEvent event3 = new WAEvent();
-		event3.event_id = 2;
-		event3.event_owner = "Lana Del Ray";
-		event3.event_date = new Date(2015-1900, 6, 23, 12, 34);
-		event3.event_coin = 0;
-		
-		WAEvent event4 = new WAEvent();
-		event4.event_id = 3;
-		event4.event_owner = "Hayley Williams";
-		event4.event_date = new Date(2015-1900, 7, 1, 12, 34);
-		event4.event_coin = 0;
-		
-		WAEvent event5 = new WAEvent();
-		event5.event_id = 4;
-		event5.event_owner = "Tom O'dell";
-		event5.event_date = new Date(2015-1900, 6, 30, 12, 34);
-		event5.event_coin = 0;
-		
-		_resultAL.add(event1);
-		_resultAL.add(event2);
-		_resultAL.add(event3);
-		_resultAL.add(event4);
-		_resultAL.add(event5);
-		
-		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
-		grid_events.setAdapter(adapter);
+
+		ArrayList<String> strs = new ArrayList<String>();
+		strs.add(WAModelManager.getInstance().getSignInUser().api_token);
+
+		BaseTask task = new BaseTask(Constants.TASK_LIST_EVENTS);
+		task.setListener(mTaskListener);
+		task.setData(strs);
+		task.execute();
 	}
 
 	private  class LasyAdapter extends BaseAdapter {
@@ -173,17 +147,17 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 			
 			final WAEvent event = (WAEvent) getItem(position);
 			
-			holder.txt_name.setText(event.event_owner);
-			holder.txt_coin.setText(String.valueOf(event.event_coin));
+			holder.txt_name.setText(event.event_name);
+			holder.txt_coin.setText(String.valueOf(event.coins_count));
 			String format = "hh:mma MMM dd, yyyy";
 			holder.txt_time.setText(DateTimeUtil.dateToString(event.event_date, format));
 			
-			if (TextUtils.isEmpty(event.picture_url) && ((position % 5) % 2) == 0) {
+			if (TextUtils.isEmpty(event.thumb_url) && ((position % 5) % 2) == 0) {
 				holder.img_picture.setImageResource(R.drawable.row_upcoming_small_back);
-			} else if (TextUtils.isEmpty(event.picture_url) && ((position % 5) % 2) == 1) {
+			} else if (TextUtils.isEmpty(event.thumb_url) && ((position % 5) % 2) == 1) {
 				holder.img_picture.setImageResource(R.drawable.row_upcoming_tall_back);
 			} else {
-				WAImageLoader.showImage(holder.img_picture, event.picture_url);
+				WAImageLoader.showImage(holder.img_picture, event.thumb_url);
 			}
 
 			convertView.setOnClickListener(new OnClickListener() {
@@ -205,6 +179,72 @@ public class UpcomingFragment extends Fragment implements BaseFragment.BaseFragm
 			return convertView;
 		}
 	}
+
+	BaseTask.TaskListener mTaskListener = new BaseTask.TaskListener() {
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Object onTaskRunning(int taskId, Object data) {
+			Object result = null;
+			if (taskId == Constants.TASK_LIST_EVENTS) {
+				ArrayList<String> strs = (ArrayList<String>) data;
+				result = Server.GetEventLists(strs.get(0));
+				System.out.println(result);
+			}
+			return result;
+		}
+
+		@Override
+		public void onTaskResult(int taskId, Object result) {
+			if (taskId == Constants.TASK_LIST_EVENTS) {
+				if (result != null) {
+					if (result instanceof ResponseModel.EventsListModel) {
+
+						//		2015-05-25 05:17:20
+						ResponseModel.EventsListModel res_model = (ResponseModel.EventsListModel) result;
+						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
+							ArrayList<ResponseModel.EventModel> events = res_model.events;
+							for (int i = 0; i < events.size(); i++) {
+								WAEvent event = new WAEvent(events.get(i));
+								_resultAL.add(event);
+							}
+
+							LasyAdapter adapter = new LasyAdapter(instance.getActivity(), _resultAL);
+							instance.grid_events.setAdapter(adapter);
+						}
+						else {
+							// error
+							MessageUtil.showMessage("connection failed", false);
+						}
+					}
+					else {
+						Log.v(Constants.LOG_TAG, result.toString());
+						MessageUtil.showMessage(result.toString(), false);
+					}
+				}
+				else {
+
+				}
+			}
+
+//			dlg_progress.hide();
+		}
+
+		@Override
+		public void onTaskProgress(int taskId, Object... values) {
+
+		}
+
+		@Override
+		public void onTaskPrepare(int taskId, Object data) {
+//			dlg_progress.show();
+		}
+
+		@Override
+		public void onTaskCancelled(int taskId) {
+//			dlg_progress.hide();
+		}
+	};
 
 	@Override
 	public void manualRefresh() {

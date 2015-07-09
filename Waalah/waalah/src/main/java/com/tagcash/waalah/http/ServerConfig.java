@@ -27,6 +27,9 @@ public class ServerConfig {
 	public static String getUrl_UserLogin() {
 		return getWebserviceUrl() + "authenticate";
 	}
+	public static String getUrl_UserLoginWithFacebook() {
+		return getWebserviceUrl() + "authenticate/facebook";
+	}
 	public static String getUrl_UserRegister() {
 		return getWebserviceUrl() + "register";
 	}
@@ -60,7 +63,12 @@ public class ServerConfig {
 	public static String getUrl_UserGetOneUser() {
 		return getWebserviceUrl() + "member/get";
 	}
-	
+
+	public static String getUrl_MyEvents() { return getWebserviceUrl() + "me/my-events";}
+
+	// for event module
+	public static String getUrl_EventList() { return getWebserviceUrl() + "events";}
+
 	// for Topic moddule
 	public static String getUrl_TopicAdd() {
 		return getWebserviceUrl() + "topic/register";

@@ -3,6 +3,7 @@ package com.tagcash.waalah.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -23,6 +24,8 @@ import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.Validation;
 import com.tagcash.waalah.util.WAFontProvider;
 
+import java.util.ArrayList;
+
 public class SignUpActivity extends BaseActivity {
 
 	public static SignUpActivity instance = null;
@@ -40,6 +43,7 @@ public class SignUpActivity extends BaseActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sign_up);
+		instance = this;
 
 		edt_email = (EditText) findViewById(R.id.edt_email);
 		edt_username = (EditText) findViewById(R.id.edt_username);
@@ -107,6 +111,10 @@ public class SignUpActivity extends BaseActivity {
 			else if (taskId == Constants.TASK_USER_LOGIN) {
 				result = Server.Login(edt_email.getText().toString().trim(), MD5Util.getMD5(edt_password.getText().toString().trim()));
 			}
+			else if (taskId == Constants.TASK_USER_GETME) {
+				ArrayList<String> strs = (ArrayList<String>) data;
+				result = Server.GetCurrentUser(strs.get(0)); // set api_token
+			}
 
 			return result;
 		}
@@ -115,6 +123,8 @@ public class SignUpActivity extends BaseActivity {
 		public void onTaskResult(int taskId, Object result) {
 			if (taskId == Constants.TASK_USER_REGISTER) {
 				boolean bShow = false;
+				Log.v(Constants.LOG_TAG, result.toString());
+
 				if (result != null) {
 					if (result instanceof ResponseModel.RegisterModel) {
 						
@@ -122,11 +132,15 @@ public class SignUpActivity extends BaseActivity {
 						
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
 							
-							// if register success, using that information, start login
-							BaseTask loginTask = new BaseTask(Constants.TASK_USER_LOGIN);
-							loginTask.setListener(mTaskListener);
-							loginTask.execute();
-							
+							// if register success, using that information, start main home
+							ArrayList<String> strs = new ArrayList<String>();
+							strs.add(res_model.api_token);
+
+							BaseTask meTask = new BaseTask(Constants.TASK_USER_GETME);
+							meTask.setListener(mTaskListener);
+							meTask.setData(strs);
+							meTask.execute();
+
 							bShow = true;
 						}
 						else {
@@ -152,41 +166,59 @@ public class SignUpActivity extends BaseActivity {
 				if (!bShow)
 					dlg_progress.hide();
 			}
-			else if (taskId == Constants.TASK_USER_LOGIN) {
+			else if (taskId == Constants.TASK_USER_GETME) {
 				if (result != null) {
-					if (result instanceof ResponseModel.LoginResultModel) {
-						ResponseModel.LoginResultModel res_model = (ResponseModel.LoginResultModel) result;
+					if (result instanceof ResponseModel.CurrentUserResultModel) {
+						Log.v(Constants.LOG_TAG, result.toString());
+						ResponseModel.CurrentUserResultModel res_model = (ResponseModel.CurrentUserResultModel) result;
+
 						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
-							
-							// TODO by joseph
-							//getUserInformation();
-//							mUser = new WAUser();
-//							mUser.user_id = res_model.user.uid;
-//							mUser.email = res_model.user.email;
-//							mUser.login = res_model.user.name;
-//							mUser.password = res_model.user.password;
-//							mUser.hometown = res_model.user.address;
-//							mUser.picture_url = res_model.user.picture_url;
-							
+
+							mUser = new WAUser();
+							if (res_model.me != null)
+							{
+								mUser.id = res_model.me.id;
+								mUser.username = res_model.me.username;
+//								mUser.password = res_model.me.password;
+								mUser.password = MD5Util.getMD5(edt_password.getText().toString().trim());
+								mUser.email = res_model.me.email;
+								mUser.firstname = res_model.me.firstname;
+								mUser.lastname = res_model.me.lastname;
+								mUser.address = res_model.me.address;
+								mUser.city = res_model.me.city;
+								mUser.state = res_model.me.state;
+								mUser.zip = res_model.me.zip;
+								mUser.country = res_model.me.country;
+								mUser.api_token = res_model.me.api_token;
+								mUser.quickblox_id = res_model.me.quickblox_id;
+								mUser.allow_notifications = res_model.me.allow_notifications;
+							}
+
+							if (res_model.img != null)
+								mUser.picture_url = res_model.img.original;
+
+							if (res_model.balance != null)
+								mUser.coins = (int)res_model.balance.coins;
+
 							WAModelManager.getInstance().setSignInUser(mUser);
 							// finish and go to MainActivity
 							Intent intent = new Intent(instance, MainActivity.class);
 							intent.putExtra(Constants.KEY_FLAG, Constants.MODE_LOGIN);
 							startActivity(intent);
 							finish();
-							return;
 						}
 						else {
 							// error
-							MessageUtil.showMessage(res_model.reason, true);
 							finish();
-							Intent intent = new Intent(SignUpActivity.this, LoginWithEmailActivity.class);
+							Intent intent = new Intent(instance, LoginWithEmailActivity.class);
 							startActivity(intent);
 							overridePendingTransition(R.anim.none, R.anim.out_left);
 						}
+
+						return;
 					}
 				}
-				
+
 				dlg_progress.hide();
 			}
 		}

@@ -66,41 +66,41 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		
 		_resultAL.clear();
 		
-		WAEvent event1 = new WAEvent();
-		event1.event_id = 0;
-		event1.event_owner = "Brandon Maslow";
-		event1.event_coin = 320;
-		event1.event_date = new Date(2015-1900, 8, 23, 12, 34);
-		
-		WAEvent event2 = new WAEvent();
-		event2.event_id = 1;
-		event2.event_owner = "Stanley Pauls";
-		event2.event_coin = 120;
-		event2.event_date = new Date(2015-1900, 7, 13, 12, 34);
-		
-		WAEvent event3 = new WAEvent();
-		event3.event_id = 2;
-		event3.event_owner = "Lana Del Ray";
-		event3.event_coin = 420;
-		event3.event_date = new Date(2015-1900, 6, 23, 12, 34);
-		
-		WAEvent event4 = new WAEvent();
-		event4.event_id = 3;
-		event4.event_owner = "Hayley Williams";
-		event4.event_coin = 540;
-		event4.event_date = new Date(2015-1900, 7, 1, 12, 34);
-		
-		WAEvent event5 = new WAEvent();
-		event5.event_id = 4;
-		event5.event_owner = "Tom O'dell";
-		event5.event_coin = 275;
-		event5.event_date = new Date(2015-1900, 6, 30, 12, 34);
-		
-		_resultAL.add(event1);
-		_resultAL.add(event2);
-		_resultAL.add(event3);
-		_resultAL.add(event4);
-		_resultAL.add(event5);
+//		WAEvent event1 = new WAEvent();
+//		event1.event_id = 0;
+//		event1.event_owner = "Brandon Maslow";
+//		event1.event_coin = 320;
+//		event1.event_date = new Date(2015-1900, 8, 23, 12, 34);
+//
+//		WAEvent event2 = new WAEvent();
+//		event2.event_id = 1;
+//		event2.event_owner = "Stanley Pauls";
+//		event2.event_coin = 120;
+//		event2.event_date = new Date(2015-1900, 7, 13, 12, 34);
+//
+//		WAEvent event3 = new WAEvent();
+//		event3.event_id = 2;
+//		event3.event_owner = "Lana Del Ray";
+//		event3.event_coin = 420;
+//		event3.event_date = new Date(2015-1900, 6, 23, 12, 34);
+//
+//		WAEvent event4 = new WAEvent();
+//		event4.event_id = 3;
+//		event4.event_owner = "Hayley Williams";
+//		event4.event_coin = 540;
+//		event4.event_date = new Date(2015-1900, 7, 1, 12, 34);
+//
+//		WAEvent event5 = new WAEvent();
+//		event5.event_id = 4;
+//		event5.event_owner = "Tom O'dell";
+//		event5.event_coin = 275;
+//		event5.event_date = new Date(2015-1900, 6, 30, 12, 34);
+//
+//		_resultAL.add(event1);
+//		_resultAL.add(event2);
+//		_resultAL.add(event3);
+//		_resultAL.add(event4);
+//		_resultAL.add(event5);
 
 		mUser = WAModelManager.getInstance().getSignInUser();
 
@@ -127,9 +127,9 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 
 		Date currentDate = Calendar.getInstance().getTime();
 		txt_time.setText(getDifference(currentDate, mEvent.event_date));
-		txt_name.setText(mEvent.event_owner);
-		txt_name1.setText(mEvent.event_owner);
-		txt_event_coin.setText(String.valueOf(mEvent.event_coin));
+		txt_name.setText(mEvent.event_name);
+		txt_name1.setText(mEvent.event_name);
+		txt_event_coin.setText(String.valueOf(mEvent.coins_count));
 		
 		img_menu.setOnClickListener(this);
 		layout_addcoin.setOnClickListener(this);
@@ -205,8 +205,8 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 				
 				layout_member.setVisibility(View.VISIBLE);
 				
-				mEvent.event_coin ++;
-				txt_event_coin.setText(String.valueOf(mEvent.event_coin));
+				mEvent.coins_count ++;
+				txt_event_coin.setText(String.valueOf(mEvent.coins_count));
 			}
 		}
 		else if (requestCode == REQUEST_MYEVENTS)
@@ -333,7 +333,7 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		intent.putExtra("beginTime", cal.getTimeInMillis());
 		intent.putExtra("allDay", false);
 		intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-		intent.putExtra("title", mEvent.event_owner);
+		intent.putExtra("title", mEvent.event_name);
 		startActivityForResult(intent, REQUEST_CALENDAR);
 	}
 	
@@ -363,7 +363,7 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 		final EditText edt_coins = (EditText) view.findViewById(R.id.edt_coins);
 		final TextView txt_total_coins = (TextView) view.findViewById(R.id.txt_total_coin);
 		
-		txt_coins.setText(String.valueOf(mEvent.event_coin));
+		txt_coins.setText(String.valueOf(mEvent.coins_count));
 		txt_total_coins.setText(String.valueOf(mUser.coins));
 		
 		Button btn_addcoins = (Button) view.findViewById(R.id.btn_add_coins);
@@ -384,9 +384,9 @@ public class DetailEventFragment extends Fragment implements OnClickListener {
 					else
 					{
 						mUser.coins -= coins;
-						mEvent.event_coin += coins;
+						mEvent.coins_count += coins;
 						
-						txt_event_coin.setText(String.valueOf(mEvent.event_coin));
+						txt_event_coin.setText(String.valueOf(mEvent.coins_count));
 					}
 				}
 				

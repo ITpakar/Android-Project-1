@@ -47,6 +47,7 @@
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
@@ -54,6 +55,7 @@
             android:theme="@style/AppTheme_Fullscreen" />
         <activity
             android:name=".ui.activity.LoginWithEmailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme_Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

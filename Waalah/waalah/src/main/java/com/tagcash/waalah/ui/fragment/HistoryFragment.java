@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,21 +22,30 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.tagcash.waalah.R;
+import com.tagcash.waalah.app.Constants;
 import com.tagcash.waalah.app.WAApplication;
+import com.tagcash.waalah.base.BaseTask;
+import com.tagcash.waalah.http.ResponseModel;
+import com.tagcash.waalah.http.Server;
+import com.tagcash.waalah.model.WAEvent;
 import com.tagcash.waalah.model.WAModelManager;
 import com.tagcash.waalah.model.WAUser;
 import com.tagcash.waalah.ui.activity.HistoryDetailActivity;
 import com.tagcash.waalah.ui.activity.MainActivity;
+import com.tagcash.waalah.util.DateTimeUtil;
+import com.tagcash.waalah.util.MessageUtil;
 import com.tagcash.waalah.util.WAFontProvider;
+import com.tagcash.waalah.util.WAImageLoader;
 
 
 @SuppressLint("InflateParams")
 public class HistoryFragment extends Fragment implements BaseFragment.BaseFragmentInterface {
 
+	public static HistoryFragment instance = null;
 	public ListView lst_history = null;
 
 	// prevent list to scroll to top
-	private ArrayList<WAUser> _resultAL = new ArrayList<WAUser>();
+	private ArrayList<WAEvent> _resultAL = new ArrayList<WAEvent>();
 	private WAUser mUser = null;
 	private MainActivity mainActivity;
 
@@ -51,6 +62,8 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+		instance = this;
 		View view = inflater.inflate(R.layout.fragment_history, null);
 
 		mUser = WAModelManager.getInstance().getSignInUser();
@@ -68,9 +81,15 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 		super.onStart();
 
 //		GetDataFromDB();
-		
-		// TODO by joseph
-		showListTest();
+		_resultAL.clear();
+
+		ArrayList<String> strs = new ArrayList<String>();
+		strs.add(mUser.api_token);
+
+		BaseTask task = new BaseTask(Constants.TASK_LIST_EVENTS);
+		task.setListener(mTaskListener);
+		task.setData(strs);
+		task.execute();
 	}
 
 	private void showList() {
@@ -84,28 +103,12 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 		}
 	}
 
-	private void showListTest() {
-		_resultAL.clear();
-		
-		WAUser user1 = new WAUser();
-		WAUser user2 = new WAUser();
-		WAUser user3 = new WAUser();
-		WAUser user4 = new WAUser();
-		_resultAL.add(user1);
-		_resultAL.add(user2);
-		_resultAL.add(user3);
-		_resultAL.add(user4);
-//		showEmptyLayout(false);
-		LasyAdapter adapter = new LasyAdapter(this.getActivity(), _resultAL);
-		lst_history.setAdapter(adapter);
-	}
-
 	private  class LasyAdapter extends BaseAdapter {
 
 		private LayoutInflater mInflater;
-		private ArrayList<WAUser> list_data = new ArrayList<WAUser>();
+		private ArrayList<WAEvent> list_data = new ArrayList<WAEvent>();
 
-		public LasyAdapter(Context context, ArrayList<WAUser> list_data) {
+		public LasyAdapter(Context context, ArrayList<WAEvent> list_data) {
 			if (context == null)
 				context = WAApplication.getContext();
 			mInflater = LayoutInflater.from(context);
@@ -118,7 +121,7 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 		}
 
 		public Object getItem(int position) {
-			return position;
+			return list_data.get(position);
 		}
 
 		public long getItemId(int position) {
@@ -130,8 +133,7 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 			ImageView img_won;
 			ImageView img_background;
 			LinearLayout layout_name, layout_result;
-
-		}	
+		}
 
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
@@ -170,10 +172,22 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 				holder.img_won.setVisibility(View.GONE);
 				holder.txt_won.setText("5th");
 			}
-			
-			holder.txt_name.setText("Brandon Maslow");
-			holder.txt_time.setText("MAY 23. 2015 ");
+
+			final WAEvent event = (WAEvent) getItem(position);
+
+			holder.txt_name.setText(event.event_name);
+			String format = "hh:mma MMM dd, yyyy";
+			holder.txt_time.setText(DateTimeUtil.dateToString(event.event_date, format));
+
 			holder.img_background.setImageResource(R.drawable.row_history_back);
+
+			if (TextUtils.isEmpty(event.thumb_url) && ((position % 5) % 2) == 0) {
+				holder.img_background.setImageResource(R.drawable.row_history_back);
+			} else if (TextUtils.isEmpty(event.thumb_url) && ((position % 5) % 2) == 1) {
+				holder.img_background.setImageResource(R.drawable.row_history_back);
+			} else {
+				WAImageLoader.showImage(holder.img_background, event.thumb_url);
+			}
         
 			holder.layout_name.setOnClickListener(new OnClickListener() {
 				
@@ -208,6 +222,72 @@ public class HistoryFragment extends Fragment implements BaseFragment.BaseFragme
 			return convertView;
 		}
 	}
+
+	BaseTask.TaskListener mTaskListener = new BaseTask.TaskListener() {
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Object onTaskRunning(int taskId, Object data) {
+			Object result = null;
+			if (taskId == Constants.TASK_LIST_EVENTS) {
+				ArrayList<String> strs = (ArrayList<String>) data;
+				result = Server.GetEventHistory(strs.get(0));
+				System.out.println(result);
+			}
+			return result;
+		}
+
+		@Override
+		public void onTaskResult(int taskId, Object result) {
+			if (taskId == Constants.TASK_LIST_EVENTS) {
+				if (result != null) {
+					if (result instanceof ResponseModel.EventsListModel) {
+
+						//		2015-05-25 05:17:20
+						ResponseModel.EventsListModel res_model = (ResponseModel.EventsListModel) result;
+						if (res_model.status == Constants.HTTP_ACTION_STATUS_SUCCESS) {
+							ArrayList<ResponseModel.EventModel> events = res_model.events;
+							for (int i = 0; i < events.size(); i++) {
+								WAEvent event = new WAEvent(events.get(i));
+								_resultAL.add(event);
+							}
+
+							LasyAdapter adapter = new LasyAdapter(instance.getActivity(), _resultAL);
+							instance.lst_history.setAdapter(adapter);
+						}
+						else {
+							// error
+							MessageUtil.showMessage("connection failed", false);
+						}
+					}
+					else {
+						Log.v(Constants.LOG_TAG, result.toString());
+						MessageUtil.showMessage(result.toString(), false);
+					}
+				}
+				else {
+
+				}
+			}
+
+//			dlg_progress.hide();
+		}
+
+		@Override
+		public void onTaskProgress(int taskId, Object... values) {
+
+		}
+
+		@Override
+		public void onTaskPrepare(int taskId, Object data) {
+//			dlg_progress.show();
+		}
+
+		@Override
+		public void onTaskCancelled(int taskId) {
+//			dlg_progress.hide();
+		}
+	};
 
 	@Override
 	public void manualRefresh() {
